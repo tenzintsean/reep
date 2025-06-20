@@ -9,21 +9,31 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            background: #f5f5f5; color: #333; line-height: 1.6;
-        
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
         }
         
         .slide {
-            width: 100vw; max-width: 1920px; height: 100vh; max-height: 1080px; background: white; margin: 0 auto;
-            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1); padding: clamp(20px, 3vw, 50px); position: relative;
-            overflow: hidden; display: flex; flex-direction: column;
+            width: 100vw; 
+            max-width: 1920px;
+            min-height: 100vh;
+            height: auto;
+            background: white;
+            margin: 0 auto;
+            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
+            padding: clamp(15px, 2.5vw, 50px);
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
         }
-            aspect-ratio: 16/9;
         
-                .slide-number {
+        .slide-number {
             position: absolute;
             top: clamp(15px, 1.5vw, 30px);
             left: clamp(15px, 1.5vw, 30px);
@@ -33,41 +43,283 @@
         }
         
         .solar-pattern {
-            position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; opacity: 0.08;
+            position: absolute; 
+            top: -100px; 
+            right: -100px; 
+            width: 400px; 
+            height: 400px; 
+            opacity: 0.08;
             background: repeating-linear-gradient(45deg, #FDB813, #FDB813 10px, transparent 10px, transparent 20px);
-            transform: rotate(15deg); animation: subtle-rotate 20s linear infinite;
+            transform: rotate(15deg); 
+            animation: subtle-rotate 20s linear infinite;
         }
         
-        @keyframes subtle-rotate { from { transform: rotate(15deg); } to { transform: rotate(375deg); } }
+        @keyframes subtle-rotate { 
+            from { transform: rotate(15deg); } 
+            to { transform: rotate(375deg); } 
+        }
         
-        h1 { color: #0047AB; font-size: clamp(27px, 2.8vw, 54px); font-weight: 700; margin-bottom: 20px; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,71,171,0.1); }
-        .subtitle { color: #666; font-size: clamp(14px, 1.1vw, 22px); margin-bottom: 30px; }
-        h3 { color: #0047AB; font-size: clamp(16px, 1.5vw, 28px); font-weight: 600; margin-bottom: 15px; }
+        h1 { 
+            color: #0047AB; 
+            font-size: clamp(24px, 2.5vw, 48px); 
+            font-weight: 700; 
+            margin-bottom: clamp(8px, 1.5vw, 20px); 
+            line-height: 1.2; 
+            text-shadow: 0 2px 4px rgba(0,71,171,0.1); 
+        }
+        
+        .subtitle { 
+            color: #666; 
+            font-size: clamp(14px, 1.2vw, 18px); 
+            margin-bottom: clamp(12px, 2vw, 25px); 
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(15px, 2.5vw, 25px);
+            margin-bottom: clamp(20px, 3vw, 30px);
+            flex: 1;
+        }
         
         .testimonial-card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-            padding: 25px; border-radius: clamp(7px, 0.8vw, 15px); box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.08);
-            margin-bottom: 18px; position: relative; border-left: 5px solid #FDB813;
+            background: white;
+            border-radius: clamp(8px, 0.8vw, 15px);
+            box-shadow: 0 0.5vw 1.6vw rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
-        .quote-mark {
-            position: absolute; top: 10px; right: 20px; font-size: 60px; color: #FDB813;
-            opacity: 0.2; font-family: serif;
+        .testimonial-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0.8vw 2.4vw rgba(0,0,0,0.15);
+        }
+        
+        .testimonial-header {
+            padding: clamp(15px, 2.5vw, 25px);
+            text-align: center;
+            color: white;
+        }
+        
+        .testimonial-content {
+            padding: clamp(15px, 2.5vw, 25px);
         }
         
         .testimonial-text {
-            font-size: 18px; color: #333; line-height: 1.5; margin-bottom: 15px; font-style: italic;
+            font-size: clamp(14px, 1.6vw, 20px);
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: clamp(15px, 2vw, 20px);
+            font-style: italic;
+            position: relative;
         }
         
-        .testimonial-author { font-size: 17px; color: #0047AB; font-weight: 600; }
-        .testimonial-role { font-size: 15px; color: #666; margin-top: 3px; }
+        .testimonial-text::before {
+            content: '"';
+            font-size: clamp(40px, 4vw, 60px);
+            color: #0047AB;
+            opacity: 0.3;
+            position: absolute;
+            top: -15px;
+            left: -10px;
+            font-family: serif;
+            line-height: 1;
+        }
         
-        .logo-corner { position: absolute; bottom: 30px; right: 30px; font-size: 32px; font-weight: 700; color: #0047AB; opacity: 0.6; }
+        .author-section {
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 1.5vw, 20px);
+        }
         
-        @media (max-width: 1920px) { .slide { width: 100%; max-width: 1920px; } }
-    
+        .author-avatar {
+            width: clamp(50px, 6vw, 70px);
+            height: clamp(50px, 6vw, 70px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: clamp(20px, 2.5vw, 28px);
+            flex-shrink: 0;
+        }
+        
+        .author-info h3 {
+            color: #0047AB;
+            font-size: clamp(16px, 1.8vw, 22px);
+            font-weight: 700;
+            margin-bottom: clamp(2px, 0.4vw, 4px);
+        }
+        
+        .author-info p {
+            color: #666;
+            font-size: clamp(13px, 1.4vw, 17px);
+            margin: 0;
+        }
+        
+        .metrics-dashboard {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: clamp(20px, 3.5vw, 35px);
+            border-radius: clamp(8px, 0.8vw, 15px);
+            border: 2px solid #e0e0e0;
+            margin-top: auto;
+        }
+        
+        .metrics-title {
+            text-align: center;
+            color: #0047AB;
+            font-size: clamp(18px, 2.2vw, 28px);
+            margin-bottom: clamp(15px, 2.5vw, 25px);
+            font-weight: 700;
+        }
+        
+        .metrics-subtitle {
+            text-align: center;
+            font-size: clamp(13px, 1.5vw, 18px);
+            color: #666;
+            margin-bottom: clamp(20px, 3vw, 25px);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: clamp(15px, 2.5vw, 25px);
+        }
+        
+        .metric-item {
+            text-align: center;
+            padding: clamp(12px, 2vw, 18px);
+            background: white;
+            border-radius: clamp(8px, 0.8vw, 12px);
+            box-shadow: 0 0.4vw 1.2vw rgba(0,0,0,0.08);
+        }
+        
+        .metric-value {
+            font-size: clamp(22px, 2.8vw, 32px);
+            font-weight: 700;
+            margin-bottom: clamp(4px, 0.6vw, 6px);
+        }
+        
+        .metric-label {
+            font-size: clamp(12px, 1.3vw, 16px);
+            color: #666;
+            font-weight: 600;
+        }
+        
+        .logo-corner { 
+            position: absolute; 
+            bottom: clamp(15px, 2vw, 25px); 
+            right: clamp(15px, 2vw, 25px); 
+            font-size: clamp(20px, 2.5vw, 28px); 
+            font-weight: 700; 
+            color: #0047AB; 
+            opacity: 0.6; 
+        }
+        
+        /* Short screen optimization for 800px and below */
+        @media (max-height: 850px) {
+            .slide {
+                padding: clamp(8px, 1.5vw, 20px);
+            }
+            
+            h1 {
+                font-size: clamp(16px, 1.8vw, 28px);
+                margin-bottom: clamp(3px, 0.6vw, 8px);
+            }
+            
+            .subtitle {
+                font-size: clamp(11px, 1vw, 14px);
+                margin-bottom: clamp(4px, 1vw, 12px);
+            }
+            
+            .testimonials-grid {
+                gap: clamp(6px, 1.2vw, 12px);
+                margin-bottom: clamp(8px, 1.2vw, 15px);
+            }
+            
+            .testimonial-card {
+                box-shadow: 0 0.3vw 1.2vw rgba(0,0,0,0.08);
+            }
+            
+            .testimonial-header {
+                padding: clamp(6px, 1.2vw, 12px);
+            }
+            
+            .testimonial-header h3 {
+                font-size: clamp(12px, 1.4vw, 18px) !important;
+            }
+            
+            .testimonial-content {
+                padding: clamp(6px, 1.2vw, 12px);
+            }
+            
+            .testimonial-text {
+                font-size: clamp(10px, 1.2vw, 14px);
+                margin-bottom: clamp(6px, 1vw, 10px);
+                line-height: 1.4;
+            }
+            
+            .testimonial-text::before {
+                font-size: clamp(24px, 2.5vw, 32px);
+                top: -8px;
+                left: -6px;
+            }
+            
+            .author-section {
+                gap: clamp(8px, 1.2vw, 12px);
+            }
+            
+            .author-avatar {
+                width: clamp(35px, 4vw, 45px);
+                height: clamp(35px, 4vw, 45px);
+                font-size: clamp(14px, 1.8vw, 20px);
+            }
+            
+            .author-info h3 {
+                font-size: clamp(12px, 1.4vw, 16px);
+                margin-bottom: clamp(1px, 0.2vw, 2px);
+            }
+            
+            .author-info p {
+                font-size: clamp(9px, 1.1vw, 12px);
+            }
+            
+            .metrics-dashboard {
+                padding: clamp(8px, 1.5vw, 15px);
+            }
+            
+            .metrics-title {
+                font-size: clamp(12px, 1.5vw, 18px);
+                margin-bottom: clamp(6px, 1.2vw, 10px);
+            }
+            
+            .metrics-subtitle {
+                font-size: clamp(9px, 1.1vw, 12px);
+                margin-bottom: clamp(6px, 1.2vw, 10px);
+            }
+            
+            .metrics-grid {
+                gap: clamp(6px, 1.2vw, 10px);
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .metric-item {
+                padding: clamp(6px, 1.2vw, 10px);
+            }
+            
+            .metric-value {
+                font-size: clamp(16px, 2vw, 22px);
+                margin-bottom: clamp(2px, 0.3vw, 3px);
+            }
+            
+            .metric-label {
+                font-size: clamp(8px, 1vw, 11px);
+            }
+        }
+        
         /* Navigation Styles */
-                .nav-container {
+        .nav-container {
             position: fixed;
             top: clamp(10px, 1vw, 20px);
             left: 50%;
@@ -83,7 +335,7 @@
             backdrop-filter: blur(10px);
         }
 
-                .slide-counter {
+        .slide-counter {
             font-size: clamp(11px, 0.7vw, 14px);
             font-weight: 600;
             color: #0047AB;
@@ -91,7 +343,7 @@
             text-align: center;
         }
 
-                .slide-select {
+        .slide-select {
             padding: clamp(6px, 0.4vw, 8px) clamp(8px, 0.6vw, 12px);
             border: 1px solid #ddd;
             border-radius: clamp(4px, 0.3vw, 6px);
@@ -106,7 +358,7 @@
             box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.1);
         }
 
-                .nav-btn {
+        .nav-btn {
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
@@ -138,50 +390,50 @@
             transform: translateY(-50%) scale(1);
         }
 
-                .nav-btn.prev {
+        .nav-btn.prev {
             left: clamp(15px, 1.5vw, 30px);
         }
 
-                .nav-btn.next {
+        .nav-btn.next {
             right: clamp(15px, 1.5vw, 30px);
         }
 
         @media (max-width: 768px) {
-                    .nav-container {
-            position: fixed;
-            top: clamp(10px, 1vw, 20px);
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: clamp(8px, 0.8vw, 15px);
-            background: rgba(255, 255, 255, 0.95);
-            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
-            border-radius: clamp(15px, 1.3vw, 25px);
-            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
-        }
+            .nav-container {
+                position: fixed;
+                top: clamp(10px, 1vw, 20px);
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                gap: clamp(8px, 0.8vw, 15px);
+                background: rgba(255, 255, 255, 0.95);
+                padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+                border-radius: clamp(15px, 1.3vw, 25px);
+                box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
+                backdrop-filter: blur(10px);
+            }
             
-                    .nav-btn {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            background: rgba(0, 71, 171, 0.9);
-            color: white;
-            border: none;
-            width: clamp(35px, 2.6vw, 50px);
-            height: clamp(35px, 2.6vw, 50px);
-            border-radius: 50%;
-            font-size: clamp(14px, 1vw, 20px);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
-        }
+            .nav-btn {
+                position: fixed;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 1000;
+                background: rgba(0, 71, 171, 0.9);
+                color: white;
+                border: none;
+                width: clamp(35px, 2.6vw, 50px);
+                height: clamp(35px, 2.6vw, 50px);
+                border-radius: 50%;
+                font-size: clamp(14px, 1vw, 20px);
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+            }
             
             .nav-btn.prev {
                 left: 15px;
@@ -190,30 +442,10 @@
             .nav-btn.next {
                 right: 15px;
             }
-        }
-    
-        /* Enhanced Responsive Design */
-        @media (max-width: 1366px) {
-            .slide {
-                padding: clamp(15px, 2.5vw, 40px);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .slide {
-                padding: clamp(10px, 2vw, 25px);
-            }
             
-            h1 {
-                font-size: clamp(24px, 5vw, 48px) !important;
-            }
-            
-            h2 {
-                font-size: clamp(20px, 4vw, 36px) !important;
-            }
-            
-            h3 {
-                font-size: clamp(18px, 3.5vw, 28px) !important;
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: clamp(10px, 1.5vw, 15px);
             }
         }
 
@@ -261,7 +493,7 @@
             <option value="slide15.html">19. Aftermarket Excellence</option>
             <option value="slide16.html">20. Chennai Case Study</option>
             <option value="slide17.html">21. Panchayat Case Study</option>
-            <option value="slide18.html" selected>22. Solar Smart Technology</option>
+            <option value="slide18.html" selected>22. Client Testimonials</option>
             <option value="slide19.html">23. Manufacturing</option>
             <option value="slide20.html">24. Customer Testimonials</option>
             <option value="slide21.html">25. Awards & Recognition</option>
@@ -277,72 +509,93 @@
     <div class="slide">
         <div class="slide-number">22</div>
         <div class="solar-pattern"></div>
-        <h1>Voices of Trust</h1>
-        <div class="subtitle">What our partners say about REEP</div>
         
-        <div class="testimonial-card">
-            <div class="quote-mark">"</div>
-            <p class="testimonial-text">
-                REEP has been instrumental in our city's transformation to sustainable waste management. Their vehicles have performed flawlessly for over two years, and their service support is unmatched.
-            </p>
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px;">D</div>
-                <div>
-                    <p class="testimonial-author">Dr. Gagandeep Singh Bedi, IAS</p>
-                    <p class="testimonial-role">Commissioner, Greater Chennai Corporation</p>
+        <h1>Trusted by Leaders</h1>
+        <div class="subtitle">Testimonials from our valued partners and clients</div>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-header" style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%);">
+                    <h3 style="color: white; font-size: clamp(16px, 1.8vw, 24px); font-weight: 700;">Government Partnership</h3>
+                </div>
+                <div class="testimonial-content">
+                    <p class="testimonial-text">
+                        REEP has been instrumental in our city's transformation to sustainable waste management. Their vehicles have performed flawlessly for over two years, and their service support is unmatched in the industry.
+                    </p>
+                    <div class="author-section">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%);">D</div>
+                        <div class="author-info">
+                            <h3>Dr. Gagandeep Singh Bedi, IAS</h3>
+                            <p>Commissioner, Greater Chennai Corporation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-header" style="background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%);">
+                    <h3 style="color: white; font-size: clamp(16px, 1.8vw, 24px); font-weight: 700;">Private Sector Excellence</h3>
+                </div>
+                <div class="testimonial-content">
+                    <p class="testimonial-text">
+                        As a logistics company handling last-mile delivery, switching to REEP vehicles has reduced our operational costs by 45%. The reliability and range perfectly match our urban delivery needs.
+                    </p>
+                    <div class="author-section">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%);">R</div>
+                        <div class="author-info">
+                            <h3>Rajesh Kumar</h3>
+                            <p>Operations Head, QuickDeliver Logistics</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-header" style="background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%);">
+                    <h3 style="color: white; font-size: clamp(16px, 1.8vw, 24px); font-weight: 700;">Healthcare Innovation</h3>
+                </div>
+                <div class="testimonial-content">
+                    <p class="testimonial-text">
+                        The REEP team understood our unique requirements for rural healthcare delivery. They customized vehicles with medical storage and provided comprehensive training for our drivers.
+                    </p>
+                    <div class="author-section">
+                        <div class="author-avatar" style="background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%);">P</div>
+                        <div class="author-info">
+                            <h3>Dr. Priya Ramachandran</h3>
+                            <p>Director, Tamil Nadu Health Department</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <div class="testimonial-card">
-            <div class="quote-mark">"</div>
-            <p class="testimonial-text">
-                As a logistics company handling last-mile delivery, switching to REEP vehicles has reduced our operational costs by 45%. The reliability and range perfectly match our urban delivery needs.
-            </p>
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px;">R</div>
-                <div>
-                    <p class="testimonial-author">Rajesh Kumar</p>
-                    <p class="testimonial-role">Operations Head, QuickDeliver Logistics</p>
+        <div class="metrics-dashboard">
+            <h3 class="metrics-title">Client Satisfaction Excellence</h3>
+            <p class="metrics-subtitle">Based on 500+ customer surveys across government and private sectors</p>
+            
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <div class="metric-value" style="color: #0047AB;">95%</div>
+                    <div class="metric-label">Overall Satisfaction</div>
                 </div>
-            </div>
-        </div>
-        
-        <div class="testimonial-card">
-            <div class="quote-mark">"</div>
-            <p class="testimonial-text">
-                The REEP team understood our unique requirements for rural healthcare delivery. They customized vehicles with medical storage and even provided training for our drivers.
-            </p>
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px;">P</div>
-                <div>
-                    <p class="testimonial-author">Dr. Priya Ramachandran</p>
-                    <p class="testimonial-role">Director, Tamil Nadu Health Department</p>
+                <div class="metric-item">
+                    <div class="metric-value" style="color: #228B22;">98%</div>
+                    <div class="metric-label">Would Recommend</div>
                 </div>
-            </div>
-        </div>
-        
-        <div style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); padding: 25px; border-radius: clamp(7px, 0.8vw, 15px); margin-top: 20px; text-align: center; border: 2px solid #0047AB;">
-            <h3 style="color: #0047AB; margin-bottom: 15px; font-size: 28px;">95% Customer Satisfaction Score</h3>
-            <p style="font-size: 18px; color: #666; margin-bottom: 20px;">Based on 500+ customer surveys across government and private sectors</p>
-            <div style="display: flex; justify-content: center; gap: 60px;">
-                <div style="text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: #228B22;">98%</div>
-                    <div style="font-size: 16px; color: #666;">Would Recommend</div>
+                <div class="metric-item">
+                    <div class="metric-value" style="color: #FDB813;">4.8/5</div>
+                    <div class="metric-label">Service Rating</div>
                 </div>
-                <div style="text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: #FDB813;">4.8/5</div>
-                    <div style="font-size: 16px; color: #666;">Service Rating</div>
-                </div>
-                <div style="text-align: center;">
-                    <div style="font-size: 28px; font-weight: 700; color: #0047AB;">50+</div>
-                    <div style="font-size: 16px; color: #666;">Repeat Clients</div>
+                <div class="metric-item">
+                    <div class="metric-value" style="color: #0047AB;">50+</div>
+                    <div class="metric-label">Repeat Clients</div>
                 </div>
             </div>
         </div>
         
         <div class="logo-corner">REEP</div>
     </div>
+    
     <script>
         const slides = [
             'index.html',
