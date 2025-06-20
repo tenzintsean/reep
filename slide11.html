@@ -232,24 +232,40 @@
         /* Short screen optimization */
         @media (max-height: 900px) {
             .slide {
-                padding: clamp(10px, 1.5vw, 25px);
+                padding: clamp(8px, 1.2vw, 20px);
             }
             
             h1 {
-                font-size: clamp(20px, 2.2vw, 40px) !important;
-                margin-bottom: clamp(8px, 1.2vw, 15px) !important;
+                font-size: clamp(18px, 2vw, 35px) !important;
+                margin-bottom: clamp(5px, 1vw, 10px) !important;
             }
             
             .subtitle {
-                margin-bottom: clamp(10px, 1.5vw, 20px) !important;
+                margin-bottom: clamp(8px, 1.2vw, 15px) !important;
             }
             
             .grid-2 {
-                gap: clamp(15px, 2vw, 25px) !important;
+                gap: clamp(10px, 1.5vw, 20px) !important;
             }
             
             .grid-3 {
-                gap: clamp(10px, 1.5vw, 20px) !important;
+                gap: clamp(8px, 1.2vw, 15px) !important;
+            }
+            
+            /* Reduce image gallery spacing */
+            div[style*="text-align: center; margin: clamp(15px, 2vw, 20px) 0;"] {
+                margin: clamp(8px, 1.2vw, 12px) 0 !important;
+            }
+            
+            /* Reduce E-Bus section spacing */
+            div[style*="background: linear-gradient(135deg, #228B22"] {
+                margin: clamp(8px, 1.2vw, 12px) 0 !important;
+                padding: clamp(10px, 1.8vw, 18px) !important;
+            }
+            
+            /* Reduce features section spacing */
+            div[style*="margin-top: clamp(15px, 2vw, 20px)"] {
+                margin-top: clamp(8px, 1.2vw, 12px) !important;
             }
         }
 
@@ -266,6 +282,47 @@
             
             .vehicle-image-placeholder {
                 height: clamp(150px, 20vw, 180px);
+            }
+        }
+        
+        /* Very short screen optimization for 800px height */
+        @media (max-height: 800px) {
+            .slide {
+                padding: clamp(6px, 1vw, 15px) !important;
+            }
+            
+            h1 {
+                font-size: clamp(16px, 1.8vw, 30px) !important;
+                margin-bottom: clamp(4px, 0.8vw, 8px) !important;
+            }
+            
+            .subtitle {
+                font-size: clamp(12px, 1vw, 16px) !important;
+                margin-bottom: clamp(6px, 1vw, 12px) !important;
+            }
+            
+            /* Compact image gallery */
+            img[src*="future-e-bus"] {
+                height: clamp(80px, 12vw, 120px) !important;
+            }
+            
+            /* Compact E-Bus section */
+            div[style*="background: linear-gradient(135deg, #228B22"] {
+                margin: clamp(6px, 1vw, 10px) 0 !important;
+                padding: clamp(8px, 1.5vw, 15px) !important;
+            }
+            
+            /* Compact features section */
+            div[style*="margin-top: clamp(15px, 2vw, 20px)"] {
+                margin-top: clamp(6px, 1vw, 10px) !important;
+            }
+            
+            .grid-2 {
+                gap: clamp(8px, 1.2vw, 15px) !important;
+            }
+            
+            .grid-3 {
+                gap: clamp(6px, 1vw, 12px) !important;
             }
         }
 
