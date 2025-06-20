@@ -28,13 +28,14 @@
             background: white;
             margin: 0 auto;
             box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
-            padding: 35px;
+            padding: clamp(15px, 2vw, 30px);
             position: relative;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
-        }
             aspect-ratio: 16/9;
+        }
         
                 .slide-number {
             position: absolute;
@@ -294,11 +295,14 @@
 
         @media (max-width: 768px) {
             .slide {
-                padding: clamp(10px, 2vw, 25px);
+                padding: clamp(10px, 2vw, 20px);
+                min-height: 100vh;
+                height: auto;
             }
             
             h1 {
                 font-size: clamp(24px, 5vw, 48px) !important;
+                margin-bottom: clamp(15px, 3vw, 25px) !important;
             }
             
             h2 {
@@ -307,6 +311,11 @@
             
             h3 {
                 font-size: clamp(18px, 3.5vw, 28px) !important;
+            }
+            
+            .grid-5 {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
             }
         }
 
@@ -375,53 +384,53 @@
         
         <h1>Our Purpose & Direction</h1>
         
-        <div style="background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%); color: white; padding: 45px; border-radius: clamp(12px, 1.3vw, 25px); text-align: center; margin-bottom: 35px; box-shadow: 0 0.6vw 1.8vw rgba(253,184,19,0.3);">
-            <h3 style="color: white; font-size: 38px; margin-bottom: 25px;">Our Mission</h3>
-            <p style="font-size: 26px; line-height: 1.5;">To empower individuals and businesses through innovative technologies and exceptional services, driving positive change and fostering sustainable growth.</p>
+        <div style="background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%); color: white; padding: clamp(20px, 3vw, 35px); border-radius: clamp(12px, 1.3vw, 25px); text-align: center; margin-bottom: clamp(15px, 2vw, 25px); box-shadow: 0 0.6vw 1.8vw rgba(253,184,19,0.3);">
+            <h3 style="color: white; font-size: clamp(20px, 2.2vw, 32px); margin-bottom: clamp(10px, 1.5vw, 20px);">Our Mission</h3>
+            <p style="font-size: clamp(16px, 1.5vw, 22px); line-height: 1.4;">To empower individuals and businesses through innovative technologies and exceptional services, driving positive change and fostering sustainable growth.</p>
         </div>
         
-        <div style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); color: white; padding: 45px; border-radius: clamp(12px, 1.3vw, 25px); text-align: center; margin-bottom: 40px; box-shadow: 0 0.6vw 1.8vw rgba(0,71,171,0.3);">
-            <h3 style="color: white; font-size: 38px; margin-bottom: 25px;">Our Vision</h3>
-            <p style="font-size: 26px; line-height: 1.5;">To be one of the leading companies in the Global EV industry, recognized for our commitment to excellence, customer satisfaction, and making a meaningful impact on the world.</p>
+        <div style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); color: white; padding: clamp(20px, 3vw, 35px); border-radius: clamp(12px, 1.3vw, 25px); text-align: center; margin-bottom: clamp(15px, 2vw, 25px); box-shadow: 0 0.6vw 1.8vw rgba(0,71,171,0.3);">
+            <h3 style="color: white; font-size: clamp(20px, 2.2vw, 32px); margin-bottom: clamp(10px, 1.5vw, 20px);">Our Vision</h3>
+            <p style="font-size: clamp(16px, 1.5vw, 22px); line-height: 1.4;">To be one of the leading companies in the Global EV industry, recognized for our commitment to excellence, customer satisfaction, and making a meaningful impact on the world.</p>
         </div>
         
-        <div style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); padding: 50px; border-radius: clamp(12px, 1.3vw, 25px); border: 3px solid #e0e0e0;">
-            <h3 style="text-align: center; margin-bottom: 40px; font-size: 36px; color: #0047AB;">Our Core Values</h3>
+        <div style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); padding: clamp(20px, 3vw, 40px); border-radius: clamp(12px, 1.3vw, 25px); border: 3px solid #e0e0e0;">
+            <h3 style="text-align: center; margin-bottom: clamp(15px, 2vw, 30px); font-size: clamp(20px, 2.2vw, 32px); color: #0047AB;">Our Core Values</h3>
             <div class="grid-5">
                 <div style="text-align: center;">
                     <div class="icon-box" style="margin: 0 auto 20px; background: #FDB813; width: 90px; height: 90px;">
                         <div style="font-size: 42px;">💡</div>
                     </div>
-                    <h4 style="font-size: 26px; margin-bottom: 15px;">Innovation</h4>
-                    <p style="font-size: 18px; color: #666; line-height: 1.5;">Continuously evolving design and cutting-edge technology</p>
+                    <h4 style="font-size: clamp(16px, 1.4vw, 22px); margin-bottom: clamp(8px, 1vw, 12px);">Innovation</h4>
+                    <p style="font-size: clamp(14px, 1vw, 16px); color: #666; line-height: 1.4;">Continuously evolving design and cutting-edge technology</p>
                 </div>
                 <div style="text-align: center;">
                     <div class="icon-box" style="margin: 0 auto 20px; background: #228B22; width: 90px; height: 90px;">
                         <div style="font-size: 42px;">🛡️</div>
                     </div>
-                    <h4 style="font-size: 26px; margin-bottom: 15px;">Reliability</h4>
-                    <p style="font-size: 18px; color: #666; line-height: 1.5;">Engineered for demanding Indian conditions</p>
+                    <h4 style="font-size: clamp(16px, 1.4vw, 22px); margin-bottom: clamp(8px, 1vw, 12px);">Reliability</h4>
+                    <p style="font-size: clamp(14px, 1vw, 16px); color: #666; line-height: 1.4;">Engineered for demanding Indian conditions</p>
                 </div>
                 <div style="text-align: center;">
                     <div class="icon-box" style="margin: 0 auto 20px; background: #0047AB; width: 90px; height: 90px;">
                         <div style="font-size: 42px;">🤝</div>
                     </div>
-                    <h4 style="font-size: 26px; margin-bottom: 15px;">Partnership</h4>
-                    <p style="font-size: 18px; color: #666; line-height: 1.5;">Building long-term relationships with our clients</p>
+                    <h4 style="font-size: clamp(16px, 1.4vw, 22px); margin-bottom: clamp(8px, 1vw, 12px);">Partnership</h4>
+                    <p style="font-size: clamp(14px, 1vw, 16px); color: #666; line-height: 1.4;">Building long-term relationships with our clients</p>
                 </div>
                 <div style="text-align: center;">
                     <div class="icon-box" style="margin: 0 auto 20px; background: #228B22; width: 90px; height: 90px;">
                         <div style="font-size: 42px;">🌍</div>
                     </div>
-                    <h4 style="font-size: 26px; margin-bottom: 15px;">Sustainability</h4>
-                    <p style="font-size: 18px; color: #666; line-height: 1.5;">Environmental leadership and responsibility</p>
+                    <h4 style="font-size: clamp(16px, 1.4vw, 22px); margin-bottom: clamp(8px, 1vw, 12px);">Sustainability</h4>
+                    <p style="font-size: clamp(14px, 1vw, 16px); color: #666; line-height: 1.4;">Environmental leadership and responsibility</p>
                 </div>
                 <div style="text-align: center;">
                     <div class="icon-box" style="margin: 0 auto 20px; background: #FDB813; width: 90px; height: 90px;">
                         <div style="font-size: 42px;">🎯</div>
                     </div>
-                    <h4 style="font-size: 26px; margin-bottom: 15px;">Customer Centered</h4>
-                    <p style="font-size: 18px; color: #666; line-height: 1.5;">Putting customer needs at the heart of everything we do</p>
+                    <h4 style="font-size: clamp(16px, 1.4vw, 22px); margin-bottom: clamp(8px, 1vw, 12px);">Customer Centered</h4>
+                    <p style="font-size: clamp(14px, 1vw, 16px); color: #666; line-height: 1.4;">Putting customer needs at the heart of everything we do</p>
                 </div>
             </div>
         </div>
