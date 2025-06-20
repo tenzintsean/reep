@@ -24,17 +24,18 @@
         
         .slide {
             width: 100vw; max-width: 1920px;
-            height: 100vh; max-height: 1080px;
+            min-height: 100vh;
+            height: auto;
             background: white;
             margin: 0 auto;
             box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
-            padding: clamp(20px, 3vw, 60px);
+            padding: clamp(15px, 2.5vw, 40px);
             position: relative;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
         }
-            aspect-ratio: 16/9;
         
                 .slide-number {
             position: absolute;
@@ -87,8 +88,8 @@
         
         .subtitle {
             color: #666;
-            font-size: clamp(14px, 1.2vw, 24px);
-            margin-bottom: 30px;
+            font-size: clamp(14px, 1.2vw, 20px);
+            margin-bottom: clamp(15px, 2vw, 25px);
         }
         
         h4 {
@@ -99,13 +100,13 @@
         }
         
         .vehicle-image-placeholder {
-            height: 280px;
+            height: clamp(180px, 20vw, 280px);
             background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
             border-radius: clamp(6px, 0.6vw, 12px);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 15px 0;
+            margin: clamp(10px, 1.5vw, 15px) 0;
             border: 3px solid #0047AB;
             position: relative;
             overflow: hidden;
@@ -123,11 +124,11 @@
         }
         
         .vehicle-label {
-            font-size: 20px;
+            font-size: clamp(16px, 1.5vw, 20px);
             font-weight: 700;
             color: #0047AB;
             background: rgba(255,255,255,0.95);
-            padding: 12px 20px;
+            padding: clamp(8px, 1.2vw, 12px) clamp(15px, 2vw, 20px);
             border-radius: clamp(4px, 0.4vw, 8px);
             box-shadow: 0 0.2vw 0.8vw rgba(0,71,171,0.15);
             z-index: 1;
@@ -137,13 +138,13 @@
         .metric-dashboard {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin: 40px 0;
+            gap: clamp(15px, 3vw, 30px);
+            margin: clamp(20px, 3vw, 40px) 0;
         }
         
         .metric-item {
             text-align: center;
-            padding: 30px;
+            padding: clamp(15px, 2.5vw, 30px);
             background: white;
             border-radius: clamp(7px, 0.8vw, 15px);
             box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.08);
@@ -156,13 +157,13 @@
         }
         
         .metric-value {
-            font-size: 40px;
+            font-size: clamp(24px, 3vw, 40px);
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: clamp(6px, 1vw, 10px);
         }
         
         .metric-label {
-            font-size: 18px;
+            font-size: clamp(12px, 1.2vw, 18px);
             color: #666;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -318,6 +319,31 @@
                 padding: clamp(15px, 2.5vw, 40px);
             }
         }
+        
+        /* Short screen optimization */
+        @media (max-height: 900px) {
+            .slide {
+                padding: clamp(10px, 1.5vw, 25px);
+            }
+            
+            h1 {
+                font-size: clamp(20px, 2.2vw, 40px) !important;
+                margin-bottom: clamp(8px, 1.2vw, 15px) !important;
+            }
+            
+            .subtitle {
+                margin-bottom: clamp(10px, 1.5vw, 20px) !important;
+            }
+            
+            .metric-dashboard {
+                margin: clamp(15px, 2.5vw, 30px) 0 !important;
+                gap: clamp(10px, 2vw, 20px) !important;
+            }
+            
+            .metric-item {
+                padding: clamp(12px, 2vw, 20px) !important;
+            }
+        }
 
         @media (max-width: 768px) {
             .slide {
@@ -325,15 +351,37 @@
             }
             
             h1 {
-                font-size: clamp(24px, 5vw, 48px) !important;
-            }
-            
-            h2 {
                 font-size: clamp(20px, 4vw, 36px) !important;
             }
             
-            h3 {
+            h2 {
                 font-size: clamp(18px, 3.5vw, 28px) !important;
+            }
+            
+            h3 {
+                font-size: clamp(16px, 3vw, 24px) !important;
+            }
+            
+            .slide div[style*="display: flex"][style*="gap: clamp(20px, 4vw, 50px)"] {
+                flex-direction: column !important;
+                gap: 20px !important;
+            }
+            
+            .metric-dashboard {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .slide div[style*="display: flex"][style*="flex-wrap: wrap"] {
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+            
+            .slide img {
+                height: clamp(100px, 20vw, 150px) !important;
+                max-width: 90vw;
             }
         }
 
@@ -401,38 +449,38 @@
         <h1>L3 Passenger Vehicle</h1>
         <div class="subtitle">Redefining urban transportation economics</div>
         
-        <div style="display: flex; gap: 50px; align-items: center;">
+        <div style="display: flex; gap: clamp(20px, 4vw, 50px); align-items: center;">
             <div style="flex: 1;">
                 <!-- L3 Passenger Vehicle Images - Enlarged and Highlighted -->
-                <div style="display: flex; gap: 25px; margin: 30px 0; justify-content: center; flex-wrap: wrap;">
-                    <img src="l3-passenger/Untitled 6.jpeg" alt="L3 Passenger Vehicle 1" style="height: 200px; border-radius: clamp(7px, 0.8vw, 15px); box-shadow: 0 0.4vw 1.6vw rgba(0,71,171,0.3); border: 3px solid #0047AB;">
-                    <img src="l3-passenger/Untitled 7.jpeg" alt="L3 Passenger Vehicle 2" style="height: 200px; border-radius: clamp(7px, 0.8vw, 15px); box-shadow: 0 0.4vw 1.6vw rgba(0,71,171,0.3); border: 3px solid #0047AB;">
+                <div style="display: flex; gap: clamp(15px, 2.5vw, 25px); margin: clamp(15px, 2.5vw, 30px) 0; justify-content: center; flex-wrap: wrap;">
+                    <img src="l3-passenger/Untitled 6.jpeg" alt="L3 Passenger Vehicle 1" style="height: clamp(120px, 15vw, 200px); border-radius: clamp(7px, 0.8vw, 15px); box-shadow: 0 0.4vw 1.6vw rgba(0,71,171,0.3); border: 3px solid #0047AB;">
+                    <img src="l3-passenger/Untitled 7.jpeg" alt="L3 Passenger Vehicle 2" style="height: clamp(120px, 15vw, 200px); border-radius: clamp(7px, 0.8vw, 15px); box-shadow: 0 0.4vw 1.6vw rgba(0,71,171,0.3); border: 3px solid #0047AB;">
                 </div>
-                <div style="display: flex; gap: 25px; margin: 30px 0; justify-content: center; flex-wrap: wrap;">
-                    <img src="l3-passenger/Untitled 8.jpeg" alt="L3 Passenger Vehicle 3" style="height: 200px; border-radius: clamp(7px, 0.8vw, 15px); box-shadow: 0 0.4vw 1.6vw rgba(0,71,171,0.3); border: 3px solid #0047AB;">
-                    <img src="l3-passenger/Untitled 9.jpeg" alt="L3 Passenger Vehicle 4" style="height: 200px; border-radius: clamp(7px, 0.8vw, 15px); box-shadow: 0 0.4vw 1.6vw rgba(0,71,171,0.3); border: 3px solid #0047AB;">
+                <div style="display: flex; gap: clamp(15px, 2.5vw, 25px); margin: clamp(15px, 2.5vw, 30px) 0; justify-content: center; flex-wrap: wrap;">
+                    <img src="l3-passenger/Untitled 8.jpeg" alt="L3 Passenger Vehicle 3" style="height: clamp(120px, 15vw, 200px); border-radius: clamp(7px, 0.8vw, 15px); box-shadow: 0 0.4vw 1.6vw rgba(0,71,171,0.3); border: 3px solid #0047AB;">
+                    <img src="l3-passenger/Untitled 9.jpeg" alt="L3 Passenger Vehicle 4" style="height: clamp(120px, 15vw, 200px); border-radius: clamp(7px, 0.8vw, 15px); box-shadow: 0 0.4vw 1.6vw rgba(0,71,171,0.3); border: 3px solid #0047AB;">
                 </div>
-                <div style="margin-top: 15px; text-align: center; background: #f0f8ff; padding: 15px; border-radius: clamp(7px, 0.8vw, 15px);">
-                    <h4 style="color: #0047AB; font-size: 18px;">4+1 Seating • Weather Protection • Smart Design</h4>
+                <div style="margin-top: clamp(10px, 1.5vw, 15px); text-align: center; background: #f0f8ff; padding: clamp(10px, 1.5vw, 15px); border-radius: clamp(7px, 0.8vw, 15px);">
+                    <h4 style="color: #0047AB; font-size: clamp(14px, 1.3vw, 18px);">4+1 Seating • Weather Protection • Smart Design</h4>
                 </div>
             </div>
             
             <div style="flex: 1;">
-                <h2 style="color: #0047AB; margin-bottom: 25px;">E-Rickshaw Excellence</h2>
+                <h2 style="color: #0047AB; margin-bottom: clamp(15px, 2.5vw, 25px);">E-Rickshaw Excellence</h2>
                 
-                <div style="background: white; border-left: 5px solid #FDB813; padding: 20px; margin-bottom: 15px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.08);">
-                    <h4 style="font-size: 20px; color: #FDB813; margin-bottom: 8px;">🪑 Passenger Comfort</h4>
-                    <p style="font-size: 16px; color: #666;">Spacious seating for 4+1 • Weather protection • Smooth suspension system</p>
+                <div style="background: white; border-left: 5px solid #FDB813; padding: clamp(12px, 2vw, 20px); margin-bottom: clamp(10px, 1.5vw, 15px); border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.08);">
+                    <h4 style="font-size: clamp(16px, 1.5vw, 20px); color: #FDB813; margin-bottom: clamp(5px, 0.8vw, 8px);">🪑 Passenger Comfort</h4>
+                    <p style="font-size: clamp(14px, 1.1vw, 16px); color: #666;">Spacious seating for 4+1 • Weather protection • Smooth suspension system</p>
                 </div>
                 
-                <div style="background: white; border-left: 5px solid #228B22; padding: 20px; margin-bottom: 15px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.08);">
-                    <h4 style="font-size: 20px; color: #228B22; margin-bottom: 8px;">💰 Driver Benefits</h4>
-                    <p style="font-size: 16px; color: #666;">₹30,000+ annual fuel savings • Low maintenance • Easy financing options</p>
+                <div style="background: white; border-left: 5px solid #228B22; padding: clamp(12px, 2vw, 20px); margin-bottom: clamp(10px, 1.5vw, 15px); border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.08);">
+                    <h4 style="font-size: clamp(16px, 1.5vw, 20px); color: #228B22; margin-bottom: clamp(5px, 0.8vw, 8px);">💰 Driver Benefits</h4>
+                    <p style="font-size: clamp(14px, 1.1vw, 16px); color: #666;">₹30,000+ annual fuel savings • Low maintenance • Easy financing options</p>
                 </div>
                 
-                <div style="background: white; border-left: 5px solid #0047AB; padding: 20px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.08);">
-                    <h4 style="font-size: 20px; color: #0047AB; margin-bottom: 8px;">⚡ Operational Excellence</h4>
-                    <p style="font-size: 16px; color: #666;">8-hour continuous operation • Fast charging • Smart connectivity ready</p>
+                <div style="background: white; border-left: 5px solid #0047AB; padding: clamp(12px, 2vw, 20px); border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.08);">
+                    <h4 style="font-size: clamp(16px, 1.5vw, 20px); color: #0047AB; margin-bottom: clamp(5px, 0.8vw, 8px);">⚡ Operational Excellence</h4>
+                    <p style="font-size: clamp(14px, 1.1vw, 16px); color: #666;">8-hour continuous operation • Fast charging • Smart connectivity ready</p>
                 </div>
             </div>
         </div>

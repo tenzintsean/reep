@@ -24,17 +24,18 @@
         
         .slide {
             width: 100vw; max-width: 1920px;
-            height: 100vh; max-height: 1080px;
+            min-height: 100vh;
+            height: auto;
             background: white;
             margin: 0 auto;
             box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
-            padding: clamp(20px, 3vw, 60px);
+            padding: clamp(15px, 2vw, 40px);
             position: relative;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
         }
-            aspect-ratio: 16/9;
         
                 .slide-number {
             position: absolute;
@@ -71,17 +72,17 @@
         
         h1 {
             color: #0047AB;
-            font-size: clamp(30px, 3.1vw, 60px);
+            font-size: clamp(24px, 2.8vw, 50px);
             font-weight: 700;
-            margin-bottom: 30px;
+            margin-bottom: clamp(15px, 2vw, 25px);
             line-height: 1.2;
             text-shadow: 0 2px 4px rgba(0,71,171,0.1);
         }
         
         .subtitle {
             color: #666;
-            font-size: clamp(14px, 1.2vw, 24px);
-            margin-bottom: 40px;
+            font-size: clamp(14px, 1.1vw, 20px);
+            margin-bottom: clamp(20px, 2.5vw, 30px);
         }
         
         /* Enhanced Interactive Elements */
@@ -89,7 +90,7 @@
             background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
             border: 2px solid #e0e0e0;
             border-radius: clamp(7px, 0.8vw, 15px);
-            padding: 30px;
+            padding: clamp(15px, 2.5vw, 30px);
             text-align: center;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
@@ -118,7 +119,7 @@
         }
         
         .stat-number {
-            font-size: 48px;
+            font-size: clamp(24px, 3vw, 48px);
             font-weight: 700;
             color: #FDB813;
             margin-bottom: 8px;
@@ -126,12 +127,12 @@
         }
         
         .stat-label {
-            font-size: 20px;
+            font-size: clamp(14px, 1.2vw, 20px);
             color: #666;
         }
         
         /* Grid Systems */
-        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(15px, 2vw, 25px); }
         
         /* Enhanced Icons */
         .icon-box {
@@ -157,7 +158,7 @@
         
         /* Chart Visualizations */
         .chart-container {
-            height: 200px;
+            height: clamp(60px, 10vw, 200px);
             background: white;
             border-radius: clamp(6px, 0.6vw, 12px);
             border: 2px solid #e0e0e0;
@@ -165,7 +166,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 20px 0;
+            margin: clamp(10px, 1.5vw, 20px) 0;
         }
         
         .bar-chart {
@@ -190,8 +191,8 @@
         .infographic-section {
             background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
             border-radius: clamp(10px, 1.0vw, 20px);
-            padding: 40px;
-            margin: 30px 0;
+            padding: clamp(20px, 3vw, 40px);
+            margin: clamp(15px, 2vw, 30px) 0;
             position: relative;
             overflow: hidden;
         }
@@ -364,6 +365,35 @@
                 padding: clamp(15px, 2.5vw, 40px);
             }
         }
+        
+        /* Short screen optimization */
+        @media (max-height: 900px) {
+            .slide {
+                padding: clamp(10px, 1.5vw, 25px);
+            }
+            
+            h1 {
+                font-size: clamp(20px, 2.2vw, 40px) !important;
+                margin-bottom: clamp(10px, 1.5vw, 20px) !important;
+            }
+            
+            .subtitle {
+                margin-bottom: clamp(15px, 2vw, 25px) !important;
+            }
+            
+            .grid-4 {
+                gap: clamp(10px, 1.5vw, 20px) !important;
+            }
+            
+            .stat-card {
+                padding: clamp(15px, 2vw, 25px) !important;
+            }
+            
+            .infographic-section {
+                padding: clamp(15px, 2.5vw, 30px) !important;
+                margin: clamp(10px, 1.5vw, 20px) 0 !important;
+            }
+        }
 
         @media (max-width: 768px) {
             .slide {
@@ -372,6 +402,7 @@
             
             h1 {
                 font-size: clamp(24px, 5vw, 48px) !important;
+                margin-bottom: clamp(15px, 3vw, 25px) !important;
             }
             
             h2 {
@@ -380,6 +411,37 @@
             
             h3 {
                 font-size: clamp(18px, 3.5vw, 28px) !important;
+            }
+            
+            .grid-4 {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+            
+            .infographic-section div[style*="display: flex"] {
+                flex-direction: column !important;
+                gap: 15px;
+            }
+            
+            .infographic-section div[style*="font-size: 40px"] {
+                display: none !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .grid-4 {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .stat-card {
+                padding: clamp(12px, 3vw, 20px);
+            }
+            
+            .icon-box {
+                width: clamp(50px, 8vw, 70px);
+                height: clamp(50px, 8vw, 70px);
+                font-size: clamp(24px, 4vw, 32px);
             }
         }
 
@@ -478,7 +540,7 @@
                 </div>
                 <div class="stat-number">₹36.79B</div>
                 <div class="stat-label">PM E-DRIVE Scheme</div>
-                <div style="margin-top: 10px; font-size: 14px; color: #0047AB;">Government Support</div>
+                <div style="margin-top: 10px; font-size: clamp(12px, 0.8vw, 14px); color: #0047AB;">Government Support</div>
             </div>
             <div class="stat-card">
                 <div class="icon-box" style="background: #228B22;">
@@ -486,26 +548,26 @@
                 </div>
                 <div class="stat-number">30%</div>
                 <div class="stat-label">Carbon Reduction Target</div>
-                <div style="margin-top: 10px; font-size: 14px; color: #228B22;">By 2030</div>
+                <div style="margin-top: 10px; font-size: clamp(12px, 0.8vw, 14px); color: #228B22;">By 2030</div>
             </div>
         </div>
         
         <div class="infographic-section">
-            <h4>Market Dynamics Driving Change</h4>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+            <h4 style="margin-bottom: clamp(10px, 1.5vw, 20px);">Market Dynamics Driving Change</h4>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: clamp(10px, 1.5vw, 20px);">
                 <div style="text-align: center; flex: 1;">
-                    <div style="font-size: 48px; margin-bottom: 10px;">🚀</div>
-                    <p style="font-size: 18px; color: #666;">Rising operational costs push businesses toward sustainable alternatives</p>
+                    <div style="font-size: clamp(32px, 4vw, 48px); margin-bottom: clamp(5px, 1vw, 10px);">🚀</div>
+                    <p style="font-size: clamp(14px, 1.1vw, 18px); color: #666;">Rising operational costs push businesses toward sustainable alternatives</p>
                 </div>
                 <div style="font-size: 40px; color: #FDB813;">→</div>
                 <div style="text-align: center; flex: 1;">
-                    <div style="font-size: 48px; margin-bottom: 10px;">📋</div>
-                    <p style="font-size: 18px; color: #666;">Government mandates accelerate adoption</p>
+                    <div style="font-size: clamp(32px, 4vw, 48px); margin-bottom: clamp(5px, 1vw, 10px);">📋</div>
+                    <p style="font-size: clamp(14px, 1.1vw, 18px); color: #666;">Government mandates accelerate adoption</p>
                 </div>
                 <div style="font-size: 40px; color: #FDB813;">→</div>
                 <div style="text-align: center; flex: 1;">
-                    <div style="font-size: 48px; margin-bottom: 10px;">🌆</div>
-                    <p style="font-size: 18px; color: #666;">Urban air quality concerns demand immediate action</p>
+                    <div style="font-size: clamp(32px, 4vw, 48px); margin-bottom: clamp(5px, 1vw, 10px);">🌆</div>
+                    <p style="font-size: clamp(14px, 1.1vw, 18px); color: #666;">Urban air quality concerns demand immediate action</p>
                 </div>
             </div>
         </div>

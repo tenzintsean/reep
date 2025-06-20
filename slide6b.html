@@ -24,17 +24,18 @@
         
         .slide {
             width: 100vw; max-width: 1920px;
-            height: 100vh; max-height: 1080px;
+            min-height: 100vh;
+            height: auto;
             background: white;
             margin: 0 auto;
             box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
-            padding: 80px;
+            padding: clamp(15px, 2.5vw, 50px);
             position: relative;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
         }
-            aspect-ratio: 16/9;
         
                 .slide-number {
             position: absolute;
@@ -80,14 +81,14 @@
         
         .subtitle {
             color: #666;
-            font-size: clamp(14px, 1.2vw, 24px);
-            margin-bottom: 30px;
+            font-size: clamp(14px, 1.2vw, 20px);
+            margin-bottom: clamp(15px, 2vw, 25px);
         }
         
         /* Enhanced Vehicle Showcase */
         .vehicle-hero {
             background: white;
-            padding: 30px;
+            padding: clamp(15px, 2.5vw, 30px);
             border-radius: clamp(10px, 1.0vw, 20px);
             box-shadow: 0 0.8vw 2.1vw rgba(0,0,0,0.1);
             position: relative;
@@ -98,13 +99,13 @@
         }
         
         .vehicle-image-main {
-            height: 400px;
+            height: clamp(200px, 20vw, 400px);
             background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
             border-radius: clamp(7px, 0.8vw, 15px);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 30px 0;
+            margin: clamp(15px, 2.5vw, 30px) 0;
             position: relative;
             overflow: hidden;
             box-shadow: 0 0.5vw 1.6vw rgba(0,0,0,0.1);
@@ -122,11 +123,11 @@
         }
         
         .vehicle-label-large {
-            font-size: 32px;
+            font-size: clamp(20px, 2.2vw, 32px);
             font-weight: 700;
             color: #0047AB;
             background: rgba(255,255,255,0.95);
-            padding: 20px 40px;
+            padding: clamp(12px, 2vw, 20px) clamp(25px, 3vw, 40px);
             border-radius: clamp(5px, 0.5vw, 10px);
             box-shadow: 0 0.3vw 1.0vw rgba(0,71,171,0.15);
             z-index: 1;
@@ -136,13 +137,13 @@
         .specs-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin: 25px 0;
+            gap: clamp(10px, 2vw, 20px);
+            margin: clamp(15px, 2.5vw, 25px) 0;
         }
         
         .spec-item {
             text-align: center;
-            padding: 20px;
+            padding: clamp(12px, 2vw, 20px);
             border-radius: clamp(6px, 0.6vw, 12px);
             transition: transform 0.3s ease;
         }
@@ -152,19 +153,19 @@
         }
         
         .spec-value {
-            font-size: 28px;
+            font-size: clamp(18px, 2.2vw, 28px);
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: clamp(4px, 0.6vw, 6px);
         }
         
         .spec-label {
-            font-size: 16px;
+            font-size: clamp(12px, 1.1vw, 16px);
             color: #666;
         }
         
         .feature-strip {
             background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%);
-            padding: 25px;
+            padding: clamp(15px, 2.5vw, 25px);
             border-radius: clamp(10px, 1.0vw, 20px);
             text-align: center;
             margin-top: auto;
@@ -172,7 +173,7 @@
         }
         
         .feature-strip p {
-            font-size: 24px;
+            font-size: clamp(16px, 1.8vw, 24px);
             color: white;
             font-weight: 600;
         }
@@ -338,6 +339,35 @@
                 padding: clamp(15px, 2.5vw, 40px);
             }
         }
+        
+        /* Short screen optimization */
+        @media (max-height: 900px) {
+            .slide {
+                padding: clamp(10px, 1.5vw, 25px);
+            }
+            
+            h1 {
+                font-size: clamp(20px, 2.2vw, 40px) !important;
+                margin-bottom: clamp(8px, 1.2vw, 15px) !important;
+            }
+            
+            .subtitle {
+                margin-bottom: clamp(10px, 1.5vw, 20px) !important;
+            }
+            
+            .vehicle-hero {
+                padding: clamp(10px, 2vw, 20px) !important;
+            }
+            
+            .specs-grid {
+                margin: clamp(10px, 2vw, 20px) 0 !important;
+                gap: clamp(8px, 1.5vw, 15px) !important;
+            }
+            
+            .feature-strip {
+                padding: clamp(12px, 2vw, 18px) !important;
+            }
+        }
 
         @media (max-width: 768px) {
             .slide {
@@ -345,15 +375,46 @@
             }
             
             h1 {
-                font-size: clamp(24px, 5vw, 48px) !important;
-            }
-            
-            h2 {
                 font-size: clamp(20px, 4vw, 36px) !important;
             }
             
-            h3 {
+            h2 {
                 font-size: clamp(18px, 3.5vw, 28px) !important;
+            }
+            
+            h3 {
+                font-size: clamp(16px, 3vw, 24px) !important;
+            }
+            
+            .specs-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+            
+            .vehicle-hero div[style*="display: flex"] {
+                flex-direction: column;
+                gap: 15px !important;
+            }
+            
+            .vehicle-hero img {
+                height: clamp(100px, 12vw, 150px) !important;
+                width: auto;
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .specs-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .vehicle-hero div[style*="flex-wrap: wrap"] {
+                justify-content: center !important;
+            }
+            
+            .vehicle-hero img {
+                height: clamp(80px, 15vw, 120px) !important;
             }
         }
 
@@ -422,16 +483,16 @@
         <div class="subtitle">Secure transportation for sensitive goods</div>
         
         <div class="vehicle-hero" style="background: linear-gradient(to bottom, #FDB813 150px, white 150px);">
-            <h2 style="color: white; font-size: 36px; text-align: center; margin: -30px -30px 20px -30px; padding: 25px; background: #FDB813; display: flex; align-items: center; justify-content: center; min-height: 80px;">
+            <h2 style="color: white; font-size: clamp(20px, 2.5vw, 36px); text-align: center; margin: clamp(-20px, -2.5vw, -30px) clamp(-20px, -2.5vw, -30px) clamp(12px, 2vw, 20px) clamp(-20px, -2.5vw, -30px); padding: clamp(15px, 2.5vw, 25px); background: #FDB813; display: flex; align-items: center; justify-content: center; min-height: clamp(60px, 8vw, 80px);">
                 Premium Protection for Premium Deliveries
             </h2>
             
             <!-- L3 Closed Body Vehicle Images -->
-            <div style="display: flex; gap: 30px; margin: 40px 20px; justify-content: center; flex-wrap: wrap;">
-                <img src="l3-closed-body/s6b-1.jpg" alt="L3 Closed Body Vehicle 1" style="height: 180px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2);">
-                <img src="l3-closed-body/s6b-2.jpg" alt="L3 Closed Body Vehicle 2" style="height: 180px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2);">
-                <img src="l3-closed-body/s6b-3.jpg" alt="L3 Closed Body Vehicle 3" style="height: 180px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2);">
-                <img src="l3-closed-body/s6b-4.jpg" alt="L3 Closed Body Vehicle 4" style="height: 180px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2);">
+            <div style="display: flex; gap: clamp(15px, 2.5vw, 30px); margin: clamp(20px, 3vw, 40px) clamp(10px, 2vw, 20px); justify-content: center; flex-wrap: wrap;">
+                <img src="l3-closed-body/s6b-1.jpg" alt="L3 Closed Body Vehicle 1" style="height: clamp(120px, 15vw, 180px); border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2);">
+                <img src="l3-closed-body/s6b-2.jpg" alt="L3 Closed Body Vehicle 2" style="height: clamp(120px, 15vw, 180px); border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2);">
+                <img src="l3-closed-body/s6b-3.jpg" alt="L3 Closed Body Vehicle 3" style="height: clamp(120px, 15vw, 180px); border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2);">
+                <img src="l3-closed-body/s6b-4.jpg" alt="L3 Closed Body Vehicle 4" style="height: clamp(120px, 15vw, 180px); border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2);">
             </div>
             
             <div class="specs-grid">
@@ -453,12 +514,12 @@
                 </div>
             </div>
             
-            <div style="background: #f8f9fa; padding: 20px; border-radius: clamp(7px, 0.8vw, 15px); text-align: center;">
-                <p style="font-size: 18px; color: #333; line-height: 1.6;">
+            <div style="background: #f8f9fa; padding: clamp(12px, 2vw, 20px); border-radius: clamp(7px, 0.8vw, 15px); text-align: center;">
+                <p style="font-size: clamp(14px, 1.3vw, 18px); color: #333; line-height: 1.6;">
                     <strong>Ideal for:</strong> 
-                    <span class="use-case-badge" style="background: rgba(34,139,34,0.1); color: #228B22; font-size: 16px;">Pharmaceuticals</span>
-                    <span class="use-case-badge" style="background: rgba(34,139,34,0.1); color: #228B22; font-size: 16px;">FMCG Products</span>
-                    <span class="use-case-badge" style="background: rgba(34,139,34,0.1); color: #228B22; font-size: 16px;">Electronics</span>
+                    <span class="use-case-badge" style="background: rgba(34,139,34,0.1); color: #228B22; font-size: clamp(12px, 1.1vw, 16px);">Pharmaceuticals</span>
+                    <span class="use-case-badge" style="background: rgba(34,139,34,0.1); color: #228B22; font-size: clamp(12px, 1.1vw, 16px);">FMCG Products</span>
+                    <span class="use-case-badge" style="background: rgba(34,139,34,0.1); color: #228B22; font-size: clamp(12px, 1.1vw, 16px);">Electronics</span>
                 </p>
             </div>
         </div>

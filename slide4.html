@@ -25,17 +25,18 @@
         
         .slide {
             width: 100vw; max-width: 1920px;
-            height: 100vh; max-height: 1080px;
+            min-height: 100vh;
+            height: auto;
             background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
             margin: 0 auto;
             box-shadow: 0 1.0vw 3.1vw rgba(0,0,0,0.15);
-            padding: 35px;
+            padding: clamp(15px, 2.5vw, 35px);
             position: relative;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
         }
-            aspect-ratio: 16/9;
         
                 .slide-number {
             position: absolute;
@@ -68,18 +69,18 @@
         
         .main-headline {
             color: #0047AB;
-            font-size: 42px;
+            font-size: clamp(24px, 2.8vw, 42px);
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: clamp(5px, 1vw, 8px);
             line-height: 1.2;
             text-shadow: 0 3px 6px rgba(0,71,171,0.15);
         }
         
         .value-proposition {
             color: #FDB813;
-            font-size: 20px;
+            font-size: clamp(16px, 1.3vw, 20px);
             font-weight: 600;
-            margin-bottom: 25px;
+            margin-bottom: clamp(15px, 2vw, 25px);
             text-shadow: 0 2px 4px rgba(253,184,19,0.2);
         }
         
@@ -87,14 +88,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 50px;
-            margin: 30px 0;
+            gap: clamp(20px, 4vw, 50px);
+            margin: clamp(20px, 3vw, 30px) 0;
             position: relative;
         }
         
         .company-card {
             text-align: center;
-            padding: 35px 30px;
+            padding: clamp(20px, 3vw, 35px) clamp(15px, 2.5vw, 30px);
             border-radius: clamp(10px, 1.0vw, 20px);
             flex: 1;
             max-width: 400px;
@@ -121,14 +122,14 @@
         }
         
         .company-logo {
-            width: 100px;
-            height: 100px;
+            width: clamp(70px, 8vw, 100px);
+            height: clamp(70px, 8vw, 100px);
             border-radius: 50%;
-            margin: 0 auto 20px;
+            margin: 0 auto clamp(10px, 2vw, 20px);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 48px;
+            font-size: clamp(30px, 4vw, 48px);
             font-weight: bold;
             color: white;
             position: relative;
@@ -163,35 +164,35 @@
         }
         
         .company-name {
-            font-size: 28px;
+            font-size: clamp(18px, 2.2vw, 28px);
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: clamp(5px, 1vw, 10px);
         }
         
         .heritage-name { color: #0047AB; }
         .innovation-name { color: #FDB813; }
         
         .company-tagline {
-            font-size: 18px;
+            font-size: clamp(14px, 1.2vw, 18px);
             color: #666;
-            margin-bottom: 18px;
+            margin-bottom: clamp(10px, 1.5vw, 18px);
             font-weight: 500;
         }
         
         .proof-points {
             text-align: left;
             background: rgba(255,255,255,0.7);
-            padding: 15px;
+            padding: clamp(10px, 1.5vw, 15px);
             border-radius: clamp(6px, 0.6vw, 12px);
-            margin-top: 15px;
+            margin-top: clamp(8px, 1.2vw, 15px);
         }
         
         .proof-point {
-            font-size: 15px;
-            margin-bottom: 8px;
+            font-size: clamp(12px, 1vw, 15px);
+            margin-bottom: clamp(4px, 0.8vw, 8px);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: clamp(4px, 0.8vw, 8px);
         }
         
         .proof-point::before {
@@ -201,7 +202,7 @@
         }
         
         .transformation-arrow {
-            font-size: 60px;
+            font-size: clamp(30px, 5vw, 60px);
             color: #FDB813;
             font-weight: bold;
             text-shadow: 0 4px 8px rgba(253,184,19,0.3);
@@ -217,26 +218,26 @@
         
         .timeline-badge {
             position: absolute;
-            top: -15px;
+            top: clamp(-12px, -1.5vw, -15px);
             left: 50%;
             transform: translateX(-50%);
             background: linear-gradient(135deg, #228B22 0%, #32CD32 100%);
             color: white;
-            padding: 8px 20px;
-            border-radius: clamp(10px, 1.0vw, 20px);
-            font-size: 16px;
+            padding: clamp(6px, 1vw, 8px) clamp(12px, 2vw, 20px);
+            border-radius: clamp(8px, 1.0vw, 20px);
+            font-size: clamp(12px, 1.1vw, 16px);
             font-weight: bold;
             box-shadow: 0 0.2vw 0.6vw rgba(34,139,34,0.3);
         }
         
         .accountability-banner {
             background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%);
-            padding: 20px 30px;
+            padding: clamp(15px, 2vw, 20px) clamp(20px, 3vw, 30px);
             border-radius: clamp(7px, 0.8vw, 15px);
-            margin: 25px 0;
+            margin: clamp(15px, 2.5vw, 25px) 0;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: clamp(10px, 2vw, 20px);
             box-shadow: 0 0.5vw 1.6vw rgba(0,71,171,0.2);
             position: relative;
             overflow: hidden;
@@ -260,10 +261,10 @@
         }
         
         .accountability-icon {
-            font-size: 36px;
+            font-size: clamp(24px, 3vw, 36px);
             background: rgba(255,255,255,0.2);
-            width: 60px;
-            height: 60px;
+            width: clamp(40px, 5vw, 60px);
+            height: clamp(40px, 5vw, 60px);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -277,24 +278,24 @@
         
         .accountability-title {
             color: white;
-            font-size: 22px;
+            font-size: clamp(16px, 1.6vw, 22px);
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: clamp(4px, 0.8vw, 8px);
         }
         
         .accountability-text {
             color: rgba(255,255,255,0.9);
-            font-size: 16px;
+            font-size: clamp(14px, 1.1vw, 16px);
             line-height: 1.4;
         }
         
         .customer-benefit {
             background: linear-gradient(135deg, #f0f8ff 0%, #ffffff 100%);
-            padding: 25px;
+            padding: clamp(15px, 2.5vw, 25px);
             border-radius: clamp(7px, 0.8vw, 15px);
             text-align: center;
-            margin-top: 20px;
-            margin-bottom: 40px;
+            margin-top: clamp(12px, 2vw, 20px);
+            margin-bottom: clamp(20px, 3vw, 40px);
             border: 2px solid #e0e0e0;
             position: relative;
         }
@@ -311,20 +312,20 @@
         
         .benefit-title {
             color: #0047AB;
-            font-size: 24px;
+            font-size: clamp(18px, 1.8vw, 24px);
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: clamp(8px, 1.2vw, 15px);
         }
         
         .benefit-text {
-            font-size: 18px;
+            font-size: clamp(14px, 1.2vw, 18px);
             color: #555;
             font-style: italic;
-            margin-bottom: 12px;
+            margin-bottom: clamp(8px, 1vw, 12px);
         }
         
         .benefit-attribution {
-            font-size: 14px;
+            font-size: clamp(12px, 0.9vw, 14px);
             color: #999;
             font-weight: 500;
         }
@@ -506,22 +507,64 @@
                 padding: clamp(15px, 2.5vw, 40px);
             }
         }
+        
+        /* Short screen optimization */
+        @media (max-height: 900px) {
+            .slide {
+                padding: clamp(10px, 1.5vw, 20px);
+            }
+            
+            .main-headline {
+                font-size: clamp(20px, 2.2vw, 36px) !important;
+                margin-bottom: clamp(5px, 0.8vw, 8px) !important;
+            }
+            
+            .value-proposition {
+                margin-bottom: clamp(10px, 1.5vw, 20px) !important;
+            }
+            
+            .transformation-container {
+                margin: clamp(15px, 2vw, 25px) 0 !important;
+                gap: clamp(15px, 3vw, 40px) !important;
+            }
+            
+            .company-card {
+                padding: clamp(15px, 2.5vw, 25px) clamp(12px, 2vw, 20px) !important;
+            }
+            
+            .accountability-banner, .customer-benefit {
+                margin: clamp(10px, 1.5vw, 20px) 0 !important;
+                padding: clamp(12px, 1.8vw, 18px) clamp(15px, 2.5vw, 25px) !important;
+            }
+        }
 
         @media (max-width: 768px) {
             .slide {
                 padding: clamp(10px, 2vw, 25px);
             }
             
-            h1 {
-                font-size: clamp(24px, 5vw, 48px) !important;
-            }
-            
-            h2 {
+            .main-headline {
                 font-size: clamp(20px, 4vw, 36px) !important;
             }
             
-            h3 {
-                font-size: clamp(18px, 3.5vw, 28px) !important;
+            .transformation-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .transformation-arrow {
+                transform: rotate(90deg);
+                font-size: clamp(30px, 6vw, 50px) !important;
+            }
+            
+            .company-card {
+                max-width: 100%;
+            }
+            
+            .accountability-banner {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
             }
         }
 
