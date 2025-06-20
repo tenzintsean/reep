@@ -17,11 +17,19 @@
         }
         
         .slide {
-            width: 100vw; max-width: 1920px; height: 100vh; max-height: 1080px; background: white; margin: 0 auto;
-            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1); padding: clamp(20px, 3vw, 60px); position: relative;
-            overflow: hidden; display: flex; flex-direction: column;
+            width: 100vw; max-width: 1920px;
+            min-height: 100vh;
+            height: auto;
+            background: white;
+            margin: 0 auto;
+            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
+            padding: clamp(15px, 2.5vw, 50px);
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
         }
-            aspect-ratio: 16/9;
         
                 .slide-number {
             position: absolute;
@@ -40,13 +48,13 @@
         
         @keyframes subtle-rotate { from { transform: rotate(15deg); } to { transform: rotate(375deg); } }
         
-        h1 { color: #0047AB; font-size: clamp(30px, 3.1vw, 60px); font-weight: 700; margin-bottom: 30px; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,71,171,0.1); }
-        .subtitle { color: #666; font-size: clamp(14px, 1.2vw, 24px); margin-bottom: 40px; }
-        h3 { color: #0047AB; font-size: clamp(16px, 1.7vw, 32px); font-weight: 600; margin-bottom: 15px; }
-        h4 { color: #0047AB; font-size: clamp(14px, 1.5vw, 28px); font-weight: 600; margin-bottom: 12px; }
+        h1 { color: #0047AB; font-size: clamp(28px, 2.9vw, 56px); font-weight: 700; margin-bottom: clamp(15px, 2vw, 30px); line-height: 1.2; text-shadow: 0 2px 4px rgba(0,71,171,0.1); }
+        .subtitle { color: #666; font-size: clamp(14px, 1.2vw, 20px); margin-bottom: clamp(20px, 2.5vw, 40px); }
+        h3 { color: #0047AB; font-size: clamp(16px, 1.7vw, 28px); font-weight: 600; margin-bottom: clamp(10px, 1.5vw, 15px); }
+        h4 { color: #0047AB; font-size: clamp(14px, 1.5vw, 22px); font-weight: 600; margin-bottom: clamp(8px, 1.2vw, 12px); }
         
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 40px); }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(15px, 2.5vw, 30px); }
         
         .vehicle-image-placeholder {
             height: 220px; background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
@@ -66,7 +74,7 @@
             z-index: 1; position: relative;
         }
         
-        .logo-corner { position: absolute; bottom: 30px; right: 30px; font-size: 32px; font-weight: 700; color: #0047AB; opacity: 0.6; }
+        .logo-corner { position: absolute; bottom: clamp(20px, 2.5vw, 30px); right: clamp(20px, 2.5vw, 30px); font-size: clamp(24px, 2.8vw, 32px); font-weight: 700; color: #0047AB; opacity: 0.6; }
         
         @media (max-width: 1920px) { .slide { width: 100%; max-width: 1920px; } }
     
@@ -221,6 +229,46 @@
             }
         }
 
+        /* Short screen optimization */
+        @media (max-height: 900px) {
+            .slide {
+                padding: clamp(10px, 1.5vw, 25px);
+            }
+            
+            h1 {
+                font-size: clamp(20px, 2.2vw, 40px) !important;
+                margin-bottom: clamp(8px, 1.2vw, 15px) !important;
+            }
+            
+            .subtitle {
+                margin-bottom: clamp(10px, 1.5vw, 20px) !important;
+            }
+            
+            .grid-2 {
+                gap: clamp(15px, 2vw, 25px) !important;
+            }
+            
+            .grid-3 {
+                gap: clamp(10px, 1.5vw, 20px) !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: clamp(15px, 2vw, 20px);
+            }
+            
+            .grid-3 {
+                grid-template-columns: 1fr;
+                gap: clamp(10px, 1.5vw, 15px);
+            }
+            
+            .vehicle-image-placeholder {
+                height: clamp(150px, 20vw, 180px);
+            }
+        }
+
         @media (max-width: 480px) {
             .nav-container {
                 padding: 6px 10px;
@@ -235,6 +283,11 @@
             .slide-select {
                 font-size: 10px;
                 padding: 4px 6px;
+            }
+            
+            .grid-3 {
+                grid-template-columns: 1fr;
+                text-align: center;
             }
         }
     </style>
@@ -284,47 +337,47 @@
         <h1>The Future: REEP E-Bus</h1>
         <div class="subtitle">Expanding our vision to transform public transportation</div>
         
-        <div style="text-align: center; margin: 20px 0;">
+        <div style="text-align: center; margin: clamp(15px, 2vw, 20px) 0;">
             <!-- Future E-Bus Images -->
-            <div style="display: flex; gap: 25px; justify-content: center; flex-wrap: nowrap; margin: 0 auto; max-width: 1000px;">
-                <img src="future-e-bus/Untitled.jpeg" alt="Future E-Bus 1" style="height: 180px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #228B22;">
-                <img src="future-e-bus/Untitled 2.jpeg" alt="Future E-Bus 2" style="height: 180px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #228B22;">
-                <img src="future-e-bus/Untitled 3.jpeg" alt="Future E-Bus 3" style="height: 180px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #228B22;">
-                <img src="future-e-bus/Untitled 4.jpeg" alt="Future E-Bus 4" style="height: 180px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #228B22;">
+            <div style="display: flex; gap: clamp(15px, 2.5vw, 25px); justify-content: center; flex-wrap: wrap; margin: 0 auto; max-width: 1000px;">
+                <img src="future-e-bus/Untitled.jpeg" alt="Future E-Bus 1" style="height: clamp(120px, 18vw, 180px); border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #228B22;">
+                <img src="future-e-bus/Untitled 2.jpeg" alt="Future E-Bus 2" style="height: clamp(120px, 18vw, 180px); border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #228B22;">
+                <img src="future-e-bus/Untitled 3.jpeg" alt="Future E-Bus 3" style="height: clamp(120px, 18vw, 180px); border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #228B22;">
+                <img src="future-e-bus/Untitled 4.jpeg" alt="Future E-Bus 4" style="height: clamp(120px, 18vw, 180px); border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #228B22;">
             </div>
         </div>
         
-        <div style="background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%); color: white; padding: 25px; border-radius: clamp(10px, 1.0vw, 20px); text-align: center; margin: 20px 0; box-shadow: 0 0.8vw 2.3vw rgba(34,139,34,0.3);">
-            <h3 style="color: white; font-size: 30px; margin-bottom: 20px;">Coming Soon: The REEP E-Bus Series</h3>
+        <div style="background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%); color: white; padding: clamp(15px, 2.5vw, 25px); border-radius: clamp(10px, 1.0vw, 20px); text-align: center; margin: clamp(15px, 2vw, 20px) 0; box-shadow: 0 0.8vw 2.3vw rgba(34,139,34,0.3);">
+            <h3 style="color: white; font-size: clamp(20px, 3vw, 30px); margin-bottom: clamp(12px, 2vw, 20px);">Coming Soon: The REEP E-Bus Series</h3>
             <div class="grid-3">
                 <div>
-                    <div style="font-size: 48px; font-weight: 700; margin-bottom: 8px;">32</div>
-                    <p style="font-size: 18px;">Passenger Capacity</p>
+                    <div style="font-size: clamp(28px, 4.8vw, 48px); font-weight: 700; margin-bottom: clamp(4px, 0.8vw, 8px);">32</div>
+                    <p style="font-size: clamp(14px, 1.8vw, 18px);">Passenger Capacity</p>
                 </div>
                 <div>
-                    <div style="font-size: 48px; font-weight: 700; margin-bottom: 8px;">200km</div>
-                    <p style="font-size: 18px;">Range per Charge</p>
+                    <div style="font-size: clamp(28px, 4.8vw, 48px); font-weight: 700; margin-bottom: clamp(4px, 0.8vw, 8px);">200km</div>
+                    <p style="font-size: clamp(14px, 1.8vw, 18px);">Range per Charge</p>
                 </div>
                 <div>
-                    <div style="font-size: 48px; font-weight: 700; margin-bottom: 8px;">2025</div>
-                    <p style="font-size: 18px;">Launch Year</p>
+                    <div style="font-size: clamp(28px, 4.8vw, 48px); font-weight: 700; margin-bottom: clamp(4px, 0.8vw, 8px);">2025</div>
+                    <p style="font-size: clamp(14px, 1.8vw, 18px);">Launch Year</p>
                 </div>
             </div>
         </div>
         
-        <div class="grid-2" style="margin-top: 20px;">
-            <div style="background: white; border-left: 5px solid #0047AB; padding: 25px; border-radius: clamp(7px, 0.8vw, 15px); box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.08);">
-                <h4 style="color: #0047AB; font-size: 22px; margin-bottom: 15px;">🔧 Smart Features</h4>
-                <div style="font-size: 17px; color: #666; line-height: 1.6;">
+        <div class="grid-2" style="margin-top: clamp(15px, 2vw, 20px);">
+            <div style="background: white; border-left: clamp(3px, 0.5vw, 5px) solid #0047AB; padding: clamp(15px, 2.5vw, 25px); border-radius: clamp(7px, 0.8vw, 15px); box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.08);">
+                <h4 style="color: #0047AB; font-size: clamp(16px, 2.2vw, 22px); margin-bottom: clamp(8px, 1.5vw, 15px);">🔧 Smart Features</h4>
+                <div style="font-size: clamp(14px, 1.7vw, 17px); color: #666; line-height: 1.6;">
                     <p>🛰️ GPS tracking and route optimization</p>
                     <p>📱 Digital ticketing integration</p>
                     <p>📺 Real-time passenger information</p>
                     <p>❄️ Air conditioning with air purification</p>
                 </div>
             </div>
-            <div style="background: white; border-left: 5px solid #FDB813; padding: 25px; border-radius: clamp(7px, 0.8vw, 15px); box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.08);">
-                <h4 style="color: #FDB813; font-size: 22px; margin-bottom: 15px;">🎯 Target Applications</h4>
-                <div style="font-size: 17px; color: #666; line-height: 1.6;">
+            <div style="background: white; border-left: clamp(3px, 0.5vw, 5px) solid #FDB813; padding: clamp(15px, 2.5vw, 25px); border-radius: clamp(7px, 0.8vw, 15px); box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.08);">
+                <h4 style="color: #FDB813; font-size: clamp(16px, 2.2vw, 22px); margin-bottom: clamp(8px, 1.5vw, 15px);">🎯 Target Applications</h4>
+                <div style="font-size: clamp(14px, 1.7vw, 17px); color: #666; line-height: 1.6;">
                     <p>🏙️ City public transport</p>
                     <p>🏢 Corporate employee transport</p>
                     <p>🎓 School and college buses</p>
