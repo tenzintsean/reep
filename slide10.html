@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: Technical Excellence</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5; color: #333; line-height: 1.6;
+        }
+        
+        .slide {
+            width: 1920px; height: 1080px; background: white; margin: 40px auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1); padding: 60px; position: relative;
+            overflow: hidden; display: flex; flex-direction: column;
+        }
+        
+        .slide-number { position: absolute; top: 30px; left: 30px; font-size: 16px; color: #999; font-weight: 500; }
+        
+        .solar-pattern {
+            position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; opacity: 0.08;
+            background: repeating-linear-gradient(45deg, #FDB813, #FDB813 10px, transparent 10px, transparent 20px);
+            transform: rotate(15deg); animation: subtle-rotate 20s linear infinite;
+        }
+        
+        @keyframes subtle-rotate { from { transform: rotate(15deg); } to { transform: rotate(375deg); } }
+        
+        h1 { color: #0047AB; font-size: 60px; font-weight: 700; margin-bottom: 30px; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,71,171,0.1); }
+        .subtitle { color: #666; font-size: 24px; margin-bottom: 40px; }
+        h3 { color: #0047AB; font-size: 32px; font-weight: 600; margin-bottom: 15px; }
+        
+        .spec-table {
+            width: 100%; background: white; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .spec-table th {
+            background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); color: white;
+            padding: 25px; font-size: 22px; font-weight: 600; text-align: left; position: relative;
+        }
+        
+        .spec-table td {
+            padding: 20px 25px; font-size: 20px; border-bottom: 1px solid #eee;
+            transition: background 0.3s ease;
+        }
+        
+        .spec-table tr:hover td { background: #f0f8ff; }
+        .spec-table tr:last-child td { border-bottom: none; }
+        
+        .logo-corner { position: absolute; bottom: 30px; right: 30px; font-size: 32px; font-weight: 700; color: #0047AB; opacity: 0.6; }
+        
+        @media (max-width: 1920px) { .slide { width: 100%; max-width: 1920px; } }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-number">10</div>
+        <div class="solar-pattern"></div>
+        <h1>Technical Excellence Across Categories</h1>
+        <div class="subtitle">Specifications that deliver on promises</div>
+        
+        <table class="spec-table">
+            <thead>
+                <tr>
+                    <th style="width: 25%;">Specification</th>
+                    <th style="width: 25%;">L3 Category</th>
+                    <th style="width: 25%;">L5 Category</th>
+                    <th style="width: 25%;">Solar Advantage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Payload Capacity</strong></td>
+                    <td><span style="background: #e8f5e8; padding: 5px 12px; border-radius: 8px; color: #228B22; font-weight: 600;">Up to 400 kg</span></td>
+                    <td><span style="background: #e8f5e8; padding: 5px 12px; border-radius: 8px; color: #228B22; font-weight: 600;">Up to 850 kg</span></td>
+                    <td style="color: #FDB813; font-weight: 600;">+10% with weight optimization</td>
+                </tr>
+                <tr>
+                    <td><strong>Range per Charge</strong></td>
+                    <td>90-100 km</td>
+                    <td>100-120 km</td>
+                    <td style="color: #FDB813; font-weight: 600;">+30 km daily from solar</td>
+                </tr>
+                <tr>
+                    <td><strong>Battery Options</strong></td>
+                    <td>Lead Acid / Lithium</td>
+                    <td>Advanced Lithium</td>
+                    <td style="color: #FDB813; font-weight: 600;">Solar extends battery life 20%</td>
+                </tr>
+                <tr>
+                    <td><strong>Charging Time</strong></td>
+                    <td>4 hours (fast charge)</td>
+                    <td>4-5 hours</td>
+                    <td style="color: #FDB813; font-weight: 600;">Continuous trickle charge</td>
+                </tr>
+                <tr>
+                    <td><strong>Gradient Capability</strong></td>
+                    <td>12° fully loaded</td>
+                    <td>15° fully loaded</td>
+                    <td style="color: #FDB813; font-weight: 600;">Better hill performance</td>
+                </tr>
+                <tr>
+                    <td><strong>Warranty</strong></td>
+                    <td>1 year comprehensive</td>
+                    <td>3 years comprehensive</td>
+                    <td style="color: #FDB813; font-weight: 600;">Extended component life</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); color: white; padding: 35px; border-radius: 20px; text-align: center; margin-top: 30px; box-shadow: 0 12px 35px rgba(0,71,171,0.3);">
+            <h3 style="color: white; margin-bottom: 15px;">🏆 Quality Certifications</h3>
+            <p style="font-size: 24px;">ARAI Certified • IP67 Rated Components • CAN-Enabled Diagnostics • Make in India Compliant</p>
+        </div>
+        
+        <div class="logo-corner">REEP</div>
+    </div>
+</body>
+</html>

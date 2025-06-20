@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: The REEP Advantage</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5; color: #333; line-height: 1.6;
+        }
+        
+        .slide {
+            width: 1920px; height: 1080px; background: white; margin: 40px auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1); padding: 45px; position: relative;
+            overflow: hidden; display: flex; flex-direction: column;
+        }
+        
+        .slide-number { position: absolute; top: 30px; left: 30px; font-size: 16px; color: #999; font-weight: 500; }
+        
+        .solar-pattern {
+            position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; opacity: 0.08;
+            background: repeating-linear-gradient(45deg, #FDB813, #FDB813 10px, transparent 10px, transparent 20px);
+            transform: rotate(15deg); animation: subtle-rotate 20s linear infinite;
+        }
+        
+        @keyframes subtle-rotate { from { transform: rotate(15deg); } to { transform: rotate(375deg); } }
+        
+        h1 { color: #0047AB; font-size: 52px; font-weight: 700; margin-bottom: 20px; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,71,171,0.1); }
+        .subtitle { color: #666; font-size: 22px; margin-bottom: 30px; }
+        h2 { color: #0047AB; font-size: 32px; font-weight: 600; margin-bottom: 15px; line-height: 1.3; }
+        h3 { color: #0047AB; font-size: 28px; font-weight: 600; margin-bottom: 12px; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        
+        .logo-corner { position: absolute; bottom: 30px; right: 30px; font-size: 32px; font-weight: 700; color: #0047AB; opacity: 0.6; }
+        
+        @media (max-width: 1920px) { .slide { width: 100%; max-width: 1920px; } }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-number">22</div>
+        <div class="solar-pattern"></div>
+        <h1>The REEP Advantage</h1>
+        <div class="subtitle">Why leading organizations choose REEP</div>
+        
+        <div class="grid-2">
+            <div>
+                <div style="background: white; border-radius: 18px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 25px; border-top: 6px solid #FDB813;">
+                    <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 18px;">
+                        <div style="width: 55px; height: 55px; background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 26px;">🤝</div>
+                        <h3 style="font-size: 28px; margin: 0;">Proven Partnership</h3>
+                    </div>
+                    <div style="font-size: 18px; color: #666; line-height: 1.6;">
+                        <p>✓ 6,000+ vehicles successfully deployed</p>
+                        <p>✓ Major government contracts delivered</p>
+                        <p>✓ 95% customer satisfaction score</p>
+                        <p>✓ Long-term relationships, not just sales</p>
+                    </div>
+                </div>
+                
+                <div style="background: white; border-radius: 18px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 6px solid #228B22;">
+                    <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 18px;">
+                        <div style="width: 55px; height: 55px; background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 26px;">🏭</div>
+                        <h3 style="font-size: 28px; margin: 0;">Manufacturing Scale</h3>
+                    </div>
+                    <div style="font-size: 18px; color: #666; line-height: 1.6;">
+                        <p>✓ 200+ vehicles per day capacity</p>
+                        <p>✓ ISO certified production facility</p>
+                        <p>✓ Consistent quality at scale</p>
+                        <p>✓ Customization capabilities</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <div style="background: white; border-radius: 18px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 25px; border-top: 6px solid #0047AB;">
+                    <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 18px;">
+                        <div style="width: 55px; height: 55px; background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 26px;">🔧</div>
+                        <h3 style="font-size: 28px; margin: 0;">Complete Ecosystem</h3>
+                    </div>
+                    <div style="font-size: 18px; color: #666; line-height: 1.6;">
+                        <p>✓ Design to delivery ownership</p>
+                        <p>✓ 50+ service touchpoints</p>
+                        <p>✓ 24/7 customer support</p>
+                        <p>✓ Comprehensive warranty coverage</p>
+                    </div>
+                </div>
+                
+                <div style="background: white; border-radius: 18px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 6px solid #FDB813;">
+                    <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 18px;">
+                        <div style="width: 55px; height: 55px; background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 26px;">💡</div>
+                        <h3 style="font-size: 28px; margin: 0;">Product Innovation</h3>
+                    </div>
+                    <div style="font-size: 18px; color: #666; line-height: 1.6;">
+                        <p>✓ Solar-Smart technology leadership</p>
+                        <p>✓ Comprehensive L3/L5 range</p>
+                        <p>✓ Application-specific solutions</p>
+                        <p>✓ Continuous R&D investment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); color: white; padding: 35px; border-radius: 20px; text-align: center; margin-top: 30px; box-shadow: 0 12px 35px rgba(0,71,171,0.3);">
+            <h2 style="color: white; margin-bottom: 20px; font-size: 36px;">The Bottom Line</h2>
+            <p style="font-size: 26px; line-height: 1.4;">
+                When you choose REEP, you're not just buying vehicles.<br>
+                <span style="color: #FDB813; font-weight: 700;">You're investing in a partnership that delivers results.</span>
+            </p>
+        </div>
+        
+        <div class="logo-corner">REEP</div>
+    </div>
+</body>
+</html>

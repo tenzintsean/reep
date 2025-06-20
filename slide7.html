@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: L3 Passenger Vehicle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .slide {
+            width: 1920px;
+            height: 1080px;
+            background: white;
+            margin: 40px auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-size: 16px;
+            color: #999;
+            font-weight: 500;
+        }
+        
+        .solar-pattern {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            opacity: 0.08;
+            background: repeating-linear-gradient(
+                45deg,
+                #FDB813,
+                #FDB813 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            transform: rotate(15deg);
+            animation: subtle-rotate 20s linear infinite;
+        }
+        
+        @keyframes subtle-rotate {
+            from { transform: rotate(15deg); }
+            to { transform: rotate(375deg); }
+        }
+        
+        h1 {
+            color: #0047AB;
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.1;
+            text-shadow: 0 2px 4px rgba(0,71,171,0.1);
+        }
+        
+        h2 {
+            color: #0047AB;
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        
+        h4 {
+            color: #0047AB;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .vehicle-image-placeholder {
+            height: 280px;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+            border: 3px solid #0047AB;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .vehicle-image-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40"><rect x="10" y="20" width="60" height="15" rx="3" fill="%23FDB813"/><circle cx="25" cy="35" r="4" fill="%23333"/><circle cx="55" cy="35" r="4" fill="%23333"/><rect x="70" y="15" width="20" height="20" rx="2" fill="%230047AB"/></svg>') center/contain no-repeat;
+            opacity: 0.3;
+        }
+        
+        .vehicle-label {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0047AB;
+            background: rgba(255,255,255,0.95);
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,71,171,0.15);
+            z-index: 1;
+            position: relative;
+        }
+        
+        .metric-dashboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .metric-item {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .metric-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+        }
+        
+        .metric-value {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .metric-label {
+            font-size: 18px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .logo-corner {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 32px;
+            font-weight: 700;
+            color: #0047AB;
+            opacity: 0.6;
+        }
+        
+        /* Responsive Design Elements */
+        @media (max-width: 1920px) {
+            .slide {
+                width: 100%;
+                max-width: 1920px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 7: L3 Passenger with Enhanced Visual Appeal -->
+    <div class="slide">
+        <div class="slide-number">7</div>
+        <div class="solar-pattern"></div>
+        <h1>L3 Passenger Vehicle</h1>
+        <div class="subtitle">Redefining urban transportation economics</div>
+        
+        <div style="display: flex; gap: 50px; align-items: center;">
+            <div style="flex: 1;">
+                <!-- L3 Passenger Vehicle Images - Enlarged and Highlighted -->
+                <div style="display: flex; gap: 25px; margin: 30px 0; justify-content: center; flex-wrap: wrap;">
+                    <img src="l3-passenger/Untitled 6.jpeg" alt="L3 Passenger Vehicle 1" style="height: 200px; border-radius: 15px; box-shadow: 0 8px 30px rgba(0,71,171,0.3); border: 3px solid #0047AB;">
+                    <img src="l3-passenger/Untitled 7.jpeg" alt="L3 Passenger Vehicle 2" style="height: 200px; border-radius: 15px; box-shadow: 0 8px 30px rgba(0,71,171,0.3); border: 3px solid #0047AB;">
+                </div>
+                <div style="display: flex; gap: 25px; margin: 30px 0; justify-content: center; flex-wrap: wrap;">
+                    <img src="l3-passenger/Untitled 8.jpeg" alt="L3 Passenger Vehicle 3" style="height: 200px; border-radius: 15px; box-shadow: 0 8px 30px rgba(0,71,171,0.3); border: 3px solid #0047AB;">
+                    <img src="l3-passenger/Untitled 9.jpeg" alt="L3 Passenger Vehicle 4" style="height: 200px; border-radius: 15px; box-shadow: 0 8px 30px rgba(0,71,171,0.3); border: 3px solid #0047AB;">
+                </div>
+                <div style="margin-top: 15px; text-align: center; background: #f0f8ff; padding: 15px; border-radius: 15px;">
+                    <h4 style="color: #0047AB; font-size: 18px;">4+1 Seating • Weather Protection • Smart Design</h4>
+                </div>
+            </div>
+            
+            <div style="flex: 1;">
+                <h2 style="color: #0047AB; margin-bottom: 25px;">E-Rickshaw Excellence</h2>
+                
+                <div style="background: white; border-left: 5px solid #FDB813; padding: 20px; margin-bottom: 15px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);">
+                    <h4 style="font-size: 20px; color: #FDB813; margin-bottom: 8px;">🪑 Passenger Comfort</h4>
+                    <p style="font-size: 16px; color: #666;">Spacious seating for 4+1 • Weather protection • Smooth suspension system</p>
+                </div>
+                
+                <div style="background: white; border-left: 5px solid #228B22; padding: 20px; margin-bottom: 15px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);">
+                    <h4 style="font-size: 20px; color: #228B22; margin-bottom: 8px;">💰 Driver Benefits</h4>
+                    <p style="font-size: 16px; color: #666;">₹30,000+ annual fuel savings • Low maintenance • Easy financing options</p>
+                </div>
+                
+                <div style="background: white; border-left: 5px solid #0047AB; padding: 20px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);">
+                    <h4 style="font-size: 20px; color: #0047AB; margin-bottom: 8px;">⚡ Operational Excellence</h4>
+                    <p style="font-size: 16px; color: #666;">8-hour continuous operation • Fast charging • Smart connectivity ready</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="metric-dashboard">
+            <div class="metric-item">
+                <div class="metric-value" style="color: #FDB813;">15,000+</div>
+                <div class="metric-label">Daily Trips Enabled</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value" style="color: #228B22;">₹500</div>
+                <div class="metric-label">Daily Earnings Potential</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value" style="color: #0047AB;">2 Years</div>
+                <div class="metric-label">ROI Period</div>
+            </div>
+        </div>
+        
+        <div class="logo-corner">REEP</div>
+    </div>
+</body>
+</html>

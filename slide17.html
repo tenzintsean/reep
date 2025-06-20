@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: Panchayat Case Study</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5; color: #333; line-height: 1.6;
+        }
+        
+        .slide {
+            width: 1920px;
+            height: 1080px;
+            background: white;
+            margin: 40px auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-number { position: absolute; top: 30px; left: 30px; font-size: 16px; color: #999; font-weight: 500; }
+        
+        .solar-pattern {
+            position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; opacity: 0.08;
+            background: repeating-linear-gradient(45deg, #FDB813, #FDB813 10px, transparent 10px, transparent 20px);
+            transform: rotate(15deg); animation: subtle-rotate 20s linear infinite;
+        }
+        
+        @keyframes subtle-rotate { from { transform: rotate(15deg); } to { transform: rotate(375deg); } }
+        
+        h1 { color: #0047AB; font-size: 48px; font-weight: 700; margin-bottom: 20px; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,71,171,0.1); }
+        .subtitle { color: #666; font-size: 20px; margin-bottom: 28px; }
+        h2 { color: #0047AB; font-size: 34px; font-weight: 600; margin-bottom: 20px; line-height: 1.3; }
+        h3 { color: #0047AB; font-size: 26px; font-weight: 600; margin-bottom: 12px; }
+        h4 { color: #0047AB; font-size: 22px; font-weight: 600; margin-bottom: 10px; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; margin-bottom: 28px; }
+        
+        .logo-corner { position: absolute; bottom: 30px; right: 30px; font-size: 32px; font-weight: 700; color: #0047AB; opacity: 0.6; }
+        
+        @media (max-width: 1920px) { .slide { width: 100%; max-width: 1920px; } }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-number">17</div>
+        <div class="solar-pattern"></div>
+        <h1>Case Study: Tamil Nadu Panchayats</h1>
+        <div class="subtitle">Grassroots transformation through sustainable mobility</div>
+        
+        <div style="text-align: center; margin-bottom: 22px;">
+            <div style="display: inline-block; background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%); color: white; padding: 16px 32px; border-radius: 32px; box-shadow: 0 10px 28px rgba(34,139,34,0.3);">
+                <h2 style="color: white; margin: 0; font-size: 28px;">671 Villages Empowered</h2>
+            </div>
+        </div>
+        
+        <div class="grid-2">
+            <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 28px rgba(0,0,0,0.1);">
+                <div style="background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%); color: white; padding: 20px; text-align: center;">
+                    <h3 style="color: white; font-size: 26px; margin-bottom: 4px;">Coimbatore District</h3>
+                    <p style="font-size: 18px; opacity: 0.9;">248 Vehicles Deployed</p>
+                </div>
+                <div style="padding: 24px;">
+                    <h4 style="color: #FDB813; margin-bottom: 14px; font-size: 20px;">Applications</h4>
+                    <div style="font-size: 16px; color: #666; line-height: 1.6;">
+                        <p>🗑️ Waste collection in 120 panchayats</p>
+                        <p>💧 Water supply distribution</p>
+                        <p>🏥 Healthcare service delivery</p>
+                        <p>🌾 Agricultural produce transport</p>
+                    </div>
+                    <div style="background: #fff8e1; padding: 14px; border-radius: 10px; margin-top: 14px; text-align: center;">
+                        <p style="font-size: 17px; color: #FDB813; font-weight: 600; margin: 0;">
+                            "30% improvement in service delivery efficiency"
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 28px rgba(0,0,0,0.1);">
+                <div style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); color: white; padding: 20px; text-align: center;">
+                    <h3 style="color: white; font-size: 26px; margin-bottom: 4px;">Tiruvallur District</h3>
+                    <p style="font-size: 18px; opacity: 0.9;">423 Vehicles Deployed</p>
+                </div>
+                <div style="padding: 24px;">
+                    <h4 style="color: #0047AB; margin-bottom: 14px; font-size: 20px;">Impact Metrics</h4>
+                    <div style="font-size: 16px; color: #666; line-height: 1.6;">
+                        <p>🏘️ 200+ panchayats served</p>
+                        <p>🏠 50,000+ households benefited</p>
+                        <p>👨‍💼 Direct employment for 400+ drivers</p>
+                        <p>💰 ₹2 Cr annual fuel savings</p>
+                    </div>
+                    <div style="background: #f0f8ff; padding: 14px; border-radius: 10px; margin-top: 14px; text-align: center;">
+                        <p style="font-size: 17px; color: #0047AB; font-weight: 600; margin: 0;">
+                            "Model for sustainable rural development"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%); color: white; padding: 28px; border-radius: 16px; margin-bottom: 48px; box-shadow: 0 12px 36px rgba(34,139,34,0.3);">
+            <h3 style="color: white; text-align: center; margin-bottom: 20px; font-size: 26px;">Rural Transformation Impact</h3>
+            <div style="display: flex; justify-content: space-around; text-align: center; flex-wrap: wrap; gap: 16px;">
+                <div style="flex: 1; min-width: 112px;">
+                    <div style="font-size: 34px; margin-bottom: 6px;">🏘️</div>
+                    <p style="font-size: 15px;">Clean Villages</p>
+                </div>
+                <div style="flex: 1; min-width: 112px;">
+                    <div style="font-size: 34px; margin-bottom: 6px;">🏥</div>
+                    <p style="font-size: 15px;">Better Healthcare Access</p>
+                </div>
+                <div style="flex: 1; min-width: 112px;">
+                    <div style="font-size: 34px; margin-bottom: 6px;">🌾</div>
+                    <p style="font-size: 15px;">Improved Agri Logistics</p>
+                </div>
+                <div style="flex: 1; min-width: 112px;">
+                    <div style="font-size: 34px; margin-bottom: 6px;">👥</div>
+                    <p style="font-size: 15px;">Youth Employment</p>
+                </div>
+                <div style="flex: 1; min-width: 112px;">
+                    <div style="font-size: 34px; margin-bottom: 6px;">🌱</div>
+                    <p style="font-size: 15px;">Environmental Leadership</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logo-corner">REEP</div>
+    </div>
+</body>
+</html>

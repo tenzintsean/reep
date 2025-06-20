@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: Engineered by Heritage, Delivered as Innovation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .slide {
+            width: 1920px;
+            height: 1080px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            margin: 40px auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-size: 16px;
+            color: #999;
+            font-weight: 500;
+        }
+        
+        /* Heritage-inspired background pattern */
+        .heritage-pattern {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 600px;
+            height: 100%;
+            opacity: 0.05;
+            background: 
+                radial-gradient(circle at 20% 20%, #FDB813 2px, transparent 2px),
+                radial-gradient(circle at 80% 80%, #0047AB 2px, transparent 2px);
+            background-size: 40px 40px;
+            animation: heritage-float 30s ease-in-out infinite;
+        }
+        
+        @keyframes heritage-float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .main-headline {
+            color: #0047AB;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.2;
+            text-shadow: 0 3px 6px rgba(0,71,171,0.15);
+        }
+        
+        .value-proposition {
+            color: #FDB813;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 4px rgba(253,184,19,0.2);
+        }
+        
+        .transformation-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .company-card {
+            text-align: center;
+            padding: 35px 30px;
+            border-radius: 20px;
+            flex: 1;
+            max-width: 400px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .heritage-card {
+            background: linear-gradient(135deg, #e3f2fd 0%, #ffffff 100%);
+            border: 3px solid #0047AB;
+            box-shadow: 0 15px 40px rgba(0,71,171,0.2);
+        }
+        
+        .innovation-card {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffffff 100%);
+            border: 3px solid #FDB813;
+            box-shadow: 0 15px 40px rgba(253,184,19,0.2);
+        }
+        
+        .company-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+        }
+        
+        .company-logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .heritage-logo {
+            background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%);
+            box-shadow: 0 10px 30px rgba(0,71,171,0.4);
+        }
+        
+        .innovation-logo {
+            background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%);
+            box-shadow: 0 10px 30px rgba(253,184,19,0.4);
+        }
+        
+        .company-logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: logo-shine 3s ease-in-out infinite;
+        }
+        
+        @keyframes logo-shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+        }
+        
+        .company-name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .heritage-name { color: #0047AB; }
+        .innovation-name { color: #FDB813; }
+        
+        .company-tagline {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 18px;
+            font-weight: 500;
+        }
+        
+        .proof-points {
+            text-align: left;
+            background: rgba(255,255,255,0.7);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+        
+        .proof-point {
+            font-size: 15px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .proof-point::before {
+            content: '●';
+            color: #228B22;
+            font-weight: bold;
+        }
+        
+        .transformation-arrow {
+            font-size: 60px;
+            color: #FDB813;
+            font-weight: bold;
+            text-shadow: 0 4px 8px rgba(253,184,19,0.3);
+            animation: arrow-pulse 2s ease-in-out infinite;
+            z-index: 3;
+            position: relative;
+        }
+        
+        @keyframes arrow-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .timeline-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #228B22 0%, #32CD32 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(34,139,34,0.3);
+        }
+        
+        .accountability-banner {
+            background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%);
+            padding: 20px 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,71,171,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .accountability-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: banner-shine 4s ease-in-out infinite;
+        }
+        
+        @keyframes banner-shine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: -100%; }
+        }
+        
+        .accountability-icon {
+            font-size: 36px;
+            background: rgba(255,255,255,0.2);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .accountability-content {
+            flex: 1;
+        }
+        
+        .accountability-title {
+            color: white;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .accountability-text {
+            color: rgba(255,255,255,0.9);
+            font-size: 16px;
+            line-height: 1.4;
+        }
+        
+        .customer-benefit {
+            background: linear-gradient(135deg, #f0f8ff 0%, #ffffff 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            border: 2px solid #e0e0e0;
+            position: relative;
+        }
+        
+        .customer-benefit::before {
+            content: '"';
+            position: absolute;
+            top: -8px;
+            left: 30px;
+            font-size: 60px;
+            color: #0047AB;
+            opacity: 0.3;
+        }
+        
+        .benefit-title {
+            color: #0047AB;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .benefit-text {
+            font-size: 18px;
+            color: #555;
+            font-style: italic;
+            margin-bottom: 12px;
+        }
+        
+        .benefit-attribution {
+            font-size: 14px;
+            color: #999;
+            font-weight: 500;
+        }
+        
+        .logo-corner {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0047AB 0%, #FDB813 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1920px) {
+            .slide {
+                width: 100%;
+                max-width: 1920px;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .slide {
+                padding: 20px;
+                min-height: auto;
+            }
+            
+            .main-headline {
+                font-size: 36px;
+            }
+            
+            .transformation-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .transformation-arrow {
+                transform: rotate(90deg);
+                font-size: 60px;
+            }
+            
+            .company-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-number">4</div>
+        <div class="heritage-pattern"></div>
+        
+        <h1 class="main-headline">Engineered by Heritage, Delivered as Innovation</h1>
+        <div class="value-proposition">40 years of proven excellence meets cutting-edge EV technology</div>
+        
+        <div class="transformation-container">
+            <div class="timeline-badge">1983 → 2024</div>
+            
+            <div class="company-card heritage-card">
+                <div class="company-logo heritage-logo">
+                    <span>⚙</span>
+                </div>
+                <h3 class="company-name heritage-name">Privil Solutions</h3>
+                <p class="company-tagline">The Manufacturing Foundation</p>
+                <div class="proof-points">
+                    <div class="proof-point">40 Years Engineering Excellence</div>
+                    <div class="proof-point">ISO 9001, 14001, 18001 Certified</div>
+                    <div class="proof-point">200+ Vehicles Daily Capacity</div>
+                    <div class="proof-point">State-of-the-art Facilities</div>
+                </div>
+            </div>
+            
+            <div class="transformation-arrow">→</div>
+            
+            <div class="company-card innovation-card">
+                <div class="company-logo innovation-logo">
+                    <span>⚡</span>
+                </div>
+                <h3 class="company-name innovation-name">REEP Motors</h3>
+                <p class="company-tagline">The Innovation Brand</p>
+                <div class="proof-points">
+                    <div class="proof-point">6,000+ Satisfied Customers</div>
+                    <div class="proof-point">Solar-Smart EV Technology</div>
+                    <div class="proof-point">50+ Service Touchpoints</div>
+                    <div class="proof-point">Future-Ready Solutions</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="accountability-banner">
+            <div class="accountability-icon">🔗</div>
+            <div class="accountability-content">
+                <h3 class="accountability-title">Single-Source Accountability</h3>
+                <p class="accountability-text">From engineering to after-sales support, we take complete ownership of your mobility solution</p>
+            </div>
+        </div>
+        
+        <div class="customer-benefit">
+            <h3 class="benefit-title">Why This Matters to You</h3>
+            <p class="benefit-text">We chose REEP because we get both proven reliability and future innovation in one trusted partner</p>
+            <p class="benefit-attribution">— Municipal Commissioner, Greater Chennai Corporation</p>
+        </div>
+        
+        <div class="logo-corner">REEP</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: Client Testimonials</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5; color: #333; line-height: 1.6;
+        }
+        
+        .slide {
+            width: 1920px; height: 1080px; background: white; margin: 40px auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1); padding: 50px; position: relative;
+            overflow: hidden; display: flex; flex-direction: column;
+        }
+        
+        .slide-number { position: absolute; top: 30px; left: 30px; font-size: 16px; color: #999; font-weight: 500; }
+        
+        .solar-pattern {
+            position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; opacity: 0.08;
+            background: repeating-linear-gradient(45deg, #FDB813, #FDB813 10px, transparent 10px, transparent 20px);
+            transform: rotate(15deg); animation: subtle-rotate 20s linear infinite;
+        }
+        
+        @keyframes subtle-rotate { from { transform: rotate(15deg); } to { transform: rotate(375deg); } }
+        
+        h1 { color: #0047AB; font-size: 54px; font-weight: 700; margin-bottom: 20px; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,71,171,0.1); }
+        .subtitle { color: #666; font-size: 22px; margin-bottom: 30px; }
+        h3 { color: #0047AB; font-size: 28px; font-weight: 600; margin-bottom: 15px; }
+        
+        .testimonial-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 25px; border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            margin-bottom: 18px; position: relative; border-left: 5px solid #FDB813;
+        }
+        
+        .quote-mark {
+            position: absolute; top: 10px; right: 20px; font-size: 60px; color: #FDB813;
+            opacity: 0.2; font-family: serif;
+        }
+        
+        .testimonial-text {
+            font-size: 18px; color: #333; line-height: 1.5; margin-bottom: 15px; font-style: italic;
+        }
+        
+        .testimonial-author { font-size: 17px; color: #0047AB; font-weight: 600; }
+        .testimonial-role { font-size: 15px; color: #666; margin-top: 3px; }
+        
+        .logo-corner { position: absolute; bottom: 30px; right: 30px; font-size: 32px; font-weight: 700; color: #0047AB; opacity: 0.6; }
+        
+        @media (max-width: 1920px) { .slide { width: 100%; max-width: 1920px; } }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-number">18</div>
+        <div class="solar-pattern"></div>
+        <h1>Voices of Trust</h1>
+        <div class="subtitle">What our partners say about REEP</div>
+        
+        <div class="testimonial-card">
+            <div class="quote-mark">"</div>
+            <p class="testimonial-text">
+                REEP has been instrumental in our city's transformation to sustainable waste management. Their vehicles have performed flawlessly for over two years, and their service support is unmatched.
+            </p>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px;">D</div>
+                <div>
+                    <p class="testimonial-author">Dr. Gagandeep Singh Bedi, IAS</p>
+                    <p class="testimonial-role">Commissioner, Greater Chennai Corporation</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonial-card">
+            <div class="quote-mark">"</div>
+            <p class="testimonial-text">
+                As a logistics company handling last-mile delivery, switching to REEP vehicles has reduced our operational costs by 45%. The reliability and range perfectly match our urban delivery needs.
+            </p>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px;">R</div>
+                <div>
+                    <p class="testimonial-author">Rajesh Kumar</p>
+                    <p class="testimonial-role">Operations Head, QuickDeliver Logistics</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonial-card">
+            <div class="quote-mark">"</div>
+            <p class="testimonial-text">
+                The REEP team understood our unique requirements for rural healthcare delivery. They customized vehicles with medical storage and even provided training for our drivers.
+            </p>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 20px;">P</div>
+                <div>
+                    <p class="testimonial-author">Dr. Priya Ramachandran</p>
+                    <p class="testimonial-role">Director, Tamil Nadu Health Department</p>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); padding: 25px; border-radius: 15px; margin-top: 20px; text-align: center; border: 2px solid #0047AB;">
+            <h3 style="color: #0047AB; margin-bottom: 15px; font-size: 28px;">95% Customer Satisfaction Score</h3>
+            <p style="font-size: 18px; color: #666; margin-bottom: 20px;">Based on 500+ customer surveys across government and private sectors</p>
+            <div style="display: flex; justify-content: center; gap: 60px;">
+                <div style="text-align: center;">
+                    <div style="font-size: 28px; font-weight: 700; color: #228B22;">98%</div>
+                    <div style="font-size: 16px; color: #666;">Would Recommend</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 28px; font-weight: 700; color: #FDB813;">4.8/5</div>
+                    <div style="font-size: 16px; color: #666;">Service Rating</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 28px; font-weight: 700; color: #0047AB;">50+</div>
+                    <div style="font-size: 16px; color: #666;">Repeat Clients</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logo-corner">REEP</div>
+    </div>
+</body>
+</html>

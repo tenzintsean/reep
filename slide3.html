@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: Vision & Mission</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .slide {
+            width: 1920px;
+            height: 1080px;
+            background: white;
+            margin: 40px auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-size: 16px;
+            color: #999;
+            font-weight: 500;
+        }
+        
+        /* Enhanced Visual Patterns */
+        .solar-pattern {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            opacity: 0.08;
+            background: repeating-linear-gradient(
+                45deg,
+                #FDB813,
+                #FDB813 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            transform: rotate(15deg);
+            animation: subtle-rotate 20s linear infinite;
+        }
+        
+        .solar-pattern-left {
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            opacity: 0.05;
+            background: repeating-linear-gradient(
+                -45deg,
+                #0047AB,
+                #0047AB 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            transform: rotate(-15deg);
+            animation: subtle-rotate-reverse 25s linear infinite;
+        }
+        
+        @keyframes subtle-rotate {
+            from { transform: rotate(15deg); }
+            to { transform: rotate(375deg); }
+        }
+        
+        @keyframes subtle-rotate-reverse {
+            from { transform: rotate(-15deg); }
+            to { transform: rotate(-375deg); }
+        }
+        
+        h1 {
+            color: #0047AB;
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,71,171,0.1);
+            text-align: center;
+        }
+        
+        h3 {
+            color: #0047AB;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+        
+        h4 {
+            color: #0047AB;
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        /* Grid Systems */
+        .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 25px; }
+        
+        /* Enhanced Icons */
+        .icon-box {
+            width: 90px;
+            height: 90px;
+            background: #FDB813;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 42px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(253,184,19,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .icon-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(253,184,19,0.4);
+        }
+        
+        .logo-corner {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 32px;
+            font-weight: 700;
+            color: #0047AB;
+            opacity: 0.6;
+        }
+        
+        /* Responsive Design Elements */
+        @media (max-width: 1920px) {
+            .slide {
+                width: 100%;
+                max-width: 1920px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 3: Vision & Mission with Aspirational Imagery -->
+    <div class="slide">
+        <div class="slide-number">3</div>
+        <div class="solar-pattern"></div>
+        <div class="solar-pattern-left"></div>
+        
+        <h1>Our Purpose & Direction</h1>
+        
+        <div style="background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%); color: white; padding: 45px; border-radius: 25px; text-align: center; margin-bottom: 35px; box-shadow: 0 12px 35px rgba(253,184,19,0.3);">
+            <h3 style="color: white; font-size: 38px; margin-bottom: 25px;">Our Mission</h3>
+            <p style="font-size: 26px; line-height: 1.5;">To empower individuals and businesses through innovative technologies and exceptional services, driving positive change and fostering sustainable growth.</p>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); color: white; padding: 45px; border-radius: 25px; text-align: center; margin-bottom: 40px; box-shadow: 0 12px 35px rgba(0,71,171,0.3);">
+            <h3 style="color: white; font-size: 38px; margin-bottom: 25px;">Our Vision</h3>
+            <p style="font-size: 26px; line-height: 1.5;">To be one of the leading companies in the Global EV industry, recognized for our commitment to excellence, customer satisfaction, and making a meaningful impact on the world.</p>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); padding: 50px; border-radius: 25px; border: 3px solid #e0e0e0;">
+            <h3 style="text-align: center; margin-bottom: 40px; font-size: 36px; color: #0047AB;">Our Core Values</h3>
+            <div class="grid-5">
+                <div style="text-align: center;">
+                    <div class="icon-box" style="margin: 0 auto 20px; background: #FDB813; width: 90px; height: 90px;">
+                        <div style="font-size: 42px;">💡</div>
+                    </div>
+                    <h4 style="font-size: 26px; margin-bottom: 15px;">Innovation</h4>
+                    <p style="font-size: 18px; color: #666; line-height: 1.5;">Continuously evolving design and cutting-edge technology</p>
+                </div>
+                <div style="text-align: center;">
+                    <div class="icon-box" style="margin: 0 auto 20px; background: #228B22; width: 90px; height: 90px;">
+                        <div style="font-size: 42px;">🛡️</div>
+                    </div>
+                    <h4 style="font-size: 26px; margin-bottom: 15px;">Reliability</h4>
+                    <p style="font-size: 18px; color: #666; line-height: 1.5;">Engineered for demanding Indian conditions</p>
+                </div>
+                <div style="text-align: center;">
+                    <div class="icon-box" style="margin: 0 auto 20px; background: #0047AB; width: 90px; height: 90px;">
+                        <div style="font-size: 42px;">🤝</div>
+                    </div>
+                    <h4 style="font-size: 26px; margin-bottom: 15px;">Partnership</h4>
+                    <p style="font-size: 18px; color: #666; line-height: 1.5;">Building long-term relationships with our clients</p>
+                </div>
+                <div style="text-align: center;">
+                    <div class="icon-box" style="margin: 0 auto 20px; background: #228B22; width: 90px; height: 90px;">
+                        <div style="font-size: 42px;">🌍</div>
+                    </div>
+                    <h4 style="font-size: 26px; margin-bottom: 15px;">Sustainability</h4>
+                    <p style="font-size: 18px; color: #666; line-height: 1.5;">Environmental leadership and responsibility</p>
+                </div>
+                <div style="text-align: center;">
+                    <div class="icon-box" style="margin: 0 auto 20px; background: #FDB813; width: 90px; height: 90px;">
+                        <div style="font-size: 42px;">🎯</div>
+                    </div>
+                    <h4 style="font-size: 26px; margin-bottom: 15px;">Customer Centered</h4>
+                    <p style="font-size: 18px; color: #666; line-height: 1.5;">Putting customer needs at the heart of everything we do</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logo-corner">REEP</div>
+    </div>
+</body>
+</html>

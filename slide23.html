@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: Investment Proposition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .slide {
+            width: 1920px;
+            height: 1080px;
+            background: white;
+            margin: 40px auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 45px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-size: 16px;
+            color: #999;
+            font-weight: 500;
+        }
+        
+        .solar-pattern {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            opacity: 0.08;
+            background: repeating-linear-gradient(
+                45deg,
+                #FDB813,
+                #FDB813 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            transform: rotate(15deg);
+            animation: subtle-rotate 20s linear infinite;
+        }
+        
+        @keyframes subtle-rotate {
+            from { transform: rotate(15deg); }
+            to { transform: rotate(375deg); }
+        }
+        
+        h1 {
+            color: #0047AB;
+            font-size: 52px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,71,171,0.1);
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 22px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #0047AB;
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        
+        h4 {
+            color: #0047AB;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        
+        .highlight { color: #FDB813; font-weight: 600; }
+        .green-accent { color: #228B22; font-weight: 600; }
+        
+        .logo-corner {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 32px;
+            font-weight: 700;
+            color: #0047AB;
+            opacity: 0.6;
+        }
+        
+        /* Responsive Design Elements */
+        @media (max-width: 1920px) {
+            .slide {
+                width: 100%;
+                max-width: 1920px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 23: Investment Proposition -->
+    <div class="slide">
+        <div class="slide-number">23</div>
+        <div class="solar-pattern"></div>
+        <h1>Your Investment in the Future</h1>
+        <div class="subtitle">Partner with REEP for sustainable growth and superior returns</div>
+        
+        <div class="grid-2">
+            <div>
+                <h2 style="color: #0047AB; margin-bottom: 25px;">Economic Benefits</h2>
+                <div style="background: white; border-left: 5px solid #FDB813; padding: 25px; margin-bottom: 20px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);">
+                    <h4 style="font-size: 24px; margin-bottom: 12px;"><span class="highlight">40-60%</span> Lower Operating Costs</h4>
+                    <p style="font-size: 18px; color: #666; line-height: 1.4;">Save ₹3-5 per kilometer compared to diesel/petrol vehicles. Additional ₹30,000 annual savings with solar integration.</p>
+                    <div style="background: #fff8e1; padding: 12px; border-radius: 8px; margin-top: 12px;">
+                        <p style="font-size: 16px; color: #FDB813; font-weight: 600; margin: 0;">💰 ₹1.5L annual savings per vehicle</p>
+                    </div>
+                </div>
+                
+                <div style="background: white; border-left: 5px solid #228B22; padding: 25px; margin-bottom: 20px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);">
+                    <h4 style="font-size: 24px; margin-bottom: 12px;"><span class="green-accent">60%</span> Reduced Maintenance</h4>
+                    <p style="font-size: 18px; color: #666; line-height: 1.4;">Fewer moving parts mean lower service costs and higher vehicle uptime for your business.</p>
+                    <div style="background: #e8f5e8; padding: 12px; border-radius: 8px; margin-top: 12px;">
+                        <p style="font-size: 16px; color: #228B22; font-weight: 600; margin: 0;">🔧 Only 2 services per year required</p>
+                    </div>
+                </div>
+                
+                <div style="background: white; border-left: 5px solid #0047AB; padding: 25px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);">
+                    <h4 style="font-size: 24px; margin-bottom: 12px;">Government <span class="highlight">Incentives</span></h4>
+                    <p style="font-size: 18px; color: #666; line-height: 1.4;">Maximize benefits from PM E-DRIVE scheme and state subsidies. We help optimize your savings.</p>
+                    <div style="background: #f0f8ff; padding: 12px; border-radius: 8px; margin-top: 12px;">
+                        <p style="font-size: 16px; color: #0047AB; font-weight: 600; margin: 0;">🏛️ Up to ₹50,000 subsidy per vehicle</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <div style="background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%); color: white; padding: 35px; border-radius: 20px; text-align: center; margin-bottom: 25px; box-shadow: 0 12px 35px rgba(253,184,19,0.3);">
+                    <h3 style="color: white; font-size: 28px; margin-bottom: 18px;">5-Year Total Savings</h3>
+                    <div style="font-size: 68px; font-weight: 700; margin-bottom: 12px;">₹7.5L</div>
+                    <p style="font-size: 22px;">Per Vehicle vs Conventional</p>
+                    <div style="margin-top: 18px; padding: 12px; background: rgba(255,255,255,0.2); border-radius: 10px;">
+                        <p style="font-size: 18px; margin: 0;">Including fuel, maintenance & incentives</p>
+                    </div>
+                </div>
+                
+                <div style="background: white; padding: 30px; border-radius: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                    <h3 style="text-align: center; margin-bottom: 25px; color: #0047AB; font-size: 26px;">Strategic Benefits</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+                        <div style="text-align: center; padding: 18px; background: #f0f8ff; border-radius: 12px;">
+                            <div style="font-size: 40px; margin-bottom: 8px;">🚀</div>
+                            <p style="font-size: 16px; color: #0047AB; font-weight: 600;">Future-proof your fleet</p>
+                        </div>
+                        <div style="text-align: center; padding: 18px; background: #e8f5e8; border-radius: 12px;">
+                            <div style="font-size: 40px; margin-bottom: 8px;">⭐</div>
+                            <p style="font-size: 16px; color: #228B22; font-weight: 600;">Enhance brand image</p>
+                        </div>
+                        <div style="text-align: center; padding: 18px; background: #fff8e1; border-radius: 12px;">
+                            <div style="font-size: 40px; margin-bottom: 8px;">🎯</div>
+                            <p style="font-size: 16px; color: #FDB813; font-weight: 600;">Meet sustainability goals</p>
+                        </div>
+                        <div style="text-align: center; padding: 18px; background: #f0f8ff; border-radius: 12px;">
+                            <div style="font-size: 40px; margin-bottom: 8px;">🌆</div>
+                            <p style="font-size: 16px; color: #0047AB; font-weight: 600;">Access to green zones</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logo-corner">REEP</div>
+    </div>
+</body>
+</html>

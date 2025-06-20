@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: Revolutionizing Last-Mile Logistics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .slide {
+            width: 1920px;
+            height: 1080px;
+            background: white;
+            margin: 40px auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-size: 16px;
+            color: #999;
+            font-weight: 500;
+        }
+        
+        .solar-pattern {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            opacity: 0.08;
+            background: repeating-linear-gradient(
+                45deg,
+                #FDB813,
+                #FDB813 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            transform: rotate(15deg);
+            animation: subtle-rotate 20s linear infinite;
+        }
+        
+        @keyframes subtle-rotate {
+            from { transform: rotate(15deg); }
+            to { transform: rotate(375deg); }
+        }
+        
+        h1 {
+            color: #0047AB;
+            font-size: 60px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,71,171,0.1);
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 24px;
+            margin-bottom: 40px;
+        }
+        
+        h4 {
+            color: #0047AB;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            background: #FDB813;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 32px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 8px 25px rgba(253,184,19,0.3);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .icon-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(253,184,19,0.4);
+        }
+        
+        .logo-corner {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 32px;
+            font-weight: 700;
+            color: #0047AB;
+            opacity: 0.6;
+        }
+        
+        /* Responsive Design Elements */
+        @media (max-width: 1920px) {
+            .slide {
+                width: 100%;
+                max-width: 1920px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 12: Last-Mile Logistics -->
+    <div class="slide">
+        <div class="slide-number">12</div>
+        <div class="solar-pattern"></div>
+        <h1>Revolutionizing Last-Mile Logistics</h1>
+        <div class="subtitle">Transforming how India's essential goods reach consumers</div>
+        
+        <div class="grid-2">
+            <div>
+                <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 25px;">
+                    <div style="display: flex; align-items: center; gap: 25px; margin-bottom: 20px;">
+                        <div class="icon-box" style="background: #0047AB;">
+                            <div style="font-size: 32px;">🏠</div>
+                        </div>
+                        <h4 style="margin: 0; font-size: 26px;">LPG Cylinder Distribution</h4>
+                    </div>
+                    <p style="font-size: 20px; color: #666; line-height: 1.5;">Safe, efficient delivery to millions of households. Reduced turnaround time by 40% with zero emissions.</p>
+                    <div style="background: #f0f8ff; padding: 15px; border-radius: 10px; margin-top: 15px;">
+                        <p style="font-size: 18px; color: #0047AB; font-weight: 600; margin: 0;">✓ 250K+ households served monthly</p>
+                    </div>
+                </div>
+                
+                <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+                    <div style="display: flex; align-items: center; gap: 25px; margin-bottom: 20px;">
+                        <div class="icon-box" style="background: #228B22;">
+                            <div style="font-size: 32px;">💧</div>
+                        </div>
+                        <h4 style="margin: 0; font-size: 26px;">Mineral Water Delivery</h4>
+                    </div>
+                    <p style="font-size: 20px; color: #666; line-height: 1.5;">Hygienic transport with closed body design. Serving 500+ dealers across Tamil Nadu.</p>
+                    <div style="background: #e8f5e8; padding: 15px; border-radius: 10px; margin-top: 15px;">
+                        <p style="font-size: 18px; color: #228B22; font-weight: 600; margin: 0;">✓ 100% contamination-free delivery</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 25px;">
+                    <div style="display: flex; align-items: center; gap: 25px; margin-bottom: 20px;">
+                        <div class="icon-box" style="background: #FDB813;">
+                            <div style="font-size: 32px;">📦</div>
+                        </div>
+                        <h4 style="margin: 0; font-size: 26px;">E-Commerce Fulfillment</h4>
+                    </div>
+                    <p style="font-size: 20px; color: #666; line-height: 1.5;">Optimized for urban delivery with 90km range. Supporting India's digital commerce revolution.</p>
+                    <div style="background: #fff8e1; padding: 15px; border-radius: 10px; margin-top: 15px;">
+                        <p style="font-size: 18px; color: #FDB813; font-weight: 600; margin: 0;">✓ Scaling with India's e-commerce growth</p>
+                    </div>
+                </div>
+                
+                <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+                    <div style="display: flex; align-items: center; gap: 25px; margin-bottom: 20px;">
+                        <div class="icon-box" style="background: #0047AB;">
+                            <div style="font-size: 32px;">🏪</div>
+                        </div>
+                        <h4 style="margin: 0; font-size: 26px;">Retail & Supermarket</h4>
+                    </div>
+                    <p style="font-size: 20px; color: #666; line-height: 1.5;">Temperature-controlled options available. Ensuring fresh goods reach customers daily.</p>
+                    <div style="background: #f0f8ff; padding: 15px; border-radius: 10px; margin-top: 15px;">
+                        <p style="font-size: 18px; color: #0047AB; font-weight: 600; margin: 0;">✓ 95% on-time delivery rate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%); color: white; padding: 35px; border-radius: 20px; text-align: center; margin-top: 30px; box-shadow: 0 12px 35px rgba(253,184,19,0.3);">
+            <h3 style="color: white; margin-bottom: 15px; font-size: 32px;">Powering 10,000+ Small Businesses Across India</h3>
+            <p style="font-size: 24px;">With operational savings of ₹3-5 per kilometer</p>
+        </div>
+        
+        <div class="logo-corner">REEP</div>
+    </div>
+</body>
+</html>

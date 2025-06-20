@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: Driving the Future of India's Mobility</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .slide {
+            width: 1920px;
+            height: 1080px;
+            background: white;
+            margin: 40px auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-size: 16px;
+            color: #999;
+            font-weight: 500;
+        }
+        
+        /* Enhanced Title Slide */
+        .title-slide {
+            background: linear-gradient(135deg, #0047AB 0%, #0056D2 30%, #FDB813 100%);
+            color: white;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .title-slide::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: title-glow 6s ease-in-out infinite alternate;
+        }
+        
+        @keyframes title-glow {
+            from { opacity: 0.5; transform: scale(1); }
+            to { opacity: 0.8; transform: scale(1.1); }
+        }
+        
+        .title-slide h1 {
+            color: white;
+            font-size: 120px;
+            margin-bottom: 30px;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            z-index: 1;
+            position: relative;
+            font-weight: 700;
+        }
+        
+        .title-slide .subtitle {
+            color: #FDB813;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 1;
+            position: relative;
+        }
+        
+        /* Enhanced Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Responsive Design Elements */
+        @media (max-width: 1920px) {
+            .slide {
+                width: 100%;
+                max-width: 1920px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: Enhanced Title Slide -->
+    <div class="slide title-slide">
+        <div class="slide-number" style="color: white;">1</div>
+        <div>
+            <h1 class="fade-in-up">REEP</h1>
+            <div class="subtitle fade-in-up">Driving the Future of India's Mobility</div>
+            <p style="font-size: 56px; margin-top: 60px; z-index: 1; position: relative; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">Proven. Scalable. Sustainable.</p>
+            <div style="margin-top: 80px; z-index: 1; position: relative;">
+                <div style="display: flex; justify-content: center; gap: 80px;">
+                    <div class="fade-in-up">
+                        <div style="font-size: 72px; font-weight: 700; color: #FDB813; text-shadow: 0 3px 6px rgba(0,0,0,0.3);">6,000+</div>
+                        <div style="font-size: 32px;">Electric Vehicles Delivered</div>
+                    </div>
+                    <div class="fade-in-up">
+                        <div style="font-size: 72px; font-weight: 700; color: #FDB813; text-shadow: 0 3px 6px rgba(0,0,0,0.3);">200+</div>
+                        <div style="font-size: 32px;">Vehicles/Day Capacity</div>
+                    </div>
+                    <div class="fade-in-up">
+                        <div style="font-size: 72px; font-weight: 700; color: #FDB813; text-shadow: 0 3px 6px rgba(0,0,0,0.3);">40</div>
+                        <div style="font-size: 32px;">Years Engineering Excellence</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

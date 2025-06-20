@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: India's EV Revolution</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .slide {
+            width: 1920px;
+            height: 1080px;
+            background: white;
+            margin: 40px auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-size: 16px;
+            color: #999;
+            font-weight: 500;
+        }
+        
+        /* Enhanced Visual Patterns */
+        .solar-pattern {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            opacity: 0.08;
+            background: repeating-linear-gradient(
+                45deg,
+                #FDB813,
+                #FDB813 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            transform: rotate(15deg);
+            animation: subtle-rotate 20s linear infinite;
+        }
+        
+        @keyframes subtle-rotate {
+            from { transform: rotate(15deg); }
+            to { transform: rotate(375deg); }
+        }
+        
+        h1 {
+            color: #0047AB;
+            font-size: 60px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,71,171,0.1);
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 24px;
+            margin-bottom: 40px;
+        }
+        
+        /* Enhanced Interactive Elements */
+        .stat-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,71,171,0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 45px rgba(0,71,171,0.15);
+            border-color: #0047AB;
+        }
+        
+        .stat-card:hover::before {
+            left: 100%;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #FDB813;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(253,184,19,0.2);
+        }
+        
+        .stat-label {
+            font-size: 20px;
+            color: #666;
+        }
+        
+        /* Grid Systems */
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+        
+        /* Enhanced Icons */
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            background: #FDB813;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 32px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 8px 25px rgba(253,184,19,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .icon-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(253,184,19,0.4);
+        }
+        
+        /* Chart Visualizations */
+        .chart-container {
+            height: 200px;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .bar-chart {
+            display: flex;
+            align-items: end;
+            gap: 10px;
+            height: 120px;
+        }
+        
+        .bar {
+            width: 40px;
+            background: linear-gradient(to top, #0047AB, #0056D2);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+        }
+        
+        .bar-1 { height: 60%; }
+        .bar-2 { height: 80%; }
+        .bar-3 { height: 100%; }
+        
+        /* Infographic Elements */
+        .infographic-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .infographic-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,71,171,0.05) 0%, transparent 70%);
+            transform: rotate(15deg);
+        }
+        
+        h4 {
+            color: #0047AB;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .logo-corner {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 32px;
+            font-weight: 700;
+            color: #0047AB;
+            opacity: 0.6;
+        }
+        
+        /* Responsive Design Elements */
+        @media (max-width: 1920px) {
+            .slide {
+                width: 100%;
+                max-width: 1920px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 2: The Opportunity with Enhanced Infographics -->
+    <div class="slide">
+        <div class="slide-number">2</div>
+        <div class="solar-pattern"></div>
+        <h1>India's EV Revolution:<br>A ₹50,000+ Crore Opportunity</h1>
+        <div class="subtitle">The perfect storm of economics, policy, and sustainability</div>
+        
+        <div class="grid-4">
+            <div class="stat-card">
+                <div class="icon-box">
+                    <div style="font-size: 36px;">⛽</div>
+                </div>
+                <div class="stat-number">₹100+</div>
+                <div class="stat-label">Per Liter Fuel Cost</div>
+                <div class="chart-container" style="height: 80px; margin-top: 15px;">
+                    <div style="font-size: 14px; color: #999;">📈 Rising trend</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="icon-box" style="background: #228B22;">
+                    <div style="font-size: 36px;">📊</div>
+                </div>
+                <div class="stat-number">35%</div>
+                <div class="stat-label">Annual EV Growth</div>
+                <div class="chart-container" style="height: 80px; margin-top: 15px;">
+                    <div class="bar-chart">
+                        <div class="bar bar-1"></div>
+                        <div class="bar bar-2"></div>
+                        <div class="bar bar-3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="icon-box" style="background: #0047AB;">
+                    <div style="font-size: 36px;">🏛️</div>
+                </div>
+                <div class="stat-number">₹36.79B</div>
+                <div class="stat-label">PM E-DRIVE Scheme</div>
+                <div style="margin-top: 10px; font-size: 14px; color: #0047AB;">Government Support</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon-box" style="background: #228B22;">
+                    <div style="font-size: 36px;">🌱</div>
+                </div>
+                <div class="stat-number">30%</div>
+                <div class="stat-label">Carbon Reduction Target</div>
+                <div style="margin-top: 10px; font-size: 14px; color: #228B22;">By 2030</div>
+            </div>
+        </div>
+        
+        <div class="infographic-section">
+            <h4>Market Dynamics Driving Change</h4>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: 48px; margin-bottom: 10px;">🚀</div>
+                    <p style="font-size: 18px; color: #666;">Rising operational costs push businesses toward sustainable alternatives</p>
+                </div>
+                <div style="font-size: 40px; color: #FDB813;">→</div>
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: 48px; margin-bottom: 10px;">📋</div>
+                    <p style="font-size: 18px; color: #666;">Government mandates accelerate adoption</p>
+                </div>
+                <div style="font-size: 40px; color: #FDB813;">→</div>
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: 48px; margin-bottom: 10px;">🌆</div>
+                    <p style="font-size: 18px; color: #666;">Urban air quality concerns demand immediate action</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logo-corner">REEP</div>
+    </div>
+</body>
+</html>
