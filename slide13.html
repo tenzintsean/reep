@@ -271,9 +271,9 @@
             }
             
             .grid-4 {
-                gap: 5px !important;
-                margin-bottom: 5px !important;
-                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 3px !important;
+                margin-bottom: 3px !important;
+                grid-template-columns: 1fr !important;
             }
             
             .business-card {
@@ -304,6 +304,7 @@
             
             .grid-3 {
                 gap: 3px !important;
+                grid-template-columns: repeat(3, 1fr) !important;
             }
             
             /* Make stats extremely compact */
@@ -318,16 +319,9 @@
                 line-height: 1.1 !important;
             }
             
-            /* Ultra-compact testimonial */
+            /* Hide testimonial to save space */
             .testimonial-box {
-                padding: 4px !important;
-                margin-top: 3px !important;
-            }
-            
-            .testimonial-box p {
-                font-size: 8px !important;
-                line-height: 1.2 !important;
-                margin: 0 !important;
+                display: none !important;
             }
             
             /* Make business card content tiny */
