@@ -252,59 +252,115 @@
             }
         }
 
-        /* Short screen optimization for 800px height */
+        /* Ultra-compact for 800px height screens */
         @media (max-height: 800px) {
             .slide {
-                padding: clamp(5px, 1vw, 15px) !important;
+                padding: 3px !important;
             }
             
             h1 {
-                font-size: clamp(16px, 1.8vw, 30px) !important;
-                margin-bottom: clamp(4px, 0.8vw, 8px) !important;
+                font-size: 14px !important;
+                margin-bottom: 2px !important;
+                line-height: 1.1 !important;
             }
             
             .subtitle {
-                font-size: clamp(10px, 1vw, 14px) !important;
-                margin-bottom: clamp(8px, 1.2vw, 12px) !important;
+                font-size: 10px !important;
+                margin-bottom: 3px !important;
+                line-height: 1.2 !important;
             }
             
             .grid-4 {
-                gap: clamp(8px, 1.2vw, 12px) !important;
-                margin-bottom: clamp(10px, 1.5vw, 15px) !important;
+                gap: 5px !important;
+                margin-bottom: 5px !important;
                 grid-template-columns: repeat(2, 1fr) !important;
             }
             
             .business-card {
-                padding: clamp(8px, 1.5vw, 15px) !important;
+                padding: 5px !important;
             }
             
             .icon-circle {
-                width: 50px !important;
-                height: 50px !important;
-                margin-bottom: 8px !important;
+                width: 30px !important;
+                height: 30px !important;
+                margin-bottom: 3px !important;
             }
             
             .icon-circle div {
-                font-size: 24px !important;
+                font-size: 16px !important;
             }
             
+            /* Ultra-compact success section */
             .success-section {
-                padding: clamp(10px, 1.8vw, 20px) !important;
-                margin-top: clamp(8px, 1.2vw, 15px) !important;
+                padding: 5px !important;
+                margin-top: 3px !important;
+            }
+            
+            h3[style*="text-align: center"] {
+                font-size: 10px !important;
+                margin-bottom: 3px !important;
+                line-height: 1.1 !important;
             }
             
             .grid-3 {
-                gap: clamp(6px, 1vw, 10px) !important;
+                gap: 3px !important;
             }
             
+            /* Make stats extremely compact */
+            .grid-3 div[style*="font-size: clamp"] {
+                font-size: 16px !important;
+                margin-bottom: 1px !important;
+                line-height: 1 !important;
+            }
+            
+            .grid-3 div[style*="color: #666"] {
+                font-size: 8px !important;
+                line-height: 1.1 !important;
+            }
+            
+            /* Ultra-compact testimonial */
             .testimonial-box {
-                padding: clamp(8px, 1.5vw, 15px) !important;
-                margin-top: clamp(8px, 1.2vw, 12px) !important;
+                padding: 4px !important;
+                margin-top: 3px !important;
+            }
+            
+            .testimonial-box p {
+                font-size: 8px !important;
+                line-height: 1.2 !important;
+                margin: 0 !important;
+            }
+            
+            /* Make business card content tiny */
+            h4[style*="font-size: clamp"] {
+                font-size: 10px !important;
+                margin-bottom: 2px !important;
+                line-height: 1.1 !important;
+            }
+            
+            p[style*="font-size: clamp(14px, 1.6vw, 16px)"] {
+                font-size: 8px !important;
+                line-height: 1.2 !important;
+            }
+            
+            .stat-highlight p {
+                font-size: 7px !important;
             }
             
             /* Hide solar pattern to save space */
             .solar-pattern {
                 display: none !important;
+            }
+            
+            .slide-number {
+                font-size: 8px !important;
+                top: 2px !important;
+                left: 2px !important;
+            }
+            
+            .logo-corner {
+                font-size: 12px !important;
+                bottom: 2px !important;
+                right: 2px !important;
             }
         }
 
