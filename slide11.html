@@ -307,78 +307,85 @@
                 line-height: 1.2 !important;
             }
             
-            /* Minimal image gallery */
+            /* Single row image gallery */
             div[style*="text-align: center"] {
-                margin: 2px 0 !important;
+                margin: 1px 0 !important;
             }
             
             div[style*="display: flex; gap: clamp"] {
-                gap: 4px !important;
+                gap: 2px !important;
                 margin: 0 !important;
+                flex-wrap: nowrap !important;
+                justify-content: center !important;
             }
             
             img[src*="future-e-bus"] {
-                height: 40px !important;
+                height: 30px !important;
+                width: auto !important;
                 border-width: 1px !important;
+                flex-shrink: 1 !important;
+                max-width: 22% !important;
             }
             
-            /* Minimal E-Bus section */
+            /* Compact E-Bus section */
             div[style*="background: linear-gradient(135deg, #228B22"] {
-                margin: 2px 0 !important;
-                padding: 4px !important;
+                margin: 1px 0 !important;
+                padding: 3px !important;
             }
             
             h3[style*="color: white"] {
-                font-size: 12px !important;
-                margin-bottom: 2px !important;
-                line-height: 1.1 !important;
-            }
-            
-            .grid-3 div[style*="font-size: clamp"] {
-                font-size: 16px !important;
+                font-size: 10px !important;
                 margin-bottom: 1px !important;
                 line-height: 1 !important;
             }
             
-            .grid-3 p[style*="font-size: clamp"] {
-                font-size: 8px !important;
-                line-height: 1.1 !important;
-            }
-            
-            /* Minimal features section */
-            div[style*="margin-top: clamp"] {
-                margin-top: 2px !important;
-            }
-            
-            .grid-2 {
-                gap: 4px !important;
-                grid-template-columns: 1fr 1fr !important;
-            }
-            
             .grid-3 {
-                gap: 2px !important;
+                gap: 1px !important;
                 grid-template-columns: repeat(3, 1fr) !important;
             }
             
+            .grid-3 div[style*="font-size: clamp"] {
+                font-size: 12px !important;
+                margin-bottom: 0px !important;
+                line-height: 1 !important;
+            }
+            
+            .grid-3 p[style*="font-size: clamp"] {
+                font-size: 7px !important;
+                line-height: 1 !important;
+                margin: 0 !important;
+            }
+            
+            /* Compact features section */
+            div[style*="margin-top: clamp"] {
+                margin-top: 1px !important;
+            }
+            
+            .grid-2 {
+                gap: 2px !important;
+                grid-template-columns: 1fr 1fr !important;
+            }
+            
             div[style*="border-left: clamp"] {
-                padding: 4px !important;
-                border-left-width: 2px !important;
+                padding: 3px !important;
+                border-left-width: 1px !important;
             }
             
             h4[style*="font-size: clamp"] {
-                font-size: 10px !important;
-                margin-bottom: 2px !important;
-                line-height: 1.1 !important;
+                font-size: 8px !important;
+                margin-bottom: 1px !important;
+                line-height: 1 !important;
             }
             
             div[style*="font-size: clamp(14px, 1.7vw, 17px)"] {
-                font-size: 8px !important;
-                line-height: 1.2 !important;
+                font-size: 6px !important;
+                line-height: 1.1 !important;
             }
             
             div[style*="font-size: clamp(14px, 1.7vw, 17px)"] p {
                 margin: 0 !important;
                 padding: 0 !important;
+                line-height: 1.1 !important;
             }
             
             .logo-corner {
