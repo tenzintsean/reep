@@ -16,26 +16,31 @@
             background: #f5f5f5;
             color: #333;
             line-height: 1.6;
+        
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
         
         .slide {
-            width: 1920px;
-            height: 1080px;
+            width: 100vw; max-width: 1920px;
+            height: 100vh; max-height: 1080px;
             background: white;
-            margin: 40px auto;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
             padding: 80px;
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
+            aspect-ratio: 16/9;
         
-        .slide-number {
+                .slide-number {
             position: absolute;
-            top: 30px;
-            left: 30px;
-            font-size: 16px;
+            top: clamp(15px, 1.5vw, 30px);
+            left: clamp(15px, 1.5vw, 30px);
+            font-size: clamp(12px, 0.8vw, 16px);
             color: #999;
             font-weight: 500;
         }
@@ -66,7 +71,7 @@
         
         h1 {
             color: #0047AB;
-            font-size: 56px;
+            font-size: clamp(28px, 2.9vw, 56px);
             font-weight: 700;
             margin-bottom: 15px;
             line-height: 1.1;
@@ -75,7 +80,7 @@
         
         .subtitle {
             color: #666;
-            font-size: 24px;
+            font-size: clamp(14px, 1.2vw, 24px);
             margin-bottom: 30px;
         }
         
@@ -83,8 +88,8 @@
         .vehicle-hero {
             background: white;
             padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border-radius: clamp(10px, 1.0vw, 20px);
+            box-shadow: 0 0.8vw 2.1vw rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
             flex: 1;
@@ -95,14 +100,14 @@
         .vehicle-image-main {
             height: 400px;
             background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
-            border-radius: 15px;
+            border-radius: clamp(7px, 0.8vw, 15px);
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 30px 0;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 0.5vw 1.6vw rgba(0,0,0,0.1);
         }
         
         .vehicle-image-main::before {
@@ -122,8 +127,8 @@
             color: #0047AB;
             background: rgba(255,255,255,0.95);
             padding: 20px 40px;
-            border-radius: 10px;
-            box-shadow: 0 6px 20px rgba(0,71,171,0.15);
+            border-radius: clamp(5px, 0.5vw, 10px);
+            box-shadow: 0 0.3vw 1.0vw rgba(0,71,171,0.15);
             z-index: 1;
             position: relative;
         }
@@ -138,7 +143,7 @@
         .spec-item {
             text-align: center;
             padding: 20px;
-            border-radius: 12px;
+            border-radius: clamp(6px, 0.6vw, 12px);
             transition: transform 0.3s ease;
         }
         
@@ -160,10 +165,10 @@
         .feature-strip {
             background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%);
             padding: 25px;
-            border-radius: 20px;
+            border-radius: clamp(10px, 1.0vw, 20px);
             text-align: center;
             margin-top: auto;
-            box-shadow: 0 10px 30px rgba(253,184,19,0.3);
+            box-shadow: 0 0.5vw 1.6vw rgba(253,184,19,0.3);
         }
         
         .feature-strip p {
@@ -177,7 +182,7 @@
             background: rgba(255,255,255,0.2);
             color: white;
             padding: 10px 25px;
-            border-radius: 30px;
+            border-radius: clamp(15px, 1.6vw, 30px);
             margin: 0 10px;
             font-size: 20px;
             font-weight: 500;
@@ -202,35 +207,35 @@
         }
     
         /* Navigation Styles */
-        .nav-container {
+                .nav-container {
             position: fixed;
-            top: 20px;
+            top: clamp(10px, 1vw, 20px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: clamp(8px, 0.8vw, 15px);
             background: rgba(255, 255, 255, 0.95);
-            padding: 12px 20px;
-            border-radius: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+            border-radius: clamp(15px, 1.3vw, 25px);
+            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
             backdrop-filter: blur(10px);
         }
 
-        .slide-counter {
-            font-size: 14px;
+                .slide-counter {
+            font-size: clamp(11px, 0.7vw, 14px);
             font-weight: 600;
             color: #0047AB;
-            min-width: 80px;
+            min-width: clamp(60px, 4vw, 80px);
             text-align: center;
         }
 
-        .slide-select {
-            padding: 8px 12px;
+                .slide-select {
+            padding: clamp(6px, 0.4vw, 8px) clamp(8px, 0.6vw, 12px);
             border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
+            border-radius: clamp(4px, 0.3vw, 6px);
+            font-size: clamp(11px, 0.7vw, 14px);
             background: white;
             cursor: pointer;
             outline: none;
@@ -241,7 +246,7 @@
             box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.1);
         }
 
-        .nav-btn {
+                .nav-btn {
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
@@ -249,22 +254,22 @@
             background: rgba(0, 71, 171, 0.9);
             color: white;
             border: none;
-            width: 50px;
-            height: 50px;
+            width: clamp(35px, 2.6vw, 50px);
+            height: clamp(35px, 2.6vw, 50px);
             border-radius: 50%;
-            font-size: 20px;
+            font-size: clamp(14px, 1vw, 20px);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 71, 171, 0.3);
+            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
         }
 
         .nav-btn:hover {
             background: rgba(0, 71, 171, 1);
             transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 71, 171, 0.4);
+            box-shadow: 0 0.3vw 1.0vw rgba(0, 71, 171, 0.4);
         }
 
         .nav-btn:disabled {
@@ -273,25 +278,50 @@
             transform: translateY(-50%) scale(1);
         }
 
-        .nav-btn.prev {
-            left: 30px;
+                .nav-btn.prev {
+            left: clamp(15px, 1.5vw, 30px);
         }
 
-        .nav-btn.next {
-            right: 30px;
+                .nav-btn.next {
+            right: clamp(15px, 1.5vw, 30px);
         }
 
         @media (max-width: 768px) {
-            .nav-container {
-                padding: 8px 15px;
-                gap: 10px;
-            }
+                    .nav-container {
+            position: fixed;
+            top: clamp(10px, 1vw, 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 0.8vw, 15px);
+            background: rgba(255, 255, 255, 0.95);
+            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+            border-radius: clamp(15px, 1.3vw, 25px);
+            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
             
-            .nav-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
-            }
+                    .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(0, 71, 171, 0.9);
+            color: white;
+            border: none;
+            width: clamp(35px, 2.6vw, 50px);
+            height: clamp(35px, 2.6vw, 50px);
+            border-radius: 50%;
+            font-size: clamp(14px, 1vw, 20px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+        }
             
             .nav-btn.prev {
                 left: 15px;
@@ -299,6 +329,48 @@
             
             .nav-btn.next {
                 right: 15px;
+            }
+        }
+    
+        /* Enhanced Responsive Design */
+        @media (max-width: 1366px) {
+            .slide {
+                padding: clamp(15px, 2.5vw, 40px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: clamp(10px, 2vw, 25px);
+            }
+            
+            h1 {
+                font-size: clamp(24px, 5vw, 48px) !important;
+            }
+            
+            h2 {
+                font-size: clamp(20px, 4vw, 36px) !important;
+            }
+            
+            h3 {
+                font-size: clamp(18px, 3.5vw, 28px) !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 6px 10px;
+                gap: 6px;
+            }
+            
+            .slide-counter {
+                min-width: 50px;
+                font-size: 10px;
+            }
+            
+            .slide-select {
+                font-size: 10px;
+                padding: 4px 6px;
             }
         }
     </style>
@@ -356,10 +428,10 @@
             
             <!-- L3 Closed Body Vehicle Images -->
             <div style="display: flex; gap: 30px; margin: 40px 20px; justify-content: center; flex-wrap: wrap;">
-                <img src="l3-closed-body/s6b-1.jpg" alt="L3 Closed Body Vehicle 1" style="height: 180px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">
-                <img src="l3-closed-body/s6b-2.jpg" alt="L3 Closed Body Vehicle 2" style="height: 180px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">
-                <img src="l3-closed-body/s6b-3.jpg" alt="L3 Closed Body Vehicle 3" style="height: 180px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">
-                <img src="l3-closed-body/s6b-4.jpg" alt="L3 Closed Body Vehicle 4" style="height: 180px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.2);">
+                <img src="l3-closed-body/s6b-1.jpg" alt="L3 Closed Body Vehicle 1" style="height: 180px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2);">
+                <img src="l3-closed-body/s6b-2.jpg" alt="L3 Closed Body Vehicle 2" style="height: 180px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2);">
+                <img src="l3-closed-body/s6b-3.jpg" alt="L3 Closed Body Vehicle 3" style="height: 180px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2);">
+                <img src="l3-closed-body/s6b-4.jpg" alt="L3 Closed Body Vehicle 4" style="height: 180px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2);">
             </div>
             
             <div class="specs-grid">
@@ -381,7 +453,7 @@
                 </div>
             </div>
             
-            <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; text-align: center;">
+            <div style="background: #f8f9fa; padding: 20px; border-radius: clamp(7px, 0.8vw, 15px); text-align: center;">
                 <p style="font-size: 18px; color: #333; line-height: 1.6;">
                     <strong>Ideal for:</strong> 
                     <span class="use-case-badge" style="background: rgba(34,139,34,0.1); color: #228B22; font-size: 16px;">Pharmaceuticals</span>

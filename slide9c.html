@@ -16,26 +16,31 @@
             background: #f5f5f5;
             color: #333;
             line-height: 1.6;
+        
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
         
         .slide {
-            width: 1920px;
-            height: 1080px;
+            width: 100vw; max-width: 1920px;
+            height: 100vh; max-height: 1080px;
             background: white;
-            margin: 40px auto;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
             padding: 70px;
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
+            aspect-ratio: 16/9;
         
-        .slide-number {
+                .slide-number {
             position: absolute;
-            top: 25px;
-            left: 25px;
-            font-size: 16px;
+            top: clamp(15px, 1.5vw, 30px);
+            left: clamp(15px, 1.5vw, 30px);
+            font-size: clamp(12px, 0.8vw, 16px);
             color: #999;
             font-weight: 500;
         }
@@ -66,7 +71,7 @@
         
         h1 {
             color: #0047AB;
-            font-size: 68px;
+            font-size: clamp(34px, 3.5vw, 68px);
             font-weight: 700;
             margin-bottom: 15px;
             line-height: 1.1;
@@ -75,13 +80,13 @@
         
         h3 {
             color: #0047AB;
-            font-size: 26px;
+            font-size: clamp(16px, 1.4vw, 26px);
             font-weight: 600;
         }
         
         .subtitle {
             color: #666;
-            font-size: 26px;
+            font-size: clamp(14px, 1.4vw, 26px);
             margin-bottom: 35px;
         }
         
@@ -89,8 +94,8 @@
         .vehicle-hero {
             background: white;
             padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border-radius: clamp(10px, 1.0vw, 20px);
+            box-shadow: 0 0.8vw 2.1vw rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
             flex: 1;
@@ -102,14 +107,14 @@
         .vehicle-image-main {
             height: 200px;
             background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
-            border-radius: 15px;
+            border-radius: clamp(7px, 0.8vw, 15px);
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 10px 0;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 0.5vw 1.6vw rgba(0,0,0,0.1);
         }
         
         .vehicle-image-main::before {
@@ -129,8 +134,8 @@
             color: #0047AB;
             background: rgba(255,255,255,0.95);
             padding: 18px 35px;
-            border-radius: 10px;
-            box-shadow: 0 6px 20px rgba(0,71,171,0.15);
+            border-radius: clamp(5px, 0.5vw, 10px);
+            box-shadow: 0 0.3vw 1.0vw rgba(0,71,171,0.15);
             z-index: 1;
             position: relative;
         }
@@ -144,7 +149,7 @@
         .spec-item {
             text-align: center;
             padding: 15px;
-            border-radius: 12px;
+            border-radius: clamp(6px, 0.6vw, 12px);
             transition: transform 0.3s ease;
         }
         
@@ -166,9 +171,9 @@
         .feature-strip {
             background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%);
             padding: 20px 30px;
-            border-radius: 20px;
+            border-radius: clamp(10px, 1.0vw, 20px);
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,71,171,0.3);
+            box-shadow: 0 0.5vw 1.6vw rgba(0,71,171,0.3);
         }
         
         .feature-strip p {
@@ -182,7 +187,7 @@
             background: rgba(255,255,255,0.2);
             color: white;
             padding: 8px 20px;
-            border-radius: 30px;
+            border-radius: clamp(15px, 1.6vw, 30px);
             margin: 0 8px;
             font-size: 18px;
             font-weight: 500;
@@ -208,7 +213,7 @@
             border-radius: 0 0 15px 15px;
             font-size: 16px;
             font-weight: 600;
-            box-shadow: 0 8px 20px rgba(0,71,171,0.3);
+            box-shadow: 0 0.4vw 1.0vw rgba(0,71,171,0.3);
         }
         
         /* Responsive Design Elements */
@@ -220,35 +225,35 @@
         }
     
         /* Navigation Styles */
-        .nav-container {
+                .nav-container {
             position: fixed;
-            top: 20px;
+            top: clamp(10px, 1vw, 20px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: clamp(8px, 0.8vw, 15px);
             background: rgba(255, 255, 255, 0.95);
-            padding: 12px 20px;
-            border-radius: 25px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+            border-radius: clamp(15px, 1.3vw, 25px);
+            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
             backdrop-filter: blur(10px);
         }
 
-        .slide-counter {
-            font-size: 14px;
+                .slide-counter {
+            font-size: clamp(11px, 0.7vw, 14px);
             font-weight: 600;
             color: #0047AB;
-            min-width: 80px;
+            min-width: clamp(60px, 4vw, 80px);
             text-align: center;
         }
 
-        .slide-select {
-            padding: 8px 12px;
+                .slide-select {
+            padding: clamp(6px, 0.4vw, 8px) clamp(8px, 0.6vw, 12px);
             border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 14px;
+            border-radius: clamp(4px, 0.3vw, 6px);
+            font-size: clamp(11px, 0.7vw, 14px);
             background: white;
             cursor: pointer;
             outline: none;
@@ -259,7 +264,7 @@
             box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.1);
         }
 
-        .nav-btn {
+                .nav-btn {
             position: fixed;
             top: 50%;
             transform: translateY(-50%);
@@ -267,22 +272,22 @@
             background: rgba(0, 71, 171, 0.9);
             color: white;
             border: none;
-            width: 50px;
-            height: 50px;
+            width: clamp(35px, 2.6vw, 50px);
+            height: clamp(35px, 2.6vw, 50px);
             border-radius: 50%;
-            font-size: 20px;
+            font-size: clamp(14px, 1vw, 20px);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(0, 71, 171, 0.3);
+            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
         }
 
         .nav-btn:hover {
             background: rgba(0, 71, 171, 1);
             transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 71, 171, 0.4);
+            box-shadow: 0 0.3vw 1.0vw rgba(0, 71, 171, 0.4);
         }
 
         .nav-btn:disabled {
@@ -291,25 +296,50 @@
             transform: translateY(-50%) scale(1);
         }
 
-        .nav-btn.prev {
-            left: 30px;
+                .nav-btn.prev {
+            left: clamp(15px, 1.5vw, 30px);
         }
 
-        .nav-btn.next {
-            right: 30px;
+                .nav-btn.next {
+            right: clamp(15px, 1.5vw, 30px);
         }
 
         @media (max-width: 768px) {
-            .nav-container {
-                padding: 8px 15px;
-                gap: 10px;
-            }
+                    .nav-container {
+            position: fixed;
+            top: clamp(10px, 1vw, 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 0.8vw, 15px);
+            background: rgba(255, 255, 255, 0.95);
+            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+            border-radius: clamp(15px, 1.3vw, 25px);
+            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
             
-            .nav-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
-            }
+                    .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(0, 71, 171, 0.9);
+            color: white;
+            border: none;
+            width: clamp(35px, 2.6vw, 50px);
+            height: clamp(35px, 2.6vw, 50px);
+            border-radius: 50%;
+            font-size: clamp(14px, 1vw, 20px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+        }
             
             .nav-btn.prev {
                 left: 15px;
@@ -317,6 +347,48 @@
             
             .nav-btn.next {
                 right: 15px;
+            }
+        }
+    
+        /* Enhanced Responsive Design */
+        @media (max-width: 1366px) {
+            .slide {
+                padding: clamp(15px, 2.5vw, 40px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: clamp(10px, 2vw, 25px);
+            }
+            
+            h1 {
+                font-size: clamp(24px, 5vw, 48px) !important;
+            }
+            
+            h2 {
+                font-size: clamp(20px, 4vw, 36px) !important;
+            }
+            
+            h3 {
+                font-size: clamp(18px, 3.5vw, 28px) !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 6px 10px;
+                gap: 6px;
+            }
+            
+            .slide-counter {
+                min-width: 50px;
+                font-size: 10px;
+            }
+            
+            .slide-select {
+                font-size: 10px;
+                padding: 4px 6px;
             }
         }
     </style>
@@ -382,9 +454,9 @@
                     <div style="margin-bottom: 35px;">
                         <h3 style="text-align: center; color: #0047AB; font-size: 26px; margin-bottom: 20px; font-weight: 700;">Model 1</h3>
                         <div style="display: flex; gap: 20px; justify-content: space-evenly; flex-wrap: nowrap;">
-                            <img src="l5-passenger-premium/model1/Untitled.jpeg" alt="Model 1 Rickshaw 1" style="height: 140px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.2); border: 3px solid #0047AB;">
-                            <img src="l5-passenger-premium/model1/Untitled 2.jpeg" alt="Model 1 Rickshaw 2" style="height: 140px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.2); border: 3px solid #0047AB;">
-                            <img src="l5-passenger-premium/model1/Untitled 3.jpeg" alt="Model 1 Rickshaw 3" style="height: 140px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.2); border: 3px solid #0047AB;">
+                            <img src="l5-passenger-premium/model1/Untitled.jpeg" alt="Model 1 Rickshaw 1" style="height: 140px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #0047AB;">
+                            <img src="l5-passenger-premium/model1/Untitled 2.jpeg" alt="Model 1 Rickshaw 2" style="height: 140px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #0047AB;">
+                            <img src="l5-passenger-premium/model1/Untitled 3.jpeg" alt="Model 1 Rickshaw 3" style="height: 140px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #0047AB;">
                         </div>
                     </div>
                     
@@ -392,9 +464,9 @@
                     <div style="margin-bottom: 25px;">
                         <h3 style="text-align: center; color: #0047AB; font-size: 26px; margin-bottom: 20px; font-weight: 700;">Model 2</h3>
                         <div style="display: flex; gap: 20px; justify-content: space-evenly; flex-wrap: nowrap;">
-                            <img src="l5-passenger-premium/model2/Untitled.jpeg" alt="Model 2 Rickshaw 1" style="height: 140px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.2); border: 3px solid #0047AB;">
-                            <img src="l5-passenger-premium/model2/Untitled 2.jpeg" alt="Model 2 Rickshaw 2" style="height: 140px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.2); border: 3px solid #0047AB;">
-                            <img src="l5-passenger-premium/model2/Untitled 3.jpeg" alt="Model 2 Rickshaw 3" style="height: 140px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.2); border: 3px solid #0047AB;">
+                            <img src="l5-passenger-premium/model2/Untitled.jpeg" alt="Model 2 Rickshaw 1" style="height: 140px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #0047AB;">
+                            <img src="l5-passenger-premium/model2/Untitled 2.jpeg" alt="Model 2 Rickshaw 2" style="height: 140px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #0047AB;">
+                            <img src="l5-passenger-premium/model2/Untitled 3.jpeg" alt="Model 2 Rickshaw 3" style="height: 140px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #0047AB;">
                         </div>
                     </div>
                 </div>
@@ -403,31 +475,31 @@
                 <div style="flex: 1; max-width: 45%;">
                     <h3 style="text-align: center; color: #0047AB; font-size: 26px; margin-bottom: 25px; font-weight: 600;">L5 Performance Advantages</h3>
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-bottom: 30px;">
-                        <div class="spec-item" style="background: #F0F8FF; padding: 18px; text-align: center; border-radius: 12px;">
+                        <div class="spec-item" style="background: #F0F8FF; padding: 18px; text-align: center; border-radius: clamp(6px, 0.6vw, 12px);">
                             <div style="font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #0047AB;">30%</div>
                             <div style="font-size: 16px; color: #666;">Higher Payload</div>
                         </div>
-                        <div class="spec-item" style="background: #FFF8E1; padding: 18px; text-align: center; border-radius: 12px;">
+                        <div class="spec-item" style="background: #FFF8E1; padding: 18px; text-align: center; border-radius: clamp(6px, 0.6vw, 12px);">
                             <div style="font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #FDB813;">20%</div>
                             <div style="font-size: 16px; color: #666;">More Range</div>
                         </div>
-                        <div class="spec-item" style="background: #E8F5E8; padding: 18px; text-align: center; border-radius: 12px;">
+                        <div class="spec-item" style="background: #E8F5E8; padding: 18px; text-align: center; border-radius: clamp(6px, 0.6vw, 12px);">
                             <div style="font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #228B22;">24/7</div>
                             <div style="font-size: 16px; color: #666;">Operations Ready</div>
                         </div>
-                        <div class="spec-item" style="background: #FFF3E0; padding: 18px; text-align: center; border-radius: 12px;">
+                        <div class="spec-item" style="background: #FFF3E0; padding: 18px; text-align: center; border-radius: clamp(6px, 0.6vw, 12px);">
                             <div style="font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #FF6F00;">Heavy Duty</div>
                             <div style="font-size: 16px; color: #666;">L5 Performance</div>
                         </div>
                     </div>
                     
                     <!-- Perfect For Section inside right column -->
-                    <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; text-align: center;">
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: clamp(7px, 0.8vw, 15px); text-align: center;">
                         <p style="font-size: 18px; color: #333; line-height: 1.5; margin: 0;">
                             <strong>Perfect for:</strong><br>
-                            <span style="display: inline-block; background: rgba(0,71,171,0.1); color: #0047AB; padding: 8px 15px; border-radius: 20px; margin: 5px; font-size: 16px; font-weight: 500;">Corporate Shuttles</span>
-                            <span style="display: inline-block; background: rgba(0,71,171,0.1); color: #0047AB; padding: 8px 15px; border-radius: 20px; margin: 5px; font-size: 16px; font-weight: 500;">Tourism Routes</span>
-                            <span style="display: inline-block; background: rgba(0,71,171,0.1); color: #0047AB; padding: 8px 15px; border-radius: 20px; margin: 5px; font-size: 16px; font-weight: 500;">Premium E-rickshaw</span>
+                            <span style="display: inline-block; background: rgba(0,71,171,0.1); color: #0047AB; padding: 8px 15px; border-radius: clamp(10px, 1.0vw, 20px); margin: 5px; font-size: 16px; font-weight: 500;">Corporate Shuttles</span>
+                            <span style="display: inline-block; background: rgba(0,71,171,0.1); color: #0047AB; padding: 8px 15px; border-radius: clamp(10px, 1.0vw, 20px); margin: 5px; font-size: 16px; font-weight: 500;">Tourism Routes</span>
+                            <span style="display: inline-block; background: rgba(0,71,171,0.1); color: #0047AB; padding: 8px 15px; border-radius: clamp(10px, 1.0vw, 20px); margin: 5px; font-size: 16px; font-weight: 500;">Premium E-rickshaw</span>
                         </p>
                     </div>
                 </div>
