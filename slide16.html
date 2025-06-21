@@ -997,18 +997,18 @@
         /* ULTRA-AGGRESSIVE FOR DESKTOP SCREENS - MORE INCLUSIVE */
         @media (min-width: 768px) and (max-height: 950px) {
             /* Hide non-essential elements */
-            .solar-rays, .slide-number, .subtitle {
+            .solar-rays, .slide-number {
                 display: none !important;
             }
             
-            /* Reduce slide padding */
+            /* Reduce slide padding while maintaining navigation clearance */
             .slide {
-                padding: 50px 15px 60px !important;
+                padding: 8vh 2vw 4vh !important;
             }
             
             /* GRID-BASED LAYOUT FOR GUARANTEED FIT */
             .content-wrapper {
-                height: calc(100vh - 110px) !important;
+                height: 88vh !important;
                 display: flex !important;
                 flex-direction: column !important;
                 gap: 3px !important;
