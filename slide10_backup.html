@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: Technical Excellence</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5; color: #333; line-height: 1.6;
+        
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        .slide {
+            width: 100vw; max-width: 1920px; min-height: 100vh; height: auto; background: white; margin: 0 auto;
+            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1); padding: clamp(15px, 2.5vw, 50px); position: relative;
+            overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column;
+        }
+        
+                .slide-number {
+            position: absolute;
+            top: clamp(15px, 1.5vw, 30px);
+            left: clamp(15px, 1.5vw, 30px);
+            font-size: clamp(12px, 0.8vw, 16px);
+            color: #999;
+            font-weight: 500;
+        }
+        
+        .solar-pattern {
+            position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; opacity: 0.08;
+            background: repeating-linear-gradient(45deg, #FDB813, #FDB813 10px, transparent 10px, transparent 20px);
+            transform: rotate(15deg); animation: subtle-rotate 20s linear infinite;
+        }
+        
+        @keyframes subtle-rotate { from { transform: rotate(15deg); } to { transform: rotate(375deg); } }
+        
+        h1 { color: #0047AB; font-size: clamp(28px, 2.9vw, 56px); font-weight: 700; margin-bottom: clamp(15px, 2vw, 30px); line-height: 1.2; text-shadow: 0 2px 4px rgba(0,71,171,0.1); }
+        .subtitle { color: #666; font-size: clamp(14px, 1.2vw, 20px); margin-bottom: clamp(20px, 2.5vw, 40px); }
+        h3 { color: #0047AB; font-size: clamp(16px, 1.7vw, 28px); font-weight: 600; margin-bottom: clamp(10px, 1.5vw, 15px); }
+        
+        .spec-table {
+            width: 100%; background: white; border-radius: clamp(7px, 0.8vw, 15px); overflow: hidden;
+            box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.1);
+        }
+        
+        .spec-table th {
+            background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); color: white;
+            padding: clamp(15px, 2.5vw, 25px); font-size: clamp(16px, 1.8vw, 22px); font-weight: 600; text-align: left; position: relative;
+        }
+        
+        .spec-table td {
+            padding: clamp(12px, 2vw, 20px) clamp(15px, 2.5vw, 25px); font-size: clamp(14px, 1.6vw, 20px); border-bottom: 1px solid #eee;
+            transition: background 0.3s ease;
+        }
+        
+        .spec-table tr:hover td { background: #f0f8ff; }
+        .spec-table tr:last-child td { border-bottom: none; }
+        
+        .logo-corner { position: absolute; bottom: clamp(20px, 2.5vw, 30px); right: clamp(20px, 2.5vw, 30px); font-size: clamp(24px, 2.8vw, 32px); font-weight: 700; color: #0047AB; opacity: 0.6; }
+        
+        @media (max-width: 1920px) { .slide { width: 100%; max-width: 1920px; } }
+    
+        /* Navigation Styles */
+                .nav-container {
+            position: fixed;
+            top: clamp(10px, 1vw, 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 0.8vw, 15px);
+            background: rgba(255, 255, 255, 0.95);
+            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+            border-radius: clamp(15px, 1.3vw, 25px);
+            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+                .slide-counter {
+            font-size: clamp(11px, 0.7vw, 14px);
+            font-weight: 600;
+            color: #0047AB;
+            min-width: clamp(60px, 4vw, 80px);
+            text-align: center;
+        }
+
+                .slide-select {
+            padding: clamp(6px, 0.4vw, 8px) clamp(8px, 0.6vw, 12px);
+            border: 1px solid #ddd;
+            border-radius: clamp(4px, 0.3vw, 6px);
+            font-size: clamp(11px, 0.7vw, 14px);
+            background: white;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .slide-select:focus {
+            border-color: #0047AB;
+            box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.1);
+        }
+
+                .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(0, 71, 171, 0.9);
+            color: white;
+            border: none;
+            width: clamp(35px, 2.6vw, 50px);
+            height: clamp(35px, 2.6vw, 50px);
+            border-radius: 50%;
+            font-size: clamp(14px, 1vw, 20px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 71, 171, 1);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0.3vw 1.0vw rgba(0, 71, 171, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: rgba(150, 150, 150, 0.5);
+            cursor: not-allowed;
+            transform: translateY(-50%) scale(1);
+        }
+
+                .nav-btn.prev {
+            left: clamp(15px, 1.5vw, 30px);
+        }
+
+                .nav-btn.next {
+            right: clamp(15px, 1.5vw, 30px);
+        }
+
+        @media (max-width: 768px) {
+                    .nav-container {
+            position: fixed;
+            top: clamp(10px, 1vw, 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 0.8vw, 15px);
+            background: rgba(255, 255, 255, 0.95);
+            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+            border-radius: clamp(15px, 1.3vw, 25px);
+            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+            
+                    .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(0, 71, 171, 0.9);
+            color: white;
+            border: none;
+            width: clamp(35px, 2.6vw, 50px);
+            height: clamp(35px, 2.6vw, 50px);
+            border-radius: 50%;
+            font-size: clamp(14px, 1vw, 20px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+        }
+            
+            .nav-btn.prev {
+                left: 15px;
+            }
+            
+            .nav-btn.next {
+                right: 15px;
+            }
+        }
+    
+        /* Enhanced Responsive Design */
+        @media (max-width: 1366px) {
+            .slide {
+                padding: clamp(15px, 2.5vw, 40px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: clamp(10px, 2vw, 25px);
+            }
+            
+            h1 {
+                font-size: clamp(24px, 5vw, 48px) !important;
+            }
+            
+            h2 {
+                font-size: clamp(20px, 4vw, 36px) !important;
+            }
+            
+            h3 {
+                font-size: clamp(18px, 3.5vw, 28px) !important;
+            }
+        }
+
+        /* Short screen optimization */
+        @media (max-height: 900px) {
+            .slide {
+                padding: clamp(10px, 1.5vw, 25px);
+            }
+            
+            h1 {
+                font-size: clamp(20px, 2.2vw, 40px) !important;
+                margin-bottom: clamp(8px, 1.2vw, 15px) !important;
+            }
+            
+            .subtitle {
+                margin-bottom: clamp(10px, 1.5vw, 20px) !important;
+            }
+            
+            .spec-table {
+                margin: clamp(15px, 2vw, 25px) 0 !important;
+            }
+            
+            .spec-table th {
+                padding: clamp(10px, 2vw, 20px) !important;
+            }
+            
+            .spec-table td {
+                padding: clamp(8px, 1.5vw, 15px) clamp(10px, 2vw, 20px) !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .spec-table {
+                font-size: 90%;
+            }
+            
+            .spec-table th {
+                font-size: clamp(14px, 1.6vw, 18px) !important;
+                padding: clamp(8px, 1.5vw, 15px) !important;
+            }
+            
+            .spec-table td {
+                font-size: clamp(12px, 1.4vw, 16px) !important;
+                padding: clamp(6px, 1.2vw, 12px) clamp(8px, 1.8vw, 15px) !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 6px 10px;
+                gap: 6px;
+            }
+            
+            .slide-counter {
+                min-width: 50px;
+                font-size: 10px;
+            }
+            
+            .slide-select {
+                font-size: 10px;
+                padding: 4px 6px;
+            }
+            
+            .spec-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            .spec-table th,
+            .spec-table td {
+                white-space: normal;
+                word-wrap: break-word;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <div class="slide-counter">14 / 28</div>
+        <select class="slide-select" onchange="jumpToSlide(this.value)">
+            <option value="index.html">1. Welcome</option>
+            <option value="slide2.html">2. About</option>
+            <option value="slide3.html">3. Purpose & Direction</option>
+            <option value="slide4.html">4. Heritage</option>
+            <option value="slide5.html">5. Excellence</option>
+            <option value="slide6.html">6. L3 Open Body</option>
+            <option value="slide6b.html">7. L3 Closed Body</option>
+            <option value="slide7.html">8. L5 Tipper</option>
+            <option value="slide8.html">9. L3 Water Tanker</option>
+            <option value="slide8b.html">10. L3 Fogging</option>
+            <option value="slide9.html">11. Product Range</option>
+            <option value="slide9b.html">12. L5 Premium</option>
+            <option value="slide9c.html">13. L5 Deluxe</option>
+            <option value="slide10.html" selected>14. Technical Excellence</option>
+            <option value="slide11.html">15. Future E-Bus</option>
+            <option value="slide12.html">16. Last-Mile Logistics</option>
+            <option value="slide13.html">17. SMB Empowerment</option>
+            <option value="slide14.html">18. Public Sector</option>
+            <option value="slide15.html">19. Aftermarket Excellence</option>
+            <option value="slide16.html">20. Chennai Case Study</option>
+            <option value="slide17.html">21. Panchayat Case Study</option>
+            <option value="slide18.html">22. Solar Smart Technology</option>
+            <option value="slide19.html">23. Manufacturing</option>
+            <option value="slide20.html">24. Customer Testimonials</option>
+            <option value="slide21.html">25. Awards & Recognition</option>
+            <option value="slide22.html">26. Strategic Partnerships</option>
+            <option value="slide23.html">27. Growth Vision</option>
+            <option value="slide24.html">28. Thank You</option>
+        </select>
+    </div>
+    
+    <button class="nav-btn prev" onclick="prevSlide()">‹</button>
+    <button class="nav-btn next" onclick="nextSlide()">›</button>
+
+    <div class="slide">
+        <div class="slide-number">14</div>
+        <div class="solar-pattern"></div>
+        <h1>Technical Excellence Across Categories</h1>
+        <div class="subtitle">Specifications that deliver on promises</div>
+        
+        <table class="spec-table">
+            <thead>
+                <tr>
+                    <th style="width: 25%;">Specification</th>
+                    <th style="width: 25%;">L3 Category</th>
+                    <th style="width: 25%;">L5 Category</th>
+                    <th style="width: 25%;">Solar Advantage</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Payload Capacity</strong></td>
+                    <td><span style="background: #e8f5e8; padding: clamp(4px, 0.5vw, 5px) clamp(8px, 1.2vw, 12px); border-radius: clamp(4px, 0.4vw, 8px); color: #228B22; font-weight: 600;">Up to 400 kg</span></td>
+                    <td><span style="background: #e8f5e8; padding: clamp(4px, 0.5vw, 5px) clamp(8px, 1.2vw, 12px); border-radius: clamp(4px, 0.4vw, 8px); color: #228B22; font-weight: 600;">Up to 850 kg</span></td>
+                    <td style="color: #FDB813; font-weight: 600;">+10% with weight optimization</td>
+                </tr>
+                <tr>
+                    <td><strong>Range per Charge</strong></td>
+                    <td>90-100 km</td>
+                    <td>100-120 km</td>
+                    <td style="color: #FDB813; font-weight: 600;">+30 km daily from solar</td>
+                </tr>
+                <tr>
+                    <td><strong>Battery Options</strong></td>
+                    <td>Lead Acid / Lithium</td>
+                    <td>Advanced Lithium</td>
+                    <td style="color: #FDB813; font-weight: 600;">Solar extends battery life 20%</td>
+                </tr>
+                <tr>
+                    <td><strong>Charging Time</strong></td>
+                    <td>4 hours (fast charge)</td>
+                    <td>4-5 hours</td>
+                    <td style="color: #FDB813; font-weight: 600;">Continuous trickle charge</td>
+                </tr>
+                <tr>
+                    <td><strong>Gradient Capability</strong></td>
+                    <td>12° fully loaded</td>
+                    <td>15° fully loaded</td>
+                    <td style="color: #FDB813; font-weight: 600;">Better hill performance</td>
+                </tr>
+                <tr>
+                    <td><strong>Warranty</strong></td>
+                    <td>1 year comprehensive</td>
+                    <td>3 years comprehensive</td>
+                    <td style="color: #FDB813; font-weight: 600;">Extended component life</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); color: white; padding: clamp(20px, 3.5vw, 35px); border-radius: clamp(10px, 1.0vw, 20px); text-align: center; margin-top: clamp(20px, 3vw, 30px); box-shadow: 0 0.6vw 1.8vw rgba(0,71,171,0.3);">
+            <h3 style="color: white; margin-bottom: clamp(10px, 1.5vw, 15px);">🏆 Quality Certifications</h3>
+            <p style="font-size: clamp(16px, 2.4vw, 24px);">ARAI Certified • IP67 Rated Components • CAN-Enabled Diagnostics • Make in India Compliant</p>
+        </div>
+        
+        <div class="logo-corner">REEP</div>
+    </div>
+    <script>
+        const slides = [
+            'index.html',
+            'slide2.html',
+            'slide3.html',
+            'slide4.html',
+            'slide5.html',
+            'slide6.html',
+            'slide6b.html',
+            'slide7.html',
+            'slide8.html',
+            'slide8b.html',
+            'slide9.html',
+            'slide9b.html',
+            'slide9c.html',
+            'slide10.html',
+            'slide11.html',
+            'slide12.html',
+            'slide13.html',
+            'slide14.html',
+            'slide15.html',
+            'slide16.html',
+            'slide17.html',
+            'slide18.html',
+            'slide19.html',
+            'slide20.html',
+            'slide21.html',
+            'slide22.html',
+            'slide23.html',
+            'slide24.html'
+        ];
+        
+        const currentSlide = 'slide10.html';
+        const currentIndex = slides.indexOf(currentSlide);
+        
+        function jumpToSlide(slideFile) {
+            if (slideFile && slideFile !== currentSlide) {
+                window.location.href = slideFile;
+            }
+        }
+        
+        function prevSlide() {
+            if (currentIndex > 0) {
+                window.location.href = slides[currentIndex - 1];
+            }
+        }
+        
+        function nextSlide() {
+            if (currentIndex < slides.length - 1) {
+                window.location.href = slides[currentIndex + 1];
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+        
+        // Set the correct option in dropdown
+        document.querySelector('.slide-select').value = currentSlide;
+    </script>
+</body>
+</html>

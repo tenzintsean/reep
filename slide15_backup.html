@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: Aftermarket Excellence</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        .slide {
+            width: 100vw; 
+            max-width: 1920px;
+            min-height: 100vh;
+            height: auto;
+            background: white;
+            margin: 0 auto;
+            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
+            padding: clamp(15px, 2.5vw, 50px);
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: clamp(15px, 1.5vw, 30px);
+            left: clamp(15px, 1.5vw, 30px);
+            font-size: clamp(12px, 0.8vw, 16px);
+            color: #999;
+            font-weight: 500;
+        }
+        
+        .solar-pattern {
+            position: absolute; 
+            top: -100px; 
+            right: -100px; 
+            width: 400px; 
+            height: 400px; 
+            opacity: 0.08;
+            background: repeating-linear-gradient(45deg, #FDB813, #FDB813 10px, transparent 10px, transparent 20px);
+            transform: rotate(15deg); 
+            animation: subtle-rotate 20s linear infinite;
+        }
+        
+        @keyframes subtle-rotate { 
+            from { transform: rotate(15deg); } 
+            to { transform: rotate(375deg); } 
+        }
+        
+        h1 { 
+            color: #0047AB; 
+            font-size: clamp(24px, 2.5vw, 48px); 
+            font-weight: 700; 
+            margin-bottom: clamp(8px, 1.5vw, 20px); 
+            line-height: 1.2; 
+            text-shadow: 0 2px 4px rgba(0,71,171,0.1); 
+        }
+        
+        .subtitle { 
+            color: #666; 
+            font-size: clamp(14px, 1.2vw, 18px); 
+            margin-bottom: clamp(12px, 2vw, 25px); 
+        }
+        
+        h2 { 
+            color: #0047AB; 
+            font-size: clamp(18px, 1.8vw, 28px); 
+            font-weight: 600; 
+            margin-bottom: clamp(10px, 1.5vw, 20px); 
+            line-height: 1.3; 
+        }
+        
+        h3 { 
+            color: #0047AB; 
+            font-size: clamp(16px, 1.5vw, 24px); 
+            font-weight: 600; 
+            margin-bottom: clamp(8px, 1.2vw, 12px); 
+        }
+        
+        .metric-dashboard {
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: clamp(10px, 2vw, 20px); 
+            margin: clamp(12px, 2vw, 25px) 0;
+        }
+        
+        .metric-item {
+            text-align: center; 
+            padding: clamp(12px, 2vw, 20px); 
+            background: white; 
+            border-radius: clamp(7px, 0.8vw, 15px);
+            box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.08); 
+            transition: all 0.3s ease;
+        }
+        
+        .metric-item:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 0.6vw 1.8vw rgba(0,0,0,0.12); 
+        }
+        
+        .metric-value { 
+            font-size: clamp(24px, 3vw, 36px); 
+            font-weight: 700; 
+            margin-bottom: clamp(4px, 0.8vw, 8px); 
+        }
+        
+        .metric-label { 
+            font-size: clamp(11px, 1.2vw, 16px); 
+            color: #666; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+            line-height: 1.3;
+        }
+        
+        .partnerships-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .partnerships-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: clamp(12px, 2vw, 25px);
+            flex: 1;
+        }
+        
+        .partnership-card {
+            background: white; 
+            border-radius: clamp(8px, 0.8vw, 15px); 
+            overflow: hidden; 
+            box-shadow: 0 0.4vw 1.2vw rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .partnership-header {
+            color: white; 
+            padding: clamp(15px, 2.5vw, 25px); 
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .partnership-title {
+            color: white; 
+            font-size: clamp(18px, 2.2vw, 28px); 
+            margin-bottom: clamp(4px, 0.8vw, 8px);
+            font-weight: 700;
+        }
+        
+        .partnership-subtitle {
+            font-size: clamp(12px, 1.4vw, 18px); 
+            opacity: 0.9;
+            line-height: 1.3;
+        }
+        
+        .partnership-content {
+            padding: clamp(12px, 2vw, 20px);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(8px, 1.2vw, 12px);
+        }
+        
+        .stat-item {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: clamp(8px, 1.5vw, 12px); 
+            border-radius: clamp(4px, 0.4vw, 8px);
+        }
+        
+        .stat-label {
+            font-size: clamp(12px, 1.3vw, 16px); 
+            color: #333;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stat-value {
+            font-size: clamp(20px, 2.5vw, 28px); 
+            font-weight: 700;
+        }
+        
+        .achievement-banner {
+            text-align: center; 
+            padding: clamp(8px, 1.2vw, 12px); 
+            border-radius: clamp(4px, 0.4vw, 8px);
+            margin-top: auto;
+        }
+        
+        .achievement-text {
+            font-size: clamp(13px, 1.5vw, 18px); 
+            font-weight: 600;
+        }
+        
+        .logo-corner { 
+            position: absolute; 
+            bottom: clamp(15px, 2vw, 25px); 
+            right: clamp(15px, 2vw, 25px); 
+            font-size: clamp(20px, 2.5vw, 28px); 
+            font-weight: 700; 
+            color: #0047AB; 
+            opacity: 0.6; 
+        }
+        
+        /* Short screen optimization for 800px and below */
+        @media (max-height: 850px) {
+            .slide {
+                padding: clamp(8px, 1.5vw, 20px);
+            }
+            
+            h1 {
+                font-size: clamp(18px, 2vw, 32px);
+                margin-bottom: clamp(4px, 0.8vw, 10px);
+            }
+            
+            .subtitle {
+                font-size: clamp(12px, 1vw, 16px);
+                margin-bottom: clamp(6px, 1.2vw, 15px);
+            }
+            
+            h2 {
+                font-size: clamp(14px, 1.5vw, 20px);
+                margin-bottom: clamp(6px, 1vw, 12px);
+            }
+            
+            .metric-dashboard {
+                margin: clamp(6px, 1.2vw, 12px) 0;
+                gap: clamp(6px, 1.2vw, 12px);
+            }
+            
+            .metric-item {
+                padding: clamp(6px, 1.2vw, 12px);
+            }
+            
+            .metric-value {
+                font-size: clamp(18px, 2.2vw, 26px);
+                margin-bottom: clamp(2px, 0.4vw, 4px);
+            }
+            
+            .metric-label {
+                font-size: clamp(9px, 1vw, 12px);
+            }
+            
+            .partnerships-grid {
+                gap: clamp(6px, 1.2vw, 12px);
+            }
+            
+            .partnership-header {
+                padding: clamp(8px, 1.5vw, 15px);
+            }
+            
+            .partnership-title {
+                font-size: clamp(14px, 1.6vw, 20px);
+                margin-bottom: clamp(2px, 0.4vw, 4px);
+            }
+            
+            .partnership-subtitle {
+                font-size: clamp(10px, 1.1vw, 14px);
+            }
+            
+            .partnership-content {
+                padding: clamp(6px, 1.2vw, 12px);
+                gap: clamp(4px, 0.8vw, 8px);
+            }
+            
+            .stat-item {
+                padding: clamp(4px, 0.8vw, 8px);
+            }
+            
+            .stat-label {
+                font-size: clamp(10px, 1.1vw, 13px);
+                font-weight: 700;
+            }
+            
+            .stat-value {
+                font-size: clamp(16px, 1.8vw, 22px);
+            }
+            
+            .achievement-banner {
+                padding: clamp(4px, 0.8vw, 8px);
+            }
+            
+            .achievement-text {
+                font-size: clamp(11px, 1.2vw, 15px);
+            }
+        }
+        
+        /* Navigation Styles */
+        .nav-container {
+            position: fixed;
+            top: clamp(10px, 1vw, 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 0.8vw, 15px);
+            background: rgba(255, 255, 255, 0.95);
+            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+            border-radius: clamp(15px, 1.3vw, 25px);
+            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .slide-counter {
+            font-size: clamp(11px, 0.7vw, 14px);
+            font-weight: 600;
+            color: #0047AB;
+            min-width: clamp(60px, 4vw, 80px);
+            text-align: center;
+        }
+
+        .slide-select {
+            padding: clamp(6px, 0.4vw, 8px) clamp(8px, 0.6vw, 12px);
+            border: 1px solid #ddd;
+            border-radius: clamp(4px, 0.3vw, 6px);
+            font-size: clamp(11px, 0.7vw, 14px);
+            background: white;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .slide-select:focus {
+            border-color: #0047AB;
+            box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.1);
+        }
+
+        .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(0, 71, 171, 0.9);
+            color: white;
+            border: none;
+            width: clamp(35px, 2.6vw, 50px);
+            height: clamp(35px, 2.6vw, 50px);
+            border-radius: 50%;
+            font-size: clamp(14px, 1vw, 20px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 71, 171, 1);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0.3vw 1.0vw rgba(0, 71, 171, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: rgba(150, 150, 150, 0.5);
+            cursor: not-allowed;
+            transform: translateY(-50%) scale(1);
+        }
+
+        .nav-btn.prev {
+            left: clamp(15px, 1.5vw, 30px);
+        }
+
+        .nav-btn.next {
+            right: clamp(15px, 1.5vw, 30px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                position: fixed;
+                top: clamp(10px, 1vw, 20px);
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                gap: clamp(8px, 0.8vw, 15px);
+                background: rgba(255, 255, 255, 0.95);
+                padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+                border-radius: clamp(15px, 1.3vw, 25px);
+                box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
+                backdrop-filter: blur(10px);
+            }
+            
+            .nav-btn {
+                position: fixed;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 1000;
+                background: rgba(0, 71, 171, 0.9);
+                color: white;
+                border: none;
+                width: clamp(35px, 2.6vw, 50px);
+                height: clamp(35px, 2.6vw, 50px);
+                border-radius: 50%;
+                font-size: clamp(14px, 1vw, 20px);
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+            }
+            
+            .nav-btn.prev {
+                left: 15px;
+            }
+            
+            .nav-btn.next {
+                right: 15px;
+            }
+            
+            .partnerships-grid {
+                grid-template-columns: 1fr;
+                gap: clamp(10px, 1.5vw, 15px);
+            }
+            
+            .metric-dashboard {
+                grid-template-columns: 1fr;
+                gap: clamp(8px, 1.2vw, 12px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 6px 10px;
+                gap: 6px;
+            }
+            
+            .slide-counter {
+                min-width: 50px;
+                font-size: 10px;
+            }
+            
+            .slide-select {
+                font-size: 10px;
+                padding: 4px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <div class="slide-counter">19 / 28</div>
+        <select class="slide-select" onchange="jumpToSlide(this.value)">
+            <option value="index.html">1. Welcome</option>
+            <option value="slide2.html">2. About</option>
+            <option value="slide3.html">3. Purpose & Direction</option>
+            <option value="slide4.html">4. Heritage</option>
+            <option value="slide5.html">5. Excellence</option>
+            <option value="slide6.html">6. L3 Open Body</option>
+            <option value="slide6b.html">7. L3 Closed Body</option>
+            <option value="slide7.html">8. L5 Tipper</option>
+            <option value="slide8.html">9. L3 Water Tanker</option>
+            <option value="slide8b.html">10. L3 Fogging</option>
+            <option value="slide9.html">11. Product Range</option>
+            <option value="slide9b.html">12. L5 Premium</option>
+            <option value="slide9c.html">13. L5 Deluxe</option>
+            <option value="slide10.html">14. Technical Excellence</option>
+            <option value="slide11.html">15. Future E-Bus</option>
+            <option value="slide12.html">16. Last-Mile Logistics</option>
+            <option value="slide13.html">17. SMB Empowerment</option>
+            <option value="slide14.html">18. Public Sector</option>
+            <option value="slide15.html" selected>19. Aftermarket Excellence</option>
+            <option value="slide16.html">20. Chennai Case Study</option>
+            <option value="slide17.html">21. Panchayat Case Study</option>
+            <option value="slide18.html">22. Solar Smart Technology</option>
+            <option value="slide19.html">23. Manufacturing</option>
+            <option value="slide20.html">24. Customer Testimonials</option>
+            <option value="slide21.html">25. Awards & Recognition</option>
+            <option value="slide22.html">26. Strategic Partnerships</option>
+            <option value="slide23.html">27. Growth Vision</option>
+            <option value="slide24.html">28. Thank You</option>
+        </select>
+    </div>
+    
+    <button class="nav-btn prev" onclick="prevSlide()">‹</button>
+    <button class="nav-btn next" onclick="nextSlide()">›</button>
+
+    <div class="slide">
+        <div class="slide-number">19</div>
+        <div class="solar-pattern"></div>
+        
+        <h1>Proven Track Record at Scale</h1>
+        <div class="subtitle">Excellence delivered consistently across thousands of vehicles</div>
+        
+        <div class="metric-dashboard">
+            <div class="metric-item" style="background: linear-gradient(135deg, #0047AB, #0056D2); color: white;">
+                <div class="metric-value" style="color: white;">6,000+</div>
+                <div class="metric-label" style="color: white;">EVs Delivered</div>
+            </div>
+            <div class="metric-item" style="background: linear-gradient(135deg, #FDB813, #FFD700); color: white;">
+                <div class="metric-value" style="color: white;">200+</div>
+                <div class="metric-label" style="color: white;">Daily Production Capacity</div>
+            </div>
+            <div class="metric-item" style="background: linear-gradient(135deg, #228B22, #2ECC40); color: white;">
+                <div class="metric-value" style="color: white;">50+</div>
+                <div class="metric-label" style="color: white;">Service Centers</div>
+            </div>
+        </div>
+        
+        <div class="partnerships-section">
+            <h2>Major Government Partnerships</h2>
+            
+            <div class="partnerships-grid">
+                <div class="partnership-card">
+                    <div class="partnership-header" style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%);">
+                        <h3 class="partnership-title">Greater Chennai Corporation</h3>
+                        <p class="partnership-subtitle">Urban Waste Management Revolution</p>
+                    </div>
+                    <div class="partnership-content">
+                        <div class="stat-item" style="background: #f8f9fa;">
+                            <span class="stat-label">Total Fleet</span>
+                            <span class="stat-value" style="color: #0047AB;">3,330</span>
+                        </div>
+                        <div class="stat-item" style="background: #fff8e1;">
+                            <span class="stat-label">Single Order Record</span>
+                            <span class="stat-value" style="color: #FDB813;">2,919</span>
+                        </div>
+                        <div class="achievement-banner" style="background: #e8f5e8;">
+                            <span class="achievement-text" style="color: #228B22;">100% Fleet Electrification</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="partnership-card">
+                    <div class="partnership-header" style="background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%);">
+                        <h3 class="partnership-title">Tamil Nadu Panchayats</h3>
+                        <p class="partnership-subtitle">Rural Development Initiative</p>
+                    </div>
+                    <div class="partnership-content">
+                        <div class="stat-item" style="background: #f0f8ff;">
+                            <span class="stat-label">Coimbatore District</span>
+                            <span class="stat-value" style="color: #0047AB;">248</span>
+                        </div>
+                        <div class="stat-item" style="background: #fff8e1;">
+                            <span class="stat-label">Tiruvallur District</span>
+                            <span class="stat-value" style="color: #FDB813;">423</span>
+                        </div>
+                        <div class="achievement-banner" style="background: #e8f5e8;">
+                            <span class="achievement-text" style="color: #228B22;">671 Villages Empowered</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logo-corner">REEP</div>
+    </div>
+    
+    <script>
+        const slides = [
+            'index.html',
+            'slide2.html',
+            'slide3.html',
+            'slide4.html',
+            'slide5.html',
+            'slide6.html',
+            'slide6b.html',
+            'slide7.html',
+            'slide8.html',
+            'slide8b.html',
+            'slide9.html',
+            'slide9b.html',
+            'slide9c.html',
+            'slide10.html',
+            'slide11.html',
+            'slide12.html',
+            'slide13.html',
+            'slide14.html',
+            'slide15.html',
+            'slide16.html',
+            'slide17.html',
+            'slide18.html',
+            'slide19.html',
+            'slide20.html',
+            'slide21.html',
+            'slide22.html',
+            'slide23.html',
+            'slide24.html'
+        ];
+        
+        const currentSlide = 'slide15.html';
+        const currentIndex = slides.indexOf(currentSlide);
+        
+        function jumpToSlide(slideFile) {
+            if (slideFile && slideFile !== currentSlide) {
+                window.location.href = slideFile;
+            }
+        }
+        
+        function prevSlide() {
+            if (currentIndex > 0) {
+                window.location.href = slides[currentIndex - 1];
+            }
+        }
+        
+        function nextSlide() {
+            if (currentIndex < slides.length - 1) {
+                window.location.href = slides[currentIndex + 1];
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+        
+        // Set the correct option in dropdown
+        document.querySelector('.slide-select').value = currentSlide;
+    </script>
+</body>
+</html>

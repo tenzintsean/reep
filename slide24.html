@@ -11,297 +11,566 @@
             box-sizing: border-box;
         }
         
+        :root {
+            /* Primary Colors */
+            --solar-gold: #FDB813;
+            --solar-gold-light: #FFD700;
+            --trust-blue: #0047AB;
+            --trust-blue-light: #0056D2;
+            --green-primary: #228B22;
+            --green-light: #2ECC40;
+            
+            /* Backgrounds */
+            --bg-dark: #0a0a0a;
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --bg-glass-border: rgba(255, 255, 255, 0.1);
+            
+            /* Text */
+            --text-primary: rgba(255, 255, 255, 0.9);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.3);
+            
+            /* Typography Scale */
+            --title-xl: clamp(36px, 4.5vw, 64px);
+            --title-lg: clamp(28px, 3.5vw, 56px);
+            --title-md: clamp(24px, 3vw, 36px);
+            --text-lg: clamp(14px, 1.8vw, 22px);
+            --text-md: clamp(13px, 1.6vw, 20px);
+            --text-sm: clamp(12px, 1.6vh, 18px);
+        }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            background: #f5f5f5;
+            background: var(--bg-dark);
             color: #333;
             line-height: 1.6;
-        
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            min-height: 100vh;
         }
         
+        /* Mobile-first approach */
         .slide {
-            width: 100vw; max-width: 1920px;
-            height: 100vh; max-height: 1080px;
-            background: white;
+            display: block;
+            width: 100vw;
+            height: auto;
+            min-height: auto;
+            background: var(--bg-dark);
             margin: 0 auto;
-            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
-            padding: clamp(20px, 3vw, 60px);
             position: relative;
-            overflow: hidden;
+            overflow-y: visible;
+            overflow-x: hidden;
+            padding: 80px 20px 120px;
+        }
+        
+        /* Desktop enhancement with proper navigation clearance */
+        @media (min-width: 768px) {
+            body {
+                overflow: hidden;
+            }
+            
+            .slide {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                height: 100vh;
+                max-width: 1920px;
+                max-height: 1080px;
+                overflow: hidden;
+                padding: 10vh 2vw 6vh !important; /* 10vh top ensures navigation clearance */
+            }
+            
+            .content-wrapper {
+                height: 84vh !important; /* Adjusted: 100vh - 10vh(top) - 6vh(bottom) = 84vh */
+                max-height: 84vh !important;
+                overflow: hidden !important;
+            }
+        }
+        
+        /* Premium Background */
+        .slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(253, 184, 19, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(0, 71, 171, 0.12) 0%, transparent 40%);
+            animation: gradientShift 25s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(-3%, 3%) scale(1.05) rotate(90deg); }
+            50% { transform: translate(3%, -3%) scale(0.98) rotate(180deg); }
+            75% { transform: translate(-2%, -2%) scale(1.02) rotate(270deg); }
+        }
+        
+        /* Content wrapper for desktop layout control */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
+            gap: clamp(20px, 3vh, 30px);
+            align-items: center;
+            justify-content: center;
+            flex: 1;
         }
-            aspect-ratio: 16/9;
         
-                .slide-number {
+        /* Slide number */
+        .slide-number {
             position: absolute;
             top: clamp(15px, 1.5vw, 30px);
             left: clamp(15px, 1.5vw, 30px);
             font-size: clamp(12px, 0.8vw, 16px);
-            color: #999;
+            color: var(--text-muted);
             font-weight: 500;
+            z-index: 20;
         }
         
-        .solar-pattern {
-            position: absolute;
-            top: -100px;
-            right: -100px;
-            width: 400px;
-            height: 400px;
-            opacity: 0.08;
-            background: repeating-linear-gradient(
-                45deg,
-                #FDB813,
-                #FDB813 10px,
-                transparent 10px,
-                transparent 20px
-            );
-            transform: rotate(15deg);
-            animation: subtle-rotate 20s linear infinite;
-        }
-        
-        .solar-pattern-left {
-            position: absolute;
-            bottom: -100px;
-            left: -100px;
-            width: 300px;
-            height: 300px;
-            opacity: 0.05;
-            background: repeating-linear-gradient(
-                -45deg,
-                #0047AB,
-                #0047AB 10px,
-                transparent 10px,
-                transparent 20px
-            );
-            transform: rotate(-15deg);
-            animation: subtle-rotate-reverse 25s linear infinite;
-        }
-        
-        @keyframes subtle-rotate {
-            from { transform: rotate(15deg); }
-            to { transform: rotate(375deg); }
-        }
-        
-        @keyframes subtle-rotate-reverse {
-            from { transform: rotate(-15deg); }
-            to { transform: rotate(-375deg); }
-        }
-        
-        /* Enhanced Contact Section */
-        .contact-card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-            color: #333;
-            padding: 60px;
-            border-radius: clamp(10px, 1.0vw, 20px);
+        /* Header section */
+        .header-section {
             text-align: center;
-            box-shadow: 0 1.0vw 3.1vw rgba(0,0,0,0.1);
-            border: 2px solid #e0e0e0;
+            margin-bottom: clamp(20px, 3vh, 30px);
+        }
+        
+        /* Thank you title */
+        .thank-you-title {
+            font-size: clamp(48px, 7vw, 72px);
+            font-weight: 700;
+            margin-bottom: clamp(15px, 2.5vh, 25px);
+            background: linear-gradient(135deg, var(--solar-gold) 0%, var(--solar-gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+            line-height: 1.2;
+        }
+        
+        .thank-you-subtitle {
+            font-size: clamp(20px, 3.2vw, 32px);
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-bottom: clamp(15px, 2vh, 20px);
+            line-height: 1.4;
+        }
+        
+        .title-divider {
+            width: clamp(80px, 12vw, 120px);
+            height: 4px;
+            background: linear-gradient(135deg, var(--trust-blue) 0%, var(--solar-gold) 100%);
+            margin: 0 auto clamp(30px, 4vh, 40px);
+            border-radius: 2px;
+        }
+        
+        /* Contact card with glassmorphism */
+        .contact-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--bg-glass-border);
+            color: var(--text-primary);
+            padding: clamp(40px, 6vh, 60px);
+            border-radius: clamp(12px, 1.5vw, 20px);
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            max-width: 900px;
+            width: 100%;
         }
         
         .contact-card h3 {
-            color: #0047AB;
-            margin-bottom: 40px;
-            font-size: clamp(21px, 2.2vw, 42px);
+            color: var(--text-primary);
+            margin-bottom: clamp(25px, 4vh, 40px);
+            font-size: clamp(21px, 2.8vw, 36px);
             font-weight: 600;
         }
         
-        .contact-details {
-            font-size: 20px;
-            line-height: 1.6;
+        .contact-person {
+            margin-bottom: clamp(30px, 4vh, 40px);
         }
         
+        .contact-name {
+            font-size: clamp(28px, 3.6vw, 36px);
+            margin-bottom: clamp(8px, 1.2vh, 12px);
+            color: var(--trust-blue);
+            font-weight: 600;
+        }
+        
+        .contact-title {
+            font-size: clamp(16px, 2.2vw, 22px);
+            color: var(--text-secondary);
+            margin-bottom: clamp(30px, 4vh, 40px);
+            font-weight: 400;
+        }
+        
+        /* Contact details grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(20px, 3vw, 40px);
+            margin: clamp(30px, 4vh, 40px) 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: clamp(15px, 2vw, 20px);
+            }
+        }
+        
+        .contact-item {
+            text-align: center;
+            padding: clamp(20px, 3vh, 25px);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: clamp(8px, 1vw, 12px);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .contact-icon {
+            width: clamp(50px, 6vw, 60px);
+            height: clamp(50px, 6vw, 60px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto clamp(10px, 1.5vh, 15px);
+            color: white;
+            font-size: clamp(20px, 2.4vw, 24px);
+            font-weight: bold;
+        }
+        
+        .contact-icon.phone {
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.9) 0%, rgba(0, 86, 210, 0.9) 100%);
+        }
+        
+        .contact-icon.email {
+            background: linear-gradient(135deg, rgba(253, 184, 19, 0.9) 0%, rgba(255, 215, 0, 0.9) 100%);
+        }
+        
+        .contact-icon.website {
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.9) 0%, rgba(46, 204, 64, 0.9) 100%);
+        }
+        
+        .contact-label {
+            font-size: clamp(12px, 1.6vw, 16px);
+            color: var(--text-secondary);
+            margin-bottom: clamp(6px, 0.8vh, 8px);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        
+        .contact-value {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        /* CTA Button */
         .cta-button {
             display: inline-block;
-            background: #0047AB;
+            background: linear-gradient(135deg, var(--trust-blue) 0%, var(--trust-blue-light) 100%);
             color: white;
-            padding: 18px 40px;
-            border-radius: clamp(4px, 0.4vw, 8px);
-            font-size: 20px;
+            padding: clamp(15px, 2.5vh, 18px) clamp(30px, 4vw, 40px);
+            border-radius: clamp(8px, 1vw, 12px);
+            font-size: clamp(16px, 2vw, 20px);
             font-weight: 600;
             text-decoration: none;
-            margin-top: 40px;
+            margin-top: clamp(25px, 4vh, 40px);
             transition: all 0.3s ease;
-            box-shadow: 0 0.4vw 1.3vw rgba(0,71,171,0.2);
+            box-shadow: 0 8px 32px rgba(0, 71, 171, 0.3);
             letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .cta-button:hover {
-            background: #0056D2;
+            background: linear-gradient(135deg, var(--trust-blue-light) 0%, var(--trust-blue) 100%);
             transform: translateY(-2px);
-            box-shadow: 0 0.6vw 1.8vw rgba(0,71,171,0.3);
+            box-shadow: 0 12px 40px rgba(0, 71, 171, 0.4);
         }
         
-        .logo-corner {
-            position: absolute;
-            bottom: 30px;
-            right: 30px;
-            font-size: 32px;
-            font-weight: 700;
-            color: #0047AB;
-            opacity: 0.6;
+        /* Bottom features with glassmorphism */
+        .bottom-features {
+            text-align: center;
+            margin-top: clamp(30px, 4vh, 40px);
         }
         
-        /* Responsive Design Elements */
-        @media (max-width: 1920px) {
-            .slide {
-                width: 100%;
-                max-width: 1920px;
+        .features-list {
+            display: flex;
+            justify-content: center;
+            gap: clamp(30px, 6vw, 60px);
+            flex-wrap: wrap;
+        }
+        
+        @media (max-width: 768px) {
+            .features-list {
+                flex-direction: column;
+                gap: clamp(15px, 2vh, 20px);
+                align-items: center;
             }
         }
-    
-        /* Navigation Styles */
-                .nav-container {
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 1.2vw, 12px);
+        }
+        
+        .feature-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .feature-dot.blue {
+            background: var(--trust-blue);
+        }
+        
+        .feature-dot.gold {
+            background: var(--solar-gold);
+        }
+        
+        .feature-dot.green {
+            background: var(--green-primary);
+        }
+        
+        .feature-text {
+            font-size: clamp(14px, 1.8vw, 18px);
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        /* Logo corner */
+        .logo-corner {
+            position: absolute;
+            bottom: clamp(15px, 2vw, 25px);
+            right: clamp(15px, 2vw, 25px);
+            font-size: clamp(24px, 3vw, 40px);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--solar-gold) 0%, var(--solar-gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.8;
+            z-index: 20;
+            text-shadow: 0 2px 8px rgba(253, 184, 19, 0.3);
+        }
+        
+        /* Height constrained screens */
+        @media (max-height: 850px) and (min-width: 768px) {
+            .slide {
+                padding: 10vh 1.5vw 4vh !important;
+            }
+            
+            .content-wrapper {
+                height: 86vh !important;
+                gap: clamp(10px, 1.5vh, 15px);
+            }
+            
+            .thank-you-title {
+                font-size: clamp(32px, 4.5vw, 48px);
+                margin-bottom: clamp(8px, 1.2vh, 12px);
+            }
+            
+            .thank-you-subtitle {
+                font-size: clamp(14px, 2vw, 20px);
+                margin-bottom: clamp(8px, 1.2vh, 12px);
+            }
+            
+            .title-divider {
+                width: clamp(60px, 8vw, 80px);
+                margin-bottom: clamp(15px, 2vh, 20px);
+            }
+            
+            .contact-card {
+                padding: clamp(20px, 3vh, 30px);
+            }
+            
+            .contact-card h3 {
+                font-size: clamp(16px, 2.2vw, 24px);
+                margin-bottom: clamp(15px, 2vh, 20px);
+            }
+            
+            .contact-name {
+                font-size: clamp(20px, 2.8vw, 28px);
+                margin-bottom: clamp(5px, 0.8vh, 8px);
+            }
+            
+            .contact-title {
+                font-size: clamp(12px, 1.6vw, 16px);
+                margin-bottom: clamp(15px, 2vh, 20px);
+            }
+            
+            .contact-grid {
+                gap: clamp(10px, 1.5vw, 15px);
+                margin: clamp(15px, 2vh, 20px) 0;
+            }
+            
+            .contact-item {
+                padding: clamp(10px, 1.5vh, 15px);
+            }
+            
+            .contact-icon {
+                width: clamp(35px, 4vw, 45px);
+                height: clamp(35px, 4vw, 45px);
+                font-size: clamp(14px, 1.8vw, 18px);
+                margin-bottom: clamp(6px, 1vh, 8px);
+            }
+            
+            .contact-label {
+                font-size: clamp(10px, 1.2vw, 12px);
+                margin-bottom: clamp(3px, 0.5vh, 4px);
+            }
+            
+            .contact-value {
+                font-size: clamp(12px, 1.5vw, 16px);
+            }
+            
+            .cta-button {
+                padding: clamp(8px, 1.2vh, 12px) clamp(20px, 2.5vw, 25px);
+                font-size: clamp(12px, 1.5vw, 16px);
+                margin-top: clamp(15px, 2vh, 20px);
+            }
+            
+            .bottom-features {
+                margin-top: clamp(15px, 2vh, 20px);
+            }
+            
+            .features-list {
+                gap: clamp(20px, 3vw, 30px);
+            }
+            
+            .feature-text {
+                font-size: clamp(11px, 1.4vw, 14px);
+            }
+        }
+        
+        /* Navigation Container - Slide17 Style with Progress Bar */
+        .nav-container {
             position: fixed;
-            top: clamp(10px, 1vw, 20px);
+            top: clamp(15px, 2vh, 30px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: clamp(8px, 0.8vw, 15px);
-            background: rgba(255, 255, 255, 0.95);
-            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
-            border-radius: clamp(15px, 1.3vw, 25px);
-            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
+            gap: clamp(10px, 1.5vw, 20px);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: clamp(10px, 1.5vh, 15px) clamp(15px, 2vw, 25px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
-                .slide-counter {
-            font-size: clamp(11px, 0.7vw, 14px);
+        .slide-counter {
+            font-size: clamp(11px, 1.4vh, 16px);
             font-weight: 600;
-            color: #0047AB;
-            min-width: clamp(60px, 4vw, 80px);
+            color: rgba(255, 255, 255, 0.9);
+            min-width: clamp(60px, 5vw, 80px);
             text-align: center;
         }
 
-                .slide-select {
-            padding: clamp(6px, 0.4vw, 8px) clamp(8px, 0.6vw, 12px);
-            border: 1px solid #ddd;
-            border-radius: clamp(4px, 0.3vw, 6px);
-            font-size: clamp(11px, 0.7vw, 14px);
-            background: white;
+        .progress-bar {
+            width: clamp(80px, 10vw, 150px);
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: calc(28 / 28 * 100%);
+            background: linear-gradient(90deg, #FDB813 0%, #FFD700 100%);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .slide-select {
+            padding: clamp(6px, 0.8vh, 10px) clamp(10px, 0.8vw, 15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-size: clamp(11px, 1.4vh, 15px);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
             cursor: pointer;
             outline: none;
-        }
-
-        .slide-select:focus {
-            border-color: #0047AB;
-            box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.1);
-        }
-
-                .nav-btn {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            background: rgba(0, 71, 171, 0.9);
-            color: white;
-            border: none;
-            width: clamp(35px, 2.6vw, 50px);
-            height: clamp(35px, 2.6vw, 50px);
-            border-radius: 50%;
-            font-size: clamp(14px, 1vw, 20px);
-            cursor: pointer;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
         }
 
-        .nav-btn:hover {
-            background: rgba(0, 71, 171, 1);
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 0.3vw 1.0vw rgba(0, 71, 171, 0.4);
+        .slide-select:focus,
+        .slide-select:hover {
+            border-color: #FDB813;
+            background: rgba(0, 0, 0, 0.7);
         }
 
-        .nav-btn:disabled {
-            background: rgba(150, 150, 150, 0.5);
-            cursor: not-allowed;
-            transform: translateY(-50%) scale(1);
+        .slide-select option {
+            background: #1a1a1a;
+            color: white;
         }
 
-                .nav-btn.prev {
-            left: clamp(15px, 1.5vw, 30px);
-        }
-
-                .nav-btn.next {
-            right: clamp(15px, 1.5vw, 30px);
-        }
-
-        @media (max-width: 768px) {
-                    .nav-container {
+        /* CORRECT BOTTOM NAVIGATION POSITIONING */
+        .nav-buttons {
             position: fixed;
-            top: clamp(10px, 1vw, 20px);
+            bottom: clamp(20px, 3vh, 40px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             display: flex;
-            align-items: center;
-            gap: clamp(8px, 0.8vw, 15px);
-            background: rgba(255, 255, 255, 0.95);
-            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
-            border-radius: clamp(15px, 1.3vw, 25px);
-            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
+            gap: clamp(15px, 2vw, 30px);
         }
-            
-                    .nav-btn {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            background: rgba(0, 71, 171, 0.9);
+        
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             color: white;
-            border: none;
-            width: clamp(35px, 2.6vw, 50px);
-            height: clamp(35px, 2.6vw, 50px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: clamp(40px, 4vw, 60px);
+            height: clamp(40px, 4vw, 60px);
             border-radius: 50%;
-            font-size: clamp(14px, 1vw, 20px);
+            font-size: clamp(18px, 2vw, 28px);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
-            
-            .nav-btn.prev {
-                left: 15px;
-            }
-            
-            .nav-btn.next {
-                right: 15px;
-            }
+        
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(253, 184, 19, 0.2);
+            border-color: rgba(253, 184, 19, 0.5);
+            transform: scale(1.1);
         }
-    
-        /* Enhanced Responsive Design */
-        @media (max-width: 1366px) {
-            .slide {
-                padding: clamp(15px, 2.5vw, 40px);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .slide {
-                padding: clamp(10px, 2vw, 25px);
-            }
-            
-            h1 {
-                font-size: clamp(24px, 5vw, 48px) !important;
-            }
-            
-            h2 {
-                font-size: clamp(20px, 4vw, 36px) !important;
-            }
-            
-            h3 {
-                font-size: clamp(18px, 3.5vw, 28px) !important;
-            }
+        
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
         }
 
         @media (max-width: 480px) {
@@ -326,6 +595,9 @@
     <!-- Navigation -->
     <div class="nav-container">
         <div class="slide-counter">28 / 28</div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
         <select class="slide-select" onchange="jumpToSlide(this.value)">
             <option value="index.html">1. Welcome</option>
             <option value="slide2.html">2. About</option>
@@ -344,13 +616,13 @@
             <option value="slide11.html">15. Future E-Bus</option>
             <option value="slide12.html">16. Last-Mile Logistics</option>
             <option value="slide13.html">17. SMB Empowerment</option>
-            <option value="slide14.html">18. Public Sector</option>
+            <option value="slide18.html">18. Public Sector</option>
             <option value="slide15.html">19. Aftermarket Excellence</option>
             <option value="slide16.html">20. Chennai Case Study</option>
             <option value="slide17.html">21. Panchayat Case Study</option>
-            <option value="slide18.html">22. Solar Smart Technology</option>
+            <option value="slide18.html">22. Client Testimonials</option>
             <option value="slide19.html">23. Manufacturing</option>
-            <option value="slide20.html">24. Customer Testimonials</option>
+            <option value="slide20.html">24. Service Network</option>
             <option value="slide21.html">25. Awards & Recognition</option>
             <option value="slide22.html">26. Strategic Partnerships</option>
             <option value="slide23.html">27. Growth Vision</option>
@@ -358,69 +630,72 @@
         </select>
     </div>
     
-    <button class="nav-btn prev" onclick="prevSlide()">‹</button>
-    <button class="nav-btn next" onclick="nextSlide()" disabled>›</button>
+    <!-- Navigation Buttons at Bottom -->
+    <div class="nav-buttons">
+        <button class="nav-btn prev" onclick="prevSlide()">‹</button>
+        <button class="nav-btn next" onclick="nextSlide()" disabled>›</button>
+    </div>
 
-    <!-- Slide 24: Enhanced Contact/Thank You -->
     <div class="slide">
         <div class="slide-number">28</div>
-        <div class="solar-pattern"></div>
-        <div class="solar-pattern-left"></div>
         
-        <div style="text-align: center; margin-top: 80px; margin-bottom: 60px;">
-            <h1 style="font-size: 72px; margin-bottom: 25px; color: #0047AB; font-weight: 700; letter-spacing: -2px;">Thank You</h1>
-            <p style="font-size: 32px; color: #666; font-weight: 400; margin-bottom: 20px; line-height: 1.4;">
-                Driving India's Electric Revolution, One Vehicle at a Time
-            </p>
-            <div style="width: 120px; height: 4px; background: linear-gradient(135deg, #0047AB 0%, #FDB813 100%); margin: 0 auto;"></div>
-        </div>
-        
-        <div class="contact-card">
-            <h3>Ready to Transform Your Fleet?</h3>
-            <div class="contact-details">
-                <p style="font-size: 36px; margin-bottom: 12px; color: #0047AB; font-weight: 600;">Charan Vikram Raju</p>
-                <p style="font-size: 22px; color: #666; margin-bottom: 40px; font-weight: 400;">Business Development Director</p>
+        <div class="content-wrapper">
+            <div class="header-section">
+                <h1 class="thank-you-title">Thank You</h1>
+                <p class="thank-you-subtitle">Driving India's Electric Revolution, One Vehicle at a Time</p>
+                <div class="title-divider"></div>
+            </div>
+            
+            <div class="contact-card">
+                <h3>Ready to Transform Your Fleet?</h3>
                 
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin: 40px 0; max-width: 800px; margin-left: auto; margin-right: auto;">
-                    <div style="text-align: center; padding: 25px; background: white; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.2vw 0.8vw rgba(0,0,0,0.08);">
-                        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 24px; font-weight: bold;">📱</div>
-                        <p style="font-size: 16px; color: #666; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 500;">Mobile</p>
-                        <p style="font-size: 20px; color: #333; font-weight: 600;">+91 9845203181</p>
+                <div class="contact-person">
+                    <p class="contact-name">Charan Vikram Raju</p>
+                    <p class="contact-title">Business Development Director</p>
+                </div>
+                
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-icon phone">📱</div>
+                        <p class="contact-label">Mobile</p>
+                        <p class="contact-value">+91 9845203181</p>
                     </div>
-                    <div style="text-align: center; padding: 25px; background: white; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.2vw 0.8vw rgba(0,0,0,0.08);">
-                        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 24px; font-weight: bold;">✉</div>
-                        <p style="font-size: 16px; color: #666; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 500;">Email</p>
-                        <p style="font-size: 20px; color: #333; font-weight: 600;">cvr@qtcs.org</p>
+                    <div class="contact-item">
+                        <div class="contact-icon email">✉</div>
+                        <p class="contact-label">Email</p>
+                        <p class="contact-value">cvr@qtcs.org</p>
                     </div>
-                    <div style="text-align: center; padding: 25px; background: white; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.2vw 0.8vw rgba(0,0,0,0.08);">
-                        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 24px; font-weight: bold;">🌐</div>
-                        <p style="font-size: 16px; color: #666; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 500;">Website</p>
-                        <p style="font-size: 20px; color: #333; font-weight: 600;">privilsolutions.in</p>
+                    <div class="contact-item">
+                        <div class="contact-icon website">🌐</div>
+                        <p class="contact-label">Website</p>
+                        <p class="contact-value">privilsolutions.in</p>
+                    </div>
+                </div>
+                
+                <a href="#" class="cta-button">Schedule a Demo Today</a>
+            </div>
+            
+            <div class="bottom-features">
+                <div class="features-list">
+                    <div class="feature-item">
+                        <div class="feature-dot blue"></div>
+                        <p class="feature-text">Visit our experience center</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-dot gold"></div>
+                        <p class="feature-text">Test drive our vehicles</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-dot green"></div>
+                        <p class="feature-text">Calculate your savings</p>
                     </div>
                 </div>
             </div>
-            <a href="#" class="cta-button">Schedule a Demo Today</a>
         </div>
         
-        <div style="text-align: center; margin-top: 50px;">
-            <div style="display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;">
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <div style="width: 8px; height: 8px; background: #0047AB; border-radius: 50%;"></div>
-                    <p style="font-size: 18px; color: #666; font-weight: 500;">Visit our experience center</p>
-                </div>
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <div style="width: 8px; height: 8px; background: #FDB813; border-radius: 50%;"></div>
-                    <p style="font-size: 18px; color: #666; font-weight: 500;">Test drive our vehicles</p>
-                </div>
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <div style="width: 8px; height: 8px; background: #228B22; border-radius: 50%;"></div>
-                    <p style="font-size: 18px; color: #666; font-weight: 500;">Calculate your savings</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="logo-corner" style="font-size: 40px;">REEP</div>
+        <div class="logo-corner">REEP</div>
     </div>
+    
     <script>
         const slides = [
             'index.html',

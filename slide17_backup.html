@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: Panchayat Case Study</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5; color: #333; line-height: 1.6;
+        
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        .slide {
+            width: 100vw; max-width: 1920px;
+            min-height: 100vh;
+            height: auto;
+            background: white;
+            margin: 0 auto;
+            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
+            padding: clamp(15px, 2.5vw, 50px);
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+                .slide-number {
+            position: absolute;
+            top: clamp(15px, 1.5vw, 30px);
+            left: clamp(15px, 1.5vw, 30px);
+            font-size: clamp(12px, 0.8vw, 16px);
+            color: #999;
+            font-weight: 500;
+        }
+        
+        .solar-pattern {
+            position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; opacity: 0.08;
+            background: repeating-linear-gradient(45deg, #FDB813, #FDB813 10px, transparent 10px, transparent 20px);
+            transform: rotate(15deg); animation: subtle-rotate 20s linear infinite;
+        }
+        
+        @keyframes subtle-rotate { from { transform: rotate(15deg); } to { transform: rotate(375deg); } }
+        
+        h1 { color: #0047AB; font-size: clamp(24px, 2.5vw, 48px); font-weight: 700; margin-bottom: clamp(8px, 1.5vw, 20px); line-height: 1.2; text-shadow: 0 2px 4px rgba(0,71,171,0.1); }
+        .subtitle { color: #666; font-size: clamp(14px, 1.2vw, 18px); margin-bottom: clamp(12px, 2vw, 25px); }
+        h2 { color: #0047AB; font-size: clamp(18px, 1.8vw, 28px); font-weight: 600; margin-bottom: clamp(10px, 1.5vw, 20px); line-height: 1.3; }
+        h3 { color: #0047AB; font-size: clamp(16px, 1.5vw, 24px); font-weight: 600; margin-bottom: clamp(8px, 1.2vw, 12px); }
+        h4 { color: #0047AB; font-size: clamp(14px, 1.3vw, 20px); font-weight: 600; margin-bottom: clamp(6px, 1vw, 10px); }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(15px, 2.5vw, 30px); margin-bottom: clamp(15px, 2.5vw, 25px); }
+        
+        .logo-corner { position: absolute; bottom: clamp(15px, 2vw, 25px); right: clamp(15px, 2vw, 25px); font-size: clamp(20px, 2.5vw, 28px); font-weight: 700; color: #0047AB; opacity: 0.6; }
+        
+        @media (max-width: 1920px) { .slide { width: 100%; max-width: 1920px; } }
+    
+        /* Navigation Styles */
+                .nav-container {
+            position: fixed;
+            top: clamp(10px, 1vw, 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 0.8vw, 15px);
+            background: rgba(255, 255, 255, 0.95);
+            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+            border-radius: clamp(15px, 1.3vw, 25px);
+            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+                .slide-counter {
+            font-size: clamp(11px, 0.7vw, 14px);
+            font-weight: 600;
+            color: #0047AB;
+            min-width: clamp(60px, 4vw, 80px);
+            text-align: center;
+        }
+
+                .slide-select {
+            padding: clamp(6px, 0.4vw, 8px) clamp(8px, 0.6vw, 12px);
+            border: 1px solid #ddd;
+            border-radius: clamp(4px, 0.3vw, 6px);
+            font-size: clamp(11px, 0.7vw, 14px);
+            background: white;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .slide-select:focus {
+            border-color: #0047AB;
+            box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.1);
+        }
+
+                .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(0, 71, 171, 0.9);
+            color: white;
+            border: none;
+            width: clamp(35px, 2.6vw, 50px);
+            height: clamp(35px, 2.6vw, 50px);
+            border-radius: 50%;
+            font-size: clamp(14px, 1vw, 20px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 71, 171, 1);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0.3vw 1.0vw rgba(0, 71, 171, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: rgba(150, 150, 150, 0.5);
+            cursor: not-allowed;
+            transform: translateY(-50%) scale(1);
+        }
+
+                .nav-btn.prev {
+            left: clamp(15px, 1.5vw, 30px);
+        }
+
+                .nav-btn.next {
+            right: clamp(15px, 1.5vw, 30px);
+        }
+
+        @media (max-width: 768px) {
+                    .nav-container {
+            position: fixed;
+            top: clamp(10px, 1vw, 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 0.8vw, 15px);
+            background: rgba(255, 255, 255, 0.95);
+            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+            border-radius: clamp(15px, 1.3vw, 25px);
+            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+            
+                    .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(0, 71, 171, 0.9);
+            color: white;
+            border: none;
+            width: clamp(35px, 2.6vw, 50px);
+            height: clamp(35px, 2.6vw, 50px);
+            border-radius: 50%;
+            font-size: clamp(14px, 1vw, 20px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+        }
+            
+            .nav-btn.prev {
+                left: 15px;
+            }
+            
+            .nav-btn.next {
+                right: 15px;
+            }
+        }
+    
+        /* Enhanced Responsive Design */
+        @media (max-width: 1366px) {
+            .slide {
+                padding: clamp(15px, 2.5vw, 40px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: clamp(10px, 2vw, 25px);
+            }
+            
+            h1 {
+                font-size: clamp(24px, 5vw, 48px) !important;
+            }
+            
+            h2 {
+                font-size: clamp(20px, 4vw, 36px) !important;
+            }
+            
+            h3 {
+                font-size: clamp(18px, 3.5vw, 28px) !important;
+            }
+        }
+
+        /* Short screen optimization for 800px and below */
+        @media (max-height: 850px) {
+            .slide {
+                padding: clamp(8px, 1.5vw, 20px);
+            }
+            
+            h1 {
+                font-size: clamp(18px, 2vw, 32px);
+                margin-bottom: clamp(4px, 0.8vw, 10px);
+            }
+            
+            .subtitle {
+                font-size: clamp(14px, 1.5vw, 18px) !important;
+                margin-bottom: clamp(8px, 1.5vw, 18px) !important;
+                color: #0047AB !important;
+                font-weight: 600 !important;
+                text-transform: uppercase !important;
+                letter-spacing: 0.3px !important;
+            }
+            
+            .grid-2 {
+                gap: clamp(8px, 1.5vw, 15px);
+                margin-bottom: clamp(8px, 1.5vw, 15px);
+            }
+            
+            /* Hero badge */
+            div[style*="margin-bottom: 22px"] {
+                margin-bottom: clamp(8px, 1.2vw, 15px) !important;
+            }
+            
+            div[style*="padding: 16px 32px"] {
+                padding: clamp(8px, 1.5vw, 12px) clamp(15px, 2.5vw, 20px) !important;
+            }
+            
+            h2[style*="font-size: 28px"] {
+                font-size: clamp(16px, 1.8vw, 22px) !important;
+            }
+            
+            /* District cards */
+            div[style*="padding: 20px"] {
+                padding: clamp(10px, 1.8vw, 15px) !important;
+            }
+            
+            div[style*="padding: 24px"] {
+                padding: clamp(10px, 1.8vw, 15px) !important;
+            }
+            
+            h3[style*="font-size: 26px"] {
+                font-size: clamp(14px, 1.6vw, 20px) !important;
+                margin-bottom: clamp(2px, 0.4vw, 4px) !important;
+            }
+            
+            p[style*="font-size: 18px"] {
+                font-size: clamp(12px, 1.4vw, 16px) !important;
+            }
+            
+            h4[style*="font-size: 20px"] {
+                font-size: clamp(12px, 1.4vw, 16px) !important;
+                margin-bottom: clamp(4px, 0.8vw, 8px) !important;
+            }
+            
+            div[style*="font-size: 16px"] {
+                font-size: clamp(11px, 1.2vw, 14px) !important;
+                color: #333 !important;
+                font-weight: 600 !important;
+            }
+            
+            div[style*="font-size: 16px"] p {
+                font-weight: 600 !important;
+                margin-bottom: clamp(4px, 0.6vw, 6px) !important;
+            }
+            
+            div[style*="padding: 14px"] {
+                padding: clamp(6px, 1vw, 10px) !important;
+            }
+            
+            p[style*="font-size: 18px"] {
+                font-size: clamp(12px, 1.4vw, 16px) !important;
+                font-weight: 700 !important;
+                text-transform: uppercase !important;
+                letter-spacing: 0.3px !important;
+            }
+            
+            /* Transformation section */
+            div[style*="padding: 28px"] {
+                padding: clamp(10px, 2vw, 18px) !important;
+                margin-bottom: clamp(15px, 2.5vw, 25px) !important;
+            }
+            
+            h3[style*="margin-bottom: 20px"] {
+                font-size: clamp(14px, 1.6vw, 20px) !important;
+                margin-bottom: clamp(6px, 1.2vw, 12px) !important;
+            }
+            
+            div[style*="font-size: 34px"] {
+                font-size: clamp(20px, 2.5vw, 28px) !important;
+                margin-bottom: clamp(3px, 0.6vw, 4px) !important;
+            }
+            
+            p[style*="font-size: 15px"] {
+                font-size: clamp(10px, 1.1vw, 13px) !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: clamp(10px, 1.5vw, 15px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 6px 10px;
+                gap: 6px;
+            }
+            
+            .slide-counter {
+                min-width: 50px;
+                font-size: 10px;
+            }
+            
+            .slide-select {
+                font-size: 10px;
+                padding: 4px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <div class="slide-counter">21 / 28</div>
+        <select class="slide-select" onchange="jumpToSlide(this.value)">
+            <option value="index.html">1. Welcome</option>
+            <option value="slide2.html">2. About</option>
+            <option value="slide3.html">3. Purpose & Direction</option>
+            <option value="slide4.html">4. Heritage</option>
+            <option value="slide5.html">5. Excellence</option>
+            <option value="slide6.html">6. L3 Open Body</option>
+            <option value="slide6b.html">7. L3 Closed Body</option>
+            <option value="slide7.html">8. L5 Tipper</option>
+            <option value="slide8.html">9. L3 Water Tanker</option>
+            <option value="slide8b.html">10. L3 Fogging</option>
+            <option value="slide9.html">11. Product Range</option>
+            <option value="slide9b.html">12. L5 Premium</option>
+            <option value="slide9c.html">13. L5 Deluxe</option>
+            <option value="slide10.html">14. Technical Excellence</option>
+            <option value="slide11.html">15. Future E-Bus</option>
+            <option value="slide12.html">16. Last-Mile Logistics</option>
+            <option value="slide13.html">17. SMB Empowerment</option>
+            <option value="slide14.html">18. Public Sector</option>
+            <option value="slide15.html">19. Aftermarket Excellence</option>
+            <option value="slide16.html">20. Chennai Case Study</option>
+            <option value="slide17.html" selected>21. Panchayat Case Study</option>
+            <option value="slide18.html">22. Solar Smart Technology</option>
+            <option value="slide19.html">23. Manufacturing</option>
+            <option value="slide20.html">24. Customer Testimonials</option>
+            <option value="slide21.html">25. Awards & Recognition</option>
+            <option value="slide22.html">26. Strategic Partnerships</option>
+            <option value="slide23.html">27. Growth Vision</option>
+            <option value="slide24.html">28. Thank You</option>
+        </select>
+    </div>
+    
+    <button class="nav-btn prev" onclick="prevSlide()">‹</button>
+    <button class="nav-btn next" onclick="nextSlide()">›</button>
+
+    <div class="slide">
+        <div class="slide-number">21</div>
+        <div class="solar-pattern"></div>
+        <h1>Case Study: Tamil Nadu Panchayats</h1>
+        <div class="subtitle" style="font-size: clamp(16px, 1.8vw, 22px); color: #0047AB; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; text-align: center;">TRANSFORMING RURAL INDIA • 671 VILLAGES EMPOWERED</div>
+        
+        
+        <div class="grid-2">
+            <div style="background: white; border-radius: clamp(8px, 0.8vw, 16px); overflow: hidden; box-shadow: 0 0.5vw 1.5vw rgba(0,0,0,0.1);">
+                <div style="background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%); color: white; padding: 20px; text-align: center;">
+                    <h3 style="color: white; font-size: 26px; margin-bottom: 4px;">Coimbatore District</h3>
+                    <p style="font-size: 18px; opacity: 0.9;">248 Vehicles Deployed</p>
+                </div>
+                <div style="padding: 24px;">
+                    <h4 style="color: #FDB813; margin-bottom: 14px; font-size: 20px;">Applications</h4>
+                    <div style="font-size: 16px; color: #333; line-height: 1.6; font-weight: 600;">
+                        <p style="margin-bottom: 8px; font-weight: 600;">🗑️ Waste collection in 120 panchayats</p>
+                        <p style="margin-bottom: 8px; font-weight: 600;">💧 Water supply distribution</p>
+                        <p style="margin-bottom: 8px; font-weight: 600;">🏥 Healthcare service delivery</p>
+                        <p style="margin-bottom: 8px; font-weight: 600;">🌾 Agricultural produce transport</p>
+                    </div>
+                    <div style="background: #fff8e1; padding: 14px; border-radius: clamp(5px, 0.5vw, 10px); margin-top: 14px; text-align: center;">
+                        <p style="font-size: 18px; color: #FDB813; font-weight: 700; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">
+                            30% EFFICIENCY IMPROVEMENT
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: white; border-radius: clamp(8px, 0.8vw, 16px); overflow: hidden; box-shadow: 0 0.5vw 1.5vw rgba(0,0,0,0.1);">
+                <div style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); color: white; padding: 20px; text-align: center;">
+                    <h3 style="color: white; font-size: 26px; margin-bottom: 4px;">Tiruvallur District</h3>
+                    <p style="font-size: 18px; opacity: 0.9;">423 Vehicles Deployed</p>
+                </div>
+                <div style="padding: 24px;">
+                    <h4 style="color: #0047AB; margin-bottom: 14px; font-size: 20px;">Impact Metrics</h4>
+                    <div style="font-size: 16px; color: #333; line-height: 1.6; font-weight: 600;">
+                        <p style="margin-bottom: 8px; font-weight: 600;">🏘️ 200+ panchayats served</p>
+                        <p style="margin-bottom: 8px; font-weight: 600;">🏠 50,000+ households benefited</p>
+                        <p style="margin-bottom: 8px; font-weight: 600;">👨‍💼 Direct employment for 400+ drivers</p>
+                        <p style="margin-bottom: 8px; font-weight: 600;">💰 ₹2 Cr annual fuel savings</p>
+                    </div>
+                    <div style="background: #f0f8ff; padding: 14px; border-radius: clamp(5px, 0.5vw, 10px); margin-top: 14px; text-align: center;">
+                        <p style="font-size: 18px; color: #0047AB; font-weight: 700; margin: 0; text-transform: uppercase; letter-spacing: 0.5px;">
+                            SUSTAINABLE DEVELOPMENT MODEL
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%); color: white; padding: 28px; border-radius: clamp(8px, 0.8vw, 16px); margin-bottom: 48px; box-shadow: 0 0.6vw 1.9vw rgba(34,139,34,0.3);">
+            <h3 style="color: white; text-align: center; margin-bottom: 20px; font-size: 26px;">Rural Transformation Impact</h3>
+            <div style="display: flex; justify-content: space-around; text-align: center; flex-wrap: wrap; gap: 16px;">
+                <div style="flex: 1; min-width: 112px;">
+                    <div style="font-size: 34px; margin-bottom: 6px;">🏘️</div>
+                    <p style="font-size: 15px;">Clean Villages</p>
+                </div>
+                <div style="flex: 1; min-width: 112px;">
+                    <div style="font-size: 34px; margin-bottom: 6px;">🏥</div>
+                    <p style="font-size: 15px;">Better Healthcare Access</p>
+                </div>
+                <div style="flex: 1; min-width: 112px;">
+                    <div style="font-size: 34px; margin-bottom: 6px;">🌾</div>
+                    <p style="font-size: 15px;">Improved Agri Logistics</p>
+                </div>
+                <div style="flex: 1; min-width: 112px;">
+                    <div style="font-size: 34px; margin-bottom: 6px;">👥</div>
+                    <p style="font-size: 15px;">Youth Employment</p>
+                </div>
+                <div style="flex: 1; min-width: 112px;">
+                    <div style="font-size: 34px; margin-bottom: 6px;">🌱</div>
+                    <p style="font-size: 15px;">Environmental Leadership</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logo-corner">REEP</div>
+    </div>
+    <script>
+        const slides = [
+            'index.html',
+            'slide2.html',
+            'slide3.html',
+            'slide4.html',
+            'slide5.html',
+            'slide6.html',
+            'slide6b.html',
+            'slide7.html',
+            'slide8.html',
+            'slide8b.html',
+            'slide9.html',
+            'slide9b.html',
+            'slide9c.html',
+            'slide10.html',
+            'slide11.html',
+            'slide12.html',
+            'slide13.html',
+            'slide14.html',
+            'slide15.html',
+            'slide16.html',
+            'slide17.html',
+            'slide18.html',
+            'slide19.html',
+            'slide20.html',
+            'slide21.html',
+            'slide22.html',
+            'slide23.html',
+            'slide24.html'
+        ];
+        
+        const currentSlide = 'slide17.html';
+        const currentIndex = slides.indexOf(currentSlide);
+        
+        function jumpToSlide(slideFile) {
+            if (slideFile && slideFile !== currentSlide) {
+                window.location.href = slideFile;
+            }
+        }
+        
+        function prevSlide() {
+            if (currentIndex > 0) {
+                window.location.href = slides[currentIndex - 1];
+            }
+        }
+        
+        function nextSlide() {
+            if (currentIndex < slides.length - 1) {
+                window.location.href = slides[currentIndex + 1];
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+        
+        // Set the correct option in dropdown
+        document.querySelector('.slide-select').value = currentSlide;
+    </script>
+</body>
+</html>

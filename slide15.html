@@ -3,220 +3,790 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REEP: Track Record</title>
+    <title>REEP: Aftermarket Excellence</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Primary Colors */
+            --solar-gold: #FDB813;
+            --solar-gold-light: #FFD700;
+            --trust-blue: #0047AB;
+            --trust-blue-light: #0056D2;
+            
+            /* Backgrounds */
+            --bg-dark: #0a0a0a;
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --bg-glass-border: rgba(255, 255, 255, 0.1);
+            
+            /* Text */
+            --text-primary: rgba(255, 255, 255, 0.9);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.3);
+            
+            /* Typography Scale */
+            --title-xl: clamp(36px, 4.5vw, 64px);
+            --title-lg: clamp(28px, 3.5vw, 56px);
+            --title-md: clamp(24px, 3vw, 36px);
+            --text-lg: clamp(14px, 1.8vw, 22px);
+            --text-md: clamp(13px, 1.6vw, 20px);
+            --text-sm: clamp(12px, 1.6vh, 18px);
+        }
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            background: #f5f5f5; color: #333; line-height: 1.6;
-        
+            background: var(--bg-dark);
+            color: #333;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            min-height: 100vh;
         }
         
+        /* Mobile-first approach - CRITICAL MOBILE SCROLLING FIX */
         .slide {
-            width: 100vw; max-width: 1920px; height: 100vh; max-height: 1080px; background: white; margin: 0 auto;
-            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1); padding: clamp(20px, 3vw, 60px); position: relative;
-            overflow: hidden; display: flex; flex-direction: column;
+            display: block;
+            width: 100vw;
+            height: auto;
+            min-height: auto; /* CRITICAL: NO min-height: 100vh on mobile */
+            background: var(--bg-dark);
+            margin: 0 auto;
+            position: relative;
+            overflow-y: visible; /* CRITICAL: Allow natural scroll */
+            overflow-x: hidden;
+            padding: 80px 20px 120px;
         }
-            aspect-ratio: 16/9;
         
-                .slide-number {
+        /* Desktop enhancement */
+        @media (min-width: 768px) {
+            body {
+                overflow: hidden;
+            }
+            
+            .slide {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                height: 100vh;
+                max-width: 1920px;
+                max-height: 1080px;
+                overflow: hidden;
+                padding: clamp(80px, 8vh, 100px) clamp(20px, 3vw, 60px) clamp(100px, 10vh, 120px);
+            }
+        }
+        
+        /* Ensure proper mobile scrolling */
+        @media (max-width: 768px) {
+            .slide {
+                min-height: auto;
+                padding-bottom: calc(80px + env(safe-area-inset-bottom));
+            }
+        }
+        
+        /* Premium Background with animated gradient */
+        .slide::before {
+            content: '';
             position: absolute;
-            top: clamp(15px, 1.5vw, 30px);
-            left: clamp(15px, 1.5vw, 30px);
-            font-size: clamp(12px, 0.8vw, 16px);
-            color: #999;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(253, 184, 19, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(0, 71, 171, 0.12) 0%, transparent 40%);
+            animation: gradientShift 25s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(-3%, 3%) scale(1.05) rotate(90deg); }
+            50% { transform: translate(3%, -3%) scale(0.98) rotate(180deg); }
+            75% { transform: translate(-2%, -2%) scale(1.02) rotate(270deg); }
+        }
+        
+        /* Content container - Mobile First */
+        .content-wrapper {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            z-index: 1;
+            position: relative;
+            display: block;
+            gap: clamp(20px, 3vh, 30px);
+        }
+        
+        /* Desktop enhancement for content wrapper */
+        @media (min-width: 768px) and (min-height: 600px) {
+            .content-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: clamp(10px, 1.5vh, 20px);
+                width: 100%;
+                height: 100%;
+                justify-content: space-between;
+            }
+        }
+        
+        /* Header section */
+        .header-section {
+            text-align: center;
+            margin-bottom: clamp(15px, 2vh, 25px);
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .header-section {
+                margin-bottom: clamp(8px, 1vh, 15px);
+            }
+        }
+        
+        /* Solar-themed decorative elements */
+        .solar-rays {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200%;
+            height: 200%;
+            pointer-events: none;
+            opacity: 0.03;
+        }
+        
+        .solar-rays::before,
+        .solar-rays::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                #FDB813 5deg,
+                transparent 10deg,
+                transparent 350deg,
+                #FDB813 355deg,
+                transparent 360deg
+            );
+            animation: rotateSlow 60s linear infinite;
+        }
+        
+        .solar-rays::after {
+            transform: translate(-50%, -50%) rotate(45deg);
+            animation-duration: 90s;
+            animation-direction: reverse;
+        }
+        
+        @keyframes rotateSlow {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Slide number */
+        .slide-number {
+            position: absolute;
+            top: clamp(20px, 2vw, 40px);
+            left: clamp(20px, 2vw, 40px);
+            font-size: clamp(14px, 1vw, 18px);
+            color: rgba(255, 255, 255, 0.3);
             font-weight: 500;
         }
         
-        .solar-pattern {
-            position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; opacity: 0.08;
-            background: repeating-linear-gradient(45deg, #FDB813, #FDB813 10px, transparent 10px, transparent 20px);
-            transform: rotate(15deg); animation: subtle-rotate 20s linear infinite;
+        .main-title {
+            font-size: clamp(28px, 3.5vw, 48px);
+            font-weight: 700;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(6px, 0.8vh, 10px);
+            filter: drop-shadow(0 3px 15px rgba(253, 184, 19, 0.5));
+            animation: titleShine 4s ease-in-out infinite;
         }
         
-        @keyframes subtle-rotate { from { transform: rotate(15deg); } to { transform: rotate(375deg); } }
+        @keyframes titleShine {
+            0%, 100% { filter: brightness(1) drop-shadow(0 3px 15px rgba(253, 184, 19, 0.5)); }
+            50% { filter: brightness(1.2) drop-shadow(0 3px 20px rgba(253, 184, 19, 0.8)); }
+        }
         
-        h1 { color: #0047AB; font-size: clamp(30px, 3.1vw, 60px); font-weight: 700; margin-bottom: 30px; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,71,171,0.1); }
-        .subtitle { color: #666; font-size: clamp(14px, 1.2vw, 24px); margin-bottom: 40px; }
-        h2 { color: #0047AB; font-size: clamp(20px, 2.1vw, 40px); font-weight: 600; margin-bottom: 25px; line-height: 1.3; }
-        h3 { color: #0047AB; font-size: clamp(16px, 1.7vw, 32px); font-weight: 600; margin-bottom: 15px; }
+        .subtitle {
+            font-size: clamp(14px, 1.8vw, 20px);
+            color: var(--text-secondary);
+            margin-bottom: clamp(15px, 2vh, 25px);
+        }
         
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        /* Main content - Mobile First */
+        .main-content {
+            display: block;
+            gap: clamp(20px, 3vh, 30px);
+            margin-bottom: clamp(20px, 3vh, 30px);
+        }
         
+        /* Desktop enhancement for main content */
+        @media (min-width: 768px) and (min-height: 600px) {
+            .main-content {
+                display: flex;
+                flex-direction: column;
+                gap: clamp(10px, 1.5vh, 20px);
+                margin-bottom: 0;
+                flex: 1;
+                justify-content: space-between;
+            }
+        }
+        
+        /* Metric dashboard */
         .metric-dashboard {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin: 30px 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(15px, 2vw, 20px);
+            margin-bottom: clamp(20px, 3vh, 30px);
         }
         
+        @media (min-width: 768px) {
+            .metric-dashboard {
+                grid-template-columns: repeat(3, 1fr);
+                gap: clamp(10px, 1.5vw, 20px);
+                margin-bottom: clamp(15px, 2vh, 25px);
+            }
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .metric-dashboard {
+                gap: clamp(8px, 1vw, 15px);
+                margin-bottom: clamp(10px, 1.5vh, 20px);
+            }
+        }
+        
+        /* Metric item - Glassmorphic */
         .metric-item {
-            text-align: center; padding: 25px; background: white; border-radius: clamp(7px, 0.8vw, 15px);
-            box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.08); transition: all 0.3s ease;
+            text-align: center;
+            padding: clamp(20px, 3vw, 30px);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
-        .metric-item:hover { transform: translateY(-5px); box-shadow: 0 0.6vw 1.8vw rgba(0,0,0,0.12); }
+        @media (min-width: 768px) and (min-height: 600px) {
+            .metric-item {
+                padding: clamp(15px, 2vh, 25px);
+            }
+        }
         
-        .metric-value { font-size: 42px; font-weight: 700; margin-bottom: 8px; }
-        .metric-label { font-size: 18px; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+        .metric-item:hover {
+            transform: translateY(-5px);
+        }
         
-        .logo-corner { position: absolute; bottom: 30px; right: 30px; font-size: 32px; font-weight: 700; color: #0047AB; opacity: 0.6; }
+        .metric-blue {
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.2) 0%, rgba(0, 71, 171, 0.15) 100%);
+            border: 1px solid rgba(0, 71, 171, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 71, 171, 0.3);
+        }
         
-        @media (max-width: 1920px) { .slide { width: 100%; max-width: 1920px; } }
-    
-        /* Navigation Styles */
-                .nav-container {
+        .metric-gold {
+            background: linear-gradient(135deg, rgba(253, 184, 19, 0.2) 0%, rgba(253, 184, 19, 0.15) 100%);
+            border: 1px solid rgba(253, 184, 19, 0.3);
+            box-shadow: 0 8px 32px rgba(253, 184, 19, 0.3);
+        }
+        
+        .metric-green {
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.2) 0%, rgba(34, 139, 34, 0.15) 100%);
+            border: 1px solid rgba(34, 139, 34, 0.3);
+            box-shadow: 0 8px 32px rgba(34, 139, 34, 0.3);
+        }
+        
+        .metric-value {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            margin-bottom: clamp(6px, 1vh, 10px);
+            filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.5));
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .metric-value {
+                font-size: clamp(28px, 3.5vw, 40px);
+                margin-bottom: clamp(4px, 0.6vh, 8px);
+            }
+        }
+        
+        .metric-label {
+            font-size: clamp(14px, 1.6vw, 18px);
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .metric-label {
+                font-size: clamp(12px, 1.5vw, 16px);
+            }
+        }
+        
+        /* Partnerships section */
+        .partnerships-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .section-title {
+            font-size: clamp(22px, 2.8vw, 32px);
+            color: var(--trust-blue-light);
+            font-weight: 600;
+            margin-bottom: clamp(15px, 2vh, 25px);
+            text-align: center;
+            filter: drop-shadow(0 2px 8px rgba(0, 71, 171, 0.5));
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .section-title {
+                font-size: clamp(20px, 2.5vw, 28px);
+                margin-bottom: clamp(10px, 1.5vh, 20px);
+            }
+        }
+        
+        /* Partnerships grid */
+        .partnerships-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(15px, 2vw, 20px);
+            flex: 1;
+        }
+        
+        @media (min-width: 768px) {
+            .partnerships-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: clamp(10px, 1.5vw, 20px);
+            }
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .partnerships-grid {
+                gap: clamp(8px, 1vw, 15px);
+            }
+        }
+        
+        /* Partnership card - Glassmorphic */
+        .partnership-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--bg-glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+        
+        .partnership-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Partnership header - Glassmorphic with color accents */
+        .partnership-header {
+            color: white;
+            padding: clamp(20px, 3vw, 30px);
+            text-align: center;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .partnership-header {
+                padding: clamp(15px, 2vh, 25px);
+            }
+        }
+        
+        .partnership-header.blue {
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.25) 0%, rgba(0, 71, 171, 0.2) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 71, 171, 0.3);
+        }
+        
+        .partnership-header.green {
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.25) 0%, rgba(34, 139, 34, 0.2) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(34, 139, 34, 0.3);
+        }
+        
+        .partnership-title {
+            color: white;
+            font-size: clamp(20px, 2.5vw, 28px);
+            margin-bottom: clamp(6px, 0.8vh, 10px);
+            font-weight: 700;
+            filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.3));
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .partnership-title {
+                font-size: clamp(18px, 2.2vw, 24px);
+                margin-bottom: clamp(4px, 0.6vh, 8px);
+            }
+        }
+        
+        .partnership-subtitle {
+            font-size: clamp(14px, 1.6vw, 18px);
+            opacity: 0.9;
+            line-height: 1.3;
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .partnership-subtitle {
+                font-size: clamp(13px, 1.5vw, 16px);
+            }
+        }
+        
+        /* Partnership content */
+        .partnership-content {
+            padding: clamp(20px, 3vw, 30px);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(12px, 1.8vh, 18px);
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .partnership-content {
+                padding: clamp(15px, 2vh, 25px);
+                gap: clamp(8px, 1.2vh, 15px);
+            }
+        }
+        
+        /* Stat item - Glassmorphic */
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(12px, 1.8vh, 18px);
+            border-radius: 12px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .stat-item {
+                padding: clamp(10px, 1.5vh, 15px);
+            }
+        }
+        
+        .stat-item.light {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat-item.gold {
+            background: rgba(253, 184, 19, 0.1);
+            border: 1px solid rgba(253, 184, 19, 0.2);
+        }
+        
+        .stat-label {
+            font-size: clamp(13px, 1.5vw, 17px);
+            color: var(--text-primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .stat-label {
+                font-size: clamp(12px, 1.4vw, 15px);
+            }
+        }
+        
+        .stat-value {
+            font-size: clamp(22px, 2.8vw, 32px);
+            font-weight: 700;
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .stat-value {
+                font-size: clamp(20px, 2.5vw, 28px);
+            }
+        }
+        
+        .stat-value.blue {
+            color: #0099FF;
+            filter: drop-shadow(0 2px 8px rgba(0, 71, 171, 0.5));
+        }
+        
+        .stat-value.gold {
+            color: var(--solar-gold);
+            filter: drop-shadow(0 2px 8px rgba(253, 184, 19, 0.5));
+        }
+        
+        /* Achievement banner - Glassmorphic */
+        .achievement-banner {
+            text-align: center;
+            padding: clamp(10px, 1.5vh, 15px);
+            border-radius: 12px;
+            margin-top: auto;
+            background: rgba(34, 139, 34, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(34, 139, 34, 0.2);
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .achievement-banner {
+                padding: clamp(8px, 1.2vh, 12px);
+            }
+        }
+        
+        .achievement-text {
+            font-size: clamp(14px, 1.7vw, 18px);
+            font-weight: 600;
+            color: #2ECC40;
+            filter: drop-shadow(0 2px 8px rgba(34, 139, 34, 0.5));
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .achievement-text {
+                font-size: clamp(13px, 1.6vw, 16px);
+            }
+        }
+        
+        /* REEP Logo */
+        .logo-corner {
+            position: absolute;
+            bottom: clamp(20px, 2vw, 40px);
+            right: clamp(20px, 2vw, 40px);
+            font-size: clamp(24px, 3vw, 40px);
+            font-weight: 700;
+            background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.6;
+        }
+        
+        /* Navigation Styles with Progress Bar */
+        .nav-container {
             position: fixed;
-            top: clamp(10px, 1vw, 20px);
+            top: clamp(10px, 1.5vh, 25px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: clamp(8px, 0.8vw, 15px);
-            background: rgba(255, 255, 255, 0.95);
-            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
-            border-radius: clamp(15px, 1.3vw, 25px);
-            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
+            gap: clamp(10px, 1vw, 20px);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: clamp(8px, 1vh, 12px) clamp(15px, 1.5vw, 25px);
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
-                .slide-counter {
-            font-size: clamp(11px, 0.7vw, 14px);
+        .slide-counter {
+            font-size: clamp(11px, 1.4vh, 16px);
             font-weight: 600;
-            color: #0047AB;
-            min-width: clamp(60px, 4vw, 80px);
+            color: rgba(255, 255, 255, 0.9);
+            min-width: clamp(60px, 5vw, 80px);
             text-align: center;
         }
 
-                .slide-select {
-            padding: clamp(6px, 0.4vw, 8px) clamp(8px, 0.6vw, 12px);
-            border: 1px solid #ddd;
-            border-radius: clamp(4px, 0.3vw, 6px);
-            font-size: clamp(11px, 0.7vw, 14px);
-            background: white;
+        .progress-bar {
+            width: clamp(80px, 10vw, 150px);
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: calc(19 / 28 * 100%);
+            background: linear-gradient(90deg, #FDB813 0%, #FFD700 100%);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .slide-select {
+            padding: clamp(6px, 0.8vh, 10px) clamp(10px, 0.8vw, 15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-size: clamp(11px, 1.4vh, 15px);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
             cursor: pointer;
             outline: none;
-        }
-
-        .slide-select:focus {
-            border-color: #0047AB;
-            box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.1);
-        }
-
-                .nav-btn {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            background: rgba(0, 71, 171, 0.9);
-            color: white;
-            border: none;
-            width: clamp(35px, 2.6vw, 50px);
-            height: clamp(35px, 2.6vw, 50px);
-            border-radius: 50%;
-            font-size: clamp(14px, 1vw, 20px);
-            cursor: pointer;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
         }
 
-        .nav-btn:hover {
-            background: rgba(0, 71, 171, 1);
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 0.3vw 1.0vw rgba(0, 71, 171, 0.4);
+        .slide-select:focus,
+        .slide-select:hover {
+            border-color: #FDB813;
+            background: rgba(0, 0, 0, 0.7);
         }
 
-        .nav-btn:disabled {
-            background: rgba(150, 150, 150, 0.5);
-            cursor: not-allowed;
-            transform: translateY(-50%) scale(1);
+        .slide-select option {
+            background: #1a1a1a;
+            color: white;
         }
 
-                .nav-btn.prev {
-            left: clamp(15px, 1.5vw, 30px);
-        }
-
-                .nav-btn.next {
-            right: clamp(15px, 1.5vw, 30px);
-        }
-
-        @media (max-width: 768px) {
-                    .nav-container {
+        /* Navigation Buttons - Bottom */
+        .nav-buttons {
             position: fixed;
-            top: clamp(10px, 1vw, 20px);
+            bottom: clamp(20px, 3vh, 40px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             display: flex;
-            align-items: center;
-            gap: clamp(8px, 0.8vw, 15px);
-            background: rgba(255, 255, 255, 0.95);
-            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
-            border-radius: clamp(15px, 1.3vw, 25px);
-            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
+            gap: clamp(15px, 2vw, 30px);
         }
-            
-                    .nav-btn {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            background: rgba(0, 71, 171, 0.9);
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             color: white;
-            border: none;
-            width: clamp(35px, 2.6vw, 50px);
-            height: clamp(35px, 2.6vw, 50px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: clamp(40px, 5vh, 55px);
+            height: clamp(40px, 5vh, 55px);
             border-radius: 50%;
-            font-size: clamp(14px, 1vw, 20px);
+            font-size: clamp(16px, 2vh, 22px);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
-            
-            .nav-btn.prev {
-                left: 15px;
-            }
-            
-            .nav-btn.next {
-                right: 15px;
-            }
+
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(253, 184, 19, 0.2);
+            border-color: rgba(253, 184, 19, 0.5);
+            transform: scale(1.1);
         }
-    
-        /* Enhanced Responsive Design */
-        @media (max-width: 1366px) {
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        /* Responsive adjustments for 780px height */
+        @media (max-height: 780px) and (min-width: 768px) {
             .slide {
-                padding: clamp(15px, 2.5vw, 40px);
+                padding: clamp(70px, 7vh, 85px) clamp(15px, 2vw, 40px) clamp(90px, 9vh, 110px);
+            }
+            
+            .content-wrapper {
+                gap: 8px;
+            }
+            
+            .metric-dashboard {
+                margin-bottom: 10px;
+            }
+            
+            .metric-item {
+                padding: clamp(12px, 1.8vh, 20px);
+            }
+            
+            .partnerships-grid {
+                gap: 8px;
+            }
+            
+            .partnership-card {
+                flex-direction: row;
+            }
+            
+            .partnership-header {
+                min-width: 180px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 15px;
+            }
+            
+            .partnership-content {
+                padding: 12px;
+                gap: 8px;
             }
         }
 
+        /* Mobile adjustments */
         @media (max-width: 768px) {
-            .slide {
-                padding: clamp(10px, 2vw, 25px);
+            .content-wrapper {
+                gap: 20px;
             }
             
-            h1 {
-                font-size: clamp(24px, 5vw, 48px) !important;
+            .main-title {
+                font-size: 32px;
+                margin-bottom: 10px;
             }
             
-            h2 {
-                font-size: clamp(20px, 4vw, 36px) !important;
+            .subtitle {
+                font-size: 16px;
+                margin-bottom: 20px;
             }
             
-            h3 {
-                font-size: clamp(18px, 3.5vw, 28px) !important;
+            .metric-dashboard {
+                gap: 15px;
+                margin-bottom: 25px;
+            }
+            
+            .partnerships-grid {
+                gap: 15px;
+            }
+            
+            .nav-container {
+                padding: 8px 12px;
+                gap: 8px;
+            }
+            
+            .nav-buttons {
+                bottom: calc(20px + env(safe-area-inset-bottom));
             }
         }
-
+        
         @media (max-width: 480px) {
+            .metric-value {
+                font-size: 28px;
+            }
+            
+            .metric-label {
+                font-size: 12px;
+            }
+            
+            .partnership-title {
+                font-size: 18px;
+            }
+            
+            .partnership-subtitle {
+                font-size: 13px;
+            }
+            
+            .stat-label {
+                font-size: 11px;
+            }
+            
+            .stat-value {
+                font-size: 20px;
+            }
+            
+            .achievement-text {
+                font-size: 13px;
+            }
+            
             .nav-container {
                 padding: 6px 10px;
                 gap: 6px;
@@ -232,12 +802,47 @@
                 padding: 4px 6px;
             }
         }
+        
+        /* Animation on load */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .content-wrapper > * {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .content-wrapper > *:nth-child(1) { animation-delay: 0.2s; }
+        .content-wrapper > *:nth-child(2) { animation-delay: 0.3s; }
+        .content-wrapper > *:nth-child(3) { animation-delay: 0.4s; }
+        
+        /* Mobile content spacing */
+        @media (max-width: 768px) {
+            .header-section {
+                margin-bottom: 20px;
+            }
+            
+            .main-content {
+                margin-bottom: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <div class="nav-container">
         <div class="slide-counter">19 / 28</div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
         <select class="slide-select" onchange="jumpToSlide(this.value)">
             <option value="index.html">1. Welcome</option>
             <option value="slide2.html">2. About</option>
@@ -246,12 +851,12 @@
             <option value="slide5.html">5. Excellence</option>
             <option value="slide6.html">6. L3 Open Body</option>
             <option value="slide6b.html">7. L3 Closed Body</option>
-            <option value="slide7.html">8. L5 Tipper</option>
+            <option value="slide7.html">8. L3 Passenger</option>
             <option value="slide8.html">9. L3 Water Tanker</option>
             <option value="slide8b.html">10. L3 Fogging</option>
-            <option value="slide9.html">11. Product Range</option>
-            <option value="slide9b.html">12. L5 Premium</option>
-            <option value="slide9c.html">13. L5 Deluxe</option>
+            <option value="slide9.html">11. L5 Open Body Heavy Duty</option>
+            <option value="slide9b.html">12. L5 Closed Body Heavy Duty</option>
+            <option value="slide9c.html">13. L5 Passenger Premium</option>
             <option value="slide10.html">14. Technical Excellence</option>
             <option value="slide11.html">15. Future E-Bus</option>
             <option value="slide12.html">16. Last-Mile Logistics</option>
@@ -270,69 +875,82 @@
         </select>
     </div>
     
-    <button class="nav-btn prev" onclick="prevSlide()">‹</button>
-    <button class="nav-btn next" onclick="nextSlide()">›</button>
+    <!-- Navigation Buttons at Bottom -->
+    <div class="nav-buttons">
+        <button class="nav-btn prev" onclick="prevSlide()">‹</button>
+        <button class="nav-btn next" onclick="nextSlide()">›</button>
+    </div>
 
+    <!-- Slide 19: Aftermarket Excellence -->
     <div class="slide">
         <div class="slide-number">19</div>
-        <div class="solar-pattern"></div>
-        <h1>Proven at Scale, Trusted by Leaders</h1>
-        <div class="subtitle">Our track record speaks louder than promises</div>
+        <div class="solar-rays"></div>
         
-        <div class="metric-dashboard">
-            <div class="metric-item" style="background: linear-gradient(135deg, #0047AB, #0056D2); color: white;">
-                <div class="metric-value" style="color: white;">6,000+</div>
-                <div class="metric-label" style="color: white;">EVs Delivered</div>
-            </div>
-            <div class="metric-item" style="background: linear-gradient(135deg, #FDB813, #FFD700); color: white;">
-                <div class="metric-value" style="color: white;">200+</div>
-                <div class="metric-label" style="color: white;">Vehicles/Day Capacity</div>
-            </div>
-            <div class="metric-item" style="background: linear-gradient(135deg, #228B22, #2ECC40); color: white;">
-                <div class="metric-value" style="color: white;">50+</div>
-                <div class="metric-label" style="color: white;">Service Centers</div>
-            </div>
-        </div>
-        
-        <h2 style="margin: 40px 0 30px 0;">Major Government Partnerships</h2>
-        
-        <div class="grid-2">
-            <div style="background: white; border-radius: clamp(10px, 1.0vw, 20px); overflow: hidden; box-shadow: 0 0.6vw 1.8vw rgba(0,0,0,0.1);">
-                <div style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); color: white; padding: 30px; text-align: center;">
-                    <h3 style="color: white; font-size: 32px; margin-bottom: 10px;">Greater Chennai Corporation</h3>
-                    <p style="font-size: 20px; opacity: 0.9;">Modernizing Urban Waste Management</p>
-                </div>
-                <div style="padding: 30px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; align-items: center; padding: 15px; background: #f8f9fa; border-radius: clamp(5px, 0.5vw, 10px);">
-                        <span style="font-size: 20px; color: #666;">Total Vehicles</span>
-                        <span style="font-size: 32px; font-weight: 700; color: #0047AB;">3,330</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; align-items: center; padding: 15px; background: #fff8e1; border-radius: clamp(5px, 0.5vw, 10px);">
-                        <span style="font-size: 20px; color: #666;">Largest Single Order</span>
-                        <span style="font-size: 32px; font-weight: 700; color: #FDB813;">2,919</span>
-                    </div>
-                    <div style="text-align: center; padding: 15px; background: #e8f5e8; border-radius: clamp(5px, 0.5vw, 10px);">
-                        <span style="font-size: 22px; color: #228B22; font-weight: 600;">100% Fleet Electrification Achieved</span>
-                    </div>
-                </div>
+        <div class="content-wrapper">
+            <div class="header-section">
+                <h1 class="main-title">Proven Track Record at Scale</h1>
+                <div class="subtitle">Excellence delivered consistently across thousands of vehicles</div>
             </div>
             
-            <div style="background: white; border-radius: clamp(10px, 1.0vw, 20px); overflow: hidden; box-shadow: 0 0.6vw 1.8vw rgba(0,0,0,0.1);">
-                <div style="background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%); color: white; padding: 30px; text-align: center;">
-                    <h3 style="color: white; font-size: 32px; margin-bottom: 10px;">Tamil Nadu Panchayats</h3>
-                    <p style="font-size: 20px; opacity: 0.9;">Empowering Rural Development</p>
+            <div class="main-content">
+                <div class="metric-dashboard">
+                    <div class="metric-item metric-blue">
+                        <div class="metric-value" style="color: white;">6,000+</div>
+                        <div class="metric-label">EVs Delivered</div>
+                    </div>
+                    <div class="metric-item metric-gold">
+                        <div class="metric-value" style="color: white;">200+</div>
+                        <div class="metric-label">Daily Production Capacity</div>
+                    </div>
+                    <div class="metric-item metric-green">
+                        <div class="metric-value" style="color: white;">50+</div>
+                        <div class="metric-label">Service Centers</div>
+                    </div>
                 </div>
-                <div style="padding: 30px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; align-items: center; padding: 15px; background: #f0f8ff; border-radius: clamp(5px, 0.5vw, 10px);">
-                        <span style="font-size: 20px; color: #666;">Coimbatore District</span>
-                        <span style="font-size: 32px; font-weight: 700; color: #0047AB;">248</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; align-items: center; padding: 15px; background: #fff8e1; border-radius: clamp(5px, 0.5vw, 10px);">
-                        <span style="font-size: 20px; color: #666;">Tiruvallur District</span>
-                        <span style="font-size: 32px; font-weight: 700; color: #FDB813;">423</span>
-                    </div>
-                    <div style="text-align: center; padding: 15px; background: #e8f5e8; border-radius: clamp(5px, 0.5vw, 10px);">
-                        <span style="font-size: 22px; color: #228B22; font-weight: 600;">671 Villages Empowered</span>
+                
+                <div class="partnerships-section">
+                    <h2 class="section-title">Major Government Partnerships</h2>
+                    
+                    <div class="partnerships-grid">
+                        <div class="partnership-card">
+                            <div class="partnership-header blue">
+                                <h3 class="partnership-title">Greater Chennai Corporation</h3>
+                                <p class="partnership-subtitle">Urban Waste Management Revolution</p>
+                            </div>
+                            <div class="partnership-content">
+                                <div class="stat-item light">
+                                    <span class="stat-label">Total Fleet</span>
+                                    <span class="stat-value blue">3,330</span>
+                                </div>
+                                <div class="stat-item gold">
+                                    <span class="stat-label">Single Order Record</span>
+                                    <span class="stat-value gold">2,919</span>
+                                </div>
+                                <div class="achievement-banner">
+                                    <span class="achievement-text">100% Fleet Electrification</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="partnership-card">
+                            <div class="partnership-header green">
+                                <h3 class="partnership-title">Tamil Nadu Panchayats</h3>
+                                <p class="partnership-subtitle">Rural Development Initiative</p>
+                            </div>
+                            <div class="partnership-content">
+                                <div class="stat-item light">
+                                    <span class="stat-label">Coimbatore District</span>
+                                    <span class="stat-value blue">248</span>
+                                </div>
+                                <div class="stat-item gold">
+                                    <span class="stat-label">Tiruvallur District</span>
+                                    <span class="stat-value gold">423</span>
+                                </div>
+                                <div class="achievement-banner">
+                                    <span class="achievement-text">671 Villages Empowered</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -393,14 +1011,37 @@
             }
         }
         
-        // Keyboard navigation
+        // Keyboard navigation - including spacebar
         document.addEventListener('keydown', function(e) {
             if (e.key === 'ArrowLeft') {
                 prevSlide();
-            } else if (e.key === 'ArrowRight') {
+            } else if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
                 nextSlide();
             }
         });
+        
+        // Touch/swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                prevSlide();
+            }
+        }
         
         // Set the correct option in dropdown
         document.querySelector('.slide-select').value = currentSlide;

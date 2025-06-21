@@ -5,448 +5,497 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REEP: Client Testimonials</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Primary Colors */
+            --solar-gold: #FDB813;
+            --solar-gold-light: #FFD700;
+            --trust-blue: #0047AB;
+            --trust-blue-light: #0056D2;
+            --green-primary: #228B22;
+            --green-light: #2ECC40;
+            
+            /* Backgrounds */
+            --bg-dark: #0a0a0a;
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --bg-glass-border: rgba(255, 255, 255, 0.1);
+            
+            /* Text */
+            --text-primary: rgba(255, 255, 255, 0.9);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.3);
+            
+            /* Typography Scale */
+            --title-xl: clamp(36px, 4.5vw, 64px);
+            --title-lg: clamp(28px, 3.5vw, 56px);
+            --title-md: clamp(24px, 3vw, 36px);
+            --text-lg: clamp(14px, 1.8vw, 22px);
+            --text-md: clamp(13px, 1.6vw, 20px);
+            --text-sm: clamp(12px, 1.6vh, 18px);
+        }
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            background: #f5f5f5;
+            background: var(--bg-dark);
             color: #333;
             line-height: 1.6;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            min-height: 100vh;
         }
         
+        /* Mobile-first approach */
         .slide {
-            width: 100vw; 
-            max-width: 1920px;
-            min-height: 100vh;
+            display: block;
+            width: 100vw;
             height: auto;
-            background: white;
+            min-height: auto;
+            background: var(--bg-dark);
             margin: 0 auto;
-            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
-            padding: clamp(15px, 2.5vw, 50px);
             position: relative;
-            overflow-y: auto;
+            overflow-y: visible;
             overflow-x: hidden;
+            padding: 80px 20px 120px;
+        }
+        
+        /* Desktop enhancement with proper navigation clearance */
+        @media (min-width: 768px) {
+            body {
+                overflow: hidden;
+            }
+            
+            .slide {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                height: 100vh;
+                max-width: 1920px;
+                max-height: 1080px;
+                overflow: hidden;
+                padding: 10vh 2vw 6vh !important;
+            }
+            
+            .content-wrapper {
+                height: 84vh !important;
+                max-height: 84vh !important;
+                overflow: hidden !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.5vh !important;
+            }
+            
+            /* Header section - fixed space */
+            h1, .subtitle {
+                flex: 0 0 auto;
+                max-height: 12vh;
+            }
+            
+            /* Main content - flexible space */
+            .grid-2 {
+                flex: 1 1 auto;
+                min-height: 0;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+            
+            /* Bottom section - fixed space */
+            .bottom-banner {
+                flex: 0 0 auto;
+                max-height: 15vh;
+                margin-top: 0.5vh !important;
+            }
+            
+            /* Force compact sizes on desktop */
+            h1 { 
+                font-size: min(3vh, 28px) !important;
+                margin-bottom: 0.5vh !important;
+            }
+            
+            .subtitle {
+                font-size: min(2vh, 18px) !important;
+                margin-bottom: 1vh !important;
+            }
+        }
+        
+        /* Premium Background */
+        .slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(253, 184, 19, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(0, 71, 171, 0.12) 0%, transparent 40%);
+            animation: gradientShift 25s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(-3%, 3%) scale(1.05) rotate(90deg); }
+            50% { transform: translate(3%, -3%) scale(0.98) rotate(180deg); }
+            75% { transform: translate(-2%, -2%) scale(1.02) rotate(270deg); }
+        }
+        
+        /* Content wrapper for desktop layout control */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
+            gap: clamp(20px, 3vh, 30px);
         }
         
+        /* Slide number */
         .slide-number {
             position: absolute;
             top: clamp(15px, 1.5vw, 30px);
             left: clamp(15px, 1.5vw, 30px);
             font-size: clamp(12px, 0.8vw, 16px);
-            color: #999;
+            color: var(--text-muted);
             font-weight: 500;
+            z-index: 20;
         }
         
-        .solar-pattern {
-            position: absolute; 
-            top: -100px; 
-            right: -100px; 
-            width: 400px; 
-            height: 400px; 
-            opacity: 0.08;
-            background: repeating-linear-gradient(45deg, #FDB813, #FDB813 10px, transparent 10px, transparent 20px);
-            transform: rotate(15deg); 
-            animation: subtle-rotate 20s linear infinite;
+        /* Title styling */
+        h1 {
+            color: var(--text-primary);
+            font-size: var(--title-lg);
+            font-weight: 700;
+            margin-bottom: clamp(8px, 1.5vh, 15px);
+            line-height: 1.2;
+            text-align: center;
+            background: linear-gradient(135deg, var(--solar-gold) 0%, var(--solar-gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
-        @keyframes subtle-rotate { 
-            from { transform: rotate(15deg); } 
-            to { transform: rotate(375deg); } 
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: var(--text-lg);
+            text-align: center;
+            margin-bottom: clamp(20px, 3vh, 30px);
         }
         
-        h1 { 
-            color: #0047AB; 
-            font-size: clamp(24px, 2.5vw, 48px); 
-            font-weight: 700; 
-            margin-bottom: clamp(8px, 1.5vw, 20px); 
-            line-height: 1.2; 
-            text-shadow: 0 2px 4px rgba(0,71,171,0.1); 
-        }
-        
-        .subtitle { 
-            color: #666; 
-            font-size: clamp(14px, 1.2vw, 18px); 
-            margin-bottom: clamp(12px, 2vw, 25px); 
-        }
-        
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: clamp(15px, 2.5vw, 25px);
-            margin-bottom: clamp(20px, 3vw, 30px);
+        /* Grid layout */
+        .grid-2 { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: clamp(15px, 2.5vw, 25px); 
+            margin-bottom: clamp(15px, 2.5vw, 25px);
             flex: 1;
         }
         
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: clamp(10px, 1.5vw, 15px);
+            }
+        }
+        
+        /* Icon boxes with glassmorphism */
+        .icon-box {
+            width: clamp(50px, 6vw, 70px);
+            height: clamp(50px, 6vw, 70px);
+            border-radius: clamp(7px, 0.8vw, 15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: clamp(8px, 1.2vw, 15px);
+            font-size: clamp(24px, 3vw, 32px);
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .icon-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0.6vw 1.8vw rgba(0,0,0,0.3);
+        }
+        
+        /* Testimonial cards with glassmorphism */
         .testimonial-card {
-            background: white;
-            border-radius: clamp(8px, 0.8vw, 15px);
-            box-shadow: 0 0.5vw 1.6vw rgba(0,0,0,0.1);
-            overflow: hidden;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--bg-glass-border);
+            border-radius: clamp(8px, 1.0vw, 16px);
+            padding: clamp(15px, 2.5vw, 25px);
+            box-shadow: 0 0.5vw 1.6vw rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
         .testimonial-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0.8vw 2.4vw rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
         
         .testimonial-header {
-            padding: clamp(15px, 2.5vw, 25px);
-            text-align: center;
-            color: white;
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 2vw, 20px);
+            margin-bottom: clamp(10px, 1.5vw, 15px);
         }
         
-        .testimonial-content {
-            padding: clamp(15px, 2.5vw, 25px);
+        h4 {
+            color: var(--text-primary);
+            font-size: clamp(16px, 1.6vw, 24px);
+            font-weight: 600;
+            margin-bottom: clamp(8px, 1vw, 12px);
         }
         
         .testimonial-text {
-            font-size: clamp(14px, 1.6vw, 20px);
-            color: #333;
-            line-height: 1.6;
-            margin-bottom: clamp(15px, 2vw, 20px);
+            font-size: clamp(14px, 1.4vw, 18px);
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: clamp(10px, 1.5vw, 15px);
             font-style: italic;
-            position: relative;
+            flex: 1;
         }
         
-        .testimonial-text::before {
-            content: '"';
-            font-size: clamp(40px, 4vw, 60px);
-            color: #0047AB;
-            opacity: 0.3;
-            position: absolute;
-            top: -15px;
-            left: -10px;
-            font-family: serif;
-            line-height: 1;
-        }
-        
-        .author-section {
-            display: flex;
-            align-items: center;
-            gap: clamp(12px, 1.5vw, 20px);
-        }
-        
-        .author-avatar {
-            width: clamp(50px, 6vw, 70px);
-            height: clamp(50px, 6vw, 70px);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: clamp(20px, 2.5vw, 28px);
-            flex-shrink: 0;
-        }
-        
-        .author-info h3 {
-            color: #0047AB;
-            font-size: clamp(16px, 1.8vw, 22px);
-            font-weight: 700;
-            margin-bottom: clamp(2px, 0.4vw, 4px);
-        }
-        
-        .author-info p {
-            color: #666;
-            font-size: clamp(13px, 1.4vw, 17px);
-            margin: 0;
-        }
-        
-        .metrics-dashboard {
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-            padding: clamp(20px, 3.5vw, 35px);
-            border-radius: clamp(8px, 0.8vw, 15px);
-            border: 2px solid #e0e0e0;
+        .testimonial-footer {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: clamp(8px, 1.2vw, 12px);
+            border-radius: clamp(5px, 0.5vw, 8px);
             margin-top: auto;
         }
         
-        .metrics-title {
-            text-align: center;
-            color: #0047AB;
-            font-size: clamp(18px, 2.2vw, 28px);
-            margin-bottom: clamp(15px, 2.5vw, 25px);
+        .testimonial-author {
+            font-size: clamp(12px, 1.3vw, 16px);
             font-weight: 700;
+            margin-bottom: clamp(2px, 0.3vw, 3px);
         }
         
-        .metrics-subtitle {
-            text-align: center;
-            font-size: clamp(13px, 1.5vw, 18px);
-            color: #666;
-            margin-bottom: clamp(20px, 3vw, 25px);
+        .testimonial-role {
+            font-size: clamp(11px, 1.1vw, 14px);
+            color: var(--text-secondary);
         }
         
+        /* Metrics grid */
         .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: clamp(15px, 2.5vw, 25px);
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(10px, 1.5vh, 15px);
+            margin-top: clamp(10px, 1.5vh, 15px);
         }
         
-        .metric-item {
+        .metric-box {
             text-align: center;
-            padding: clamp(12px, 2vw, 18px);
-            background: white;
-            border-radius: clamp(8px, 0.8vw, 12px);
-            box-shadow: 0 0.4vw 1.2vw rgba(0,0,0,0.08);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: clamp(8px, 1.2vh, 12px);
+            border-radius: clamp(6px, 0.8vw, 10px);
         }
         
         .metric-value {
-            font-size: clamp(22px, 2.8vw, 32px);
+            font-size: clamp(18px, 2.5vw, 28px);
             font-weight: 700;
-            margin-bottom: clamp(4px, 0.6vw, 6px);
         }
         
         .metric-label {
-            font-size: clamp(12px, 1.3vw, 16px);
-            color: #666;
-            font-weight: 600;
+            font-size: clamp(10px, 1.2vw, 13px);
+            color: var(--text-secondary);
         }
         
-        .logo-corner { 
-            position: absolute; 
-            bottom: clamp(15px, 2vw, 25px); 
-            right: clamp(15px, 2vw, 25px); 
-            font-size: clamp(20px, 2.5vw, 28px); 
-            font-weight: 700; 
-            color: #0047AB; 
-            opacity: 0.6; 
+        /* Bottom banner with glassmorphism */
+        .bottom-banner {
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.2) 0%, rgba(0, 71, 171, 0.1) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 71, 171, 0.3);
+            color: var(--text-primary);
+            padding: clamp(15px, 2.5vw, 25px);
+            border-radius: clamp(8px, 1.0vw, 16px);
+            text-align: center;
+            margin-top: auto;
+            box-shadow: 0 8px 32px rgba(0, 71, 171, 0.3);
         }
         
-        /* Short screen optimization for 800px and below */
-        @media (max-height: 850px) {
-            .slide {
-                padding: clamp(8px, 1.5vw, 20px);
-            }
-            
-            h1 {
-                font-size: clamp(16px, 1.8vw, 28px);
-                margin-bottom: clamp(3px, 0.6vw, 8px);
-            }
-            
-            .subtitle {
-                font-size: clamp(11px, 1vw, 14px);
-                margin-bottom: clamp(4px, 1vw, 12px);
-            }
-            
-            .testimonials-grid {
-                gap: clamp(6px, 1.2vw, 12px);
-                margin-bottom: clamp(8px, 1.2vw, 15px);
-            }
-            
-            .testimonial-card {
-                box-shadow: 0 0.3vw 1.2vw rgba(0,0,0,0.08);
-            }
-            
-            .testimonial-header {
-                padding: clamp(6px, 1.2vw, 12px);
-            }
-            
-            .testimonial-header h3 {
-                font-size: clamp(12px, 1.4vw, 18px) !important;
-            }
-            
-            .testimonial-content {
-                padding: clamp(6px, 1.2vw, 12px);
-            }
-            
-            .testimonial-text {
-                font-size: clamp(10px, 1.2vw, 14px);
-                margin-bottom: clamp(6px, 1vw, 10px);
-                line-height: 1.4;
-            }
-            
-            .testimonial-text::before {
-                font-size: clamp(24px, 2.5vw, 32px);
-                top: -8px;
-                left: -6px;
-            }
-            
-            .author-section {
-                gap: clamp(8px, 1.2vw, 12px);
-            }
-            
-            .author-avatar {
-                width: clamp(35px, 4vw, 45px);
-                height: clamp(35px, 4vw, 45px);
-                font-size: clamp(14px, 1.8vw, 20px);
-            }
-            
-            .author-info h3 {
-                font-size: clamp(12px, 1.4vw, 16px);
-                margin-bottom: clamp(1px, 0.2vw, 2px);
-            }
-            
-            .author-info p {
-                font-size: clamp(9px, 1.1vw, 12px);
-            }
-            
-            .metrics-dashboard {
-                padding: clamp(8px, 1.5vw, 15px);
-            }
-            
-            .metrics-title {
-                font-size: clamp(12px, 1.5vw, 18px);
-                margin-bottom: clamp(6px, 1.2vw, 10px);
-            }
-            
-            .metrics-subtitle {
-                font-size: clamp(9px, 1.1vw, 12px);
-                margin-bottom: clamp(6px, 1.2vw, 10px);
-            }
-            
-            .metrics-grid {
-                gap: clamp(6px, 1.2vw, 10px);
-                grid-template-columns: repeat(4, 1fr);
-            }
-            
-            .metric-item {
-                padding: clamp(6px, 1.2vw, 10px);
-            }
-            
-            .metric-value {
-                font-size: clamp(16px, 2vw, 22px);
-                margin-bottom: clamp(2px, 0.3vw, 3px);
-            }
-            
-            .metric-label {
-                font-size: clamp(8px, 1vw, 11px);
-            }
+        .bottom-banner h3 {
+            color: var(--text-primary);
+            margin-bottom: clamp(6px, 1vw, 10px);
+            font-size: clamp(16px, 2vw, 26px);
+            font-weight: 700;
         }
         
-        /* Navigation Styles */
+        .bottom-banner p {
+            font-size: clamp(12px, 1.4vw, 18px);
+            opacity: 0.9;
+            margin: 0;
+        }
+        
+        /* Logo corner */
+        .logo-corner {
+            position: absolute;
+            bottom: clamp(15px, 2vw, 25px);
+            right: clamp(15px, 2vw, 25px);
+            font-size: clamp(20px, 2.5vw, 28px);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--solar-gold) 0%, var(--solar-gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.8;
+            z-index: 20;
+            text-shadow: 0 2px 8px rgba(253, 184, 19, 0.3);
+        }
+        
+        /* Height constrained screens - Progressive optimization */
+        @media (max-height: 950px) and (min-width: 768px) {
+            .slide { padding: 8vh 2vw 4vh !important; }
+            .content-wrapper { height: 88vh !important; }
+            h1 { font-size: min(2.8vh, 26px) !important; }
+            .subtitle { font-size: min(1.8vh, 16px) !important; }
+        }
+        
+        @media (max-height: 850px) and (min-width: 768px) {
+            .slide { padding: 6vh 2vw 3vh !important; }
+            .content-wrapper { height: 91vh !important; }
+            h1 { font-size: min(2.5vh, 24px) !important; }
+            .subtitle { font-size: min(1.6vh, 14px) !important; }
+            .testimonial-card { padding: clamp(10px, 1.5vh, 15px); }
+            .testimonial-text { font-size: clamp(11px, 1.2vw, 14px); }
+        }
+        
+        @media (max-height: 750px) and (min-width: 768px) {
+            .slide { padding: 4vh 1.5vw 2vh !important; }
+            .content-wrapper { height: 94vh !important; gap: clamp(5px, 0.8vh, 8px); }
+            h1 { font-size: min(2.2vh, 20px) !important; }
+            .subtitle { font-size: min(1.4vh, 12px) !important; }
+            .testimonial-card { padding: clamp(8px, 1.2vh, 12px); }
+            .testimonial-text { font-size: clamp(10px, 1.1vw, 13px); line-height: 1.3; }
+        }
+        
+        /* Navigation Container - Slide17 Style with Progress Bar */
         .nav-container {
             position: fixed;
-            top: clamp(10px, 1vw, 20px);
+            top: clamp(15px, 2vh, 30px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: clamp(8px, 0.8vw, 15px);
-            background: rgba(255, 255, 255, 0.95);
-            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
-            border-radius: clamp(15px, 1.3vw, 25px);
-            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
+            gap: clamp(10px, 1.5vw, 20px);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: clamp(10px, 1.5vh, 15px) clamp(15px, 2vw, 25px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
         .slide-counter {
-            font-size: clamp(11px, 0.7vw, 14px);
+            font-size: clamp(11px, 1.4vh, 16px);
             font-weight: 600;
-            color: #0047AB;
-            min-width: clamp(60px, 4vw, 80px);
+            color: rgba(255, 255, 255, 0.9);
+            min-width: clamp(60px, 5vw, 80px);
             text-align: center;
         }
 
+        .progress-bar {
+            width: clamp(80px, 10vw, 150px);
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: calc(22 / 28 * 100%);
+            background: linear-gradient(90deg, #FDB813 0%, #FFD700 100%);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
         .slide-select {
-            padding: clamp(6px, 0.4vw, 8px) clamp(8px, 0.6vw, 12px);
-            border: 1px solid #ddd;
-            border-radius: clamp(4px, 0.3vw, 6px);
-            font-size: clamp(11px, 0.7vw, 14px);
-            background: white;
+            padding: clamp(6px, 0.8vh, 10px) clamp(10px, 0.8vw, 15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-size: clamp(11px, 1.4vh, 15px);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
             cursor: pointer;
             outline: none;
+            transition: all 0.3s ease;
         }
 
-        .slide-select:focus {
-            border-color: #0047AB;
-            box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.1);
+        .slide-select:focus,
+        .slide-select:hover {
+            border-color: #FDB813;
+            background: rgba(0, 0, 0, 0.7);
         }
 
-        .nav-btn {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            background: rgba(0, 71, 171, 0.9);
+        .slide-select option {
+            background: #1a1a1a;
             color: white;
-            border: none;
-            width: clamp(35px, 2.6vw, 50px);
-            height: clamp(35px, 2.6vw, 50px);
+        }
+
+        /* CORRECT BOTTOM NAVIGATION POSITIONING */
+        .nav-buttons {
+            position: fixed;
+            bottom: clamp(20px, 3vh, 40px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            gap: clamp(15px, 2vw, 30px);
+        }
+        
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: clamp(40px, 4vw, 60px);
+            height: clamp(40px, 4vw, 60px);
             border-radius: 50%;
-            font-size: clamp(14px, 1vw, 20px);
+            font-size: clamp(18px, 2vw, 28px);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
-
-        .nav-btn:hover {
-            background: rgba(0, 71, 171, 1);
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 0.3vw 1.0vw rgba(0, 71, 171, 0.4);
+        
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(253, 184, 19, 0.2);
+            border-color: rgba(253, 184, 19, 0.5);
+            transform: scale(1.1);
         }
-
+        
         .nav-btn:disabled {
-            background: rgba(150, 150, 150, 0.5);
+            opacity: 0.3;
             cursor: not-allowed;
-            transform: translateY(-50%) scale(1);
-        }
-
-        .nav-btn.prev {
-            left: clamp(15px, 1.5vw, 30px);
-        }
-
-        .nav-btn.next {
-            right: clamp(15px, 1.5vw, 30px);
-        }
-
-        @media (max-width: 768px) {
-            .nav-container {
-                position: fixed;
-                top: clamp(10px, 1vw, 20px);
-                left: 50%;
-                transform: translateX(-50%);
-                z-index: 1000;
-                display: flex;
-                align-items: center;
-                gap: clamp(8px, 0.8vw, 15px);
-                background: rgba(255, 255, 255, 0.95);
-                padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
-                border-radius: clamp(15px, 1.3vw, 25px);
-                box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
-                backdrop-filter: blur(10px);
-            }
-            
-            .nav-btn {
-                position: fixed;
-                top: 50%;
-                transform: translateY(-50%);
-                z-index: 1000;
-                background: rgba(0, 71, 171, 0.9);
-                color: white;
-                border: none;
-                width: clamp(35px, 2.6vw, 50px);
-                height: clamp(35px, 2.6vw, 50px);
-                border-radius: 50%;
-                font-size: clamp(14px, 1vw, 20px);
-                cursor: pointer;
-                transition: all 0.3s ease;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
-            }
-            
-            .nav-btn.prev {
-                left: 15px;
-            }
-            
-            .nav-btn.next {
-                right: 15px;
-            }
-            
-            .metrics-grid {
-                grid-template-columns: 1fr;
-                gap: clamp(10px, 1.5vw, 15px);
-            }
         }
 
         @media (max-width: 480px) {
@@ -471,6 +520,9 @@
     <!-- Navigation -->
     <div class="nav-container">
         <div class="slide-counter">22 / 28</div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
         <select class="slide-select" onchange="jumpToSlide(this.value)">
             <option value="index.html">1. Welcome</option>
             <option value="slide2.html">2. About</option>
@@ -503,93 +555,93 @@
         </select>
     </div>
     
-    <button class="nav-btn prev" onclick="prevSlide()">‹</button>
-    <button class="nav-btn next" onclick="nextSlide()">›</button>
+    <!-- Navigation Buttons at Bottom -->
+    <div class="nav-buttons">
+        <button class="nav-btn prev" onclick="prevSlide()">‹</button>
+        <button class="nav-btn next" onclick="nextSlide()">›</button>
+    </div>
 
     <div class="slide">
         <div class="slide-number">22</div>
-        <div class="solar-pattern"></div>
         
-        <h1>Trusted by Leaders</h1>
-        <div class="subtitle">Testimonials from our valued partners and clients</div>
-        
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-header" style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%);">
-                    <h3 style="color: white; font-size: clamp(16px, 1.8vw, 24px); font-weight: 700;">Government Partnership</h3>
+        <div class="content-wrapper">
+            <h1>Voices of Trust</h1>
+            <div class="subtitle">What our partners say about REEP's excellence</div>
+            
+            <div class="grid-2">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="icon-box" style="background: #0047AB;">
+                            <div>🏛️</div>
+                        </div>
+                        <h4 style="margin: 0;">Government Partnership</h4>
+                    </div>
+                    <p class="testimonial-text">"REEP has been instrumental in our city's transformation to sustainable waste management. Their vehicles have performed flawlessly for over two years, and their service support is unmatched."</p>
+                    <div class="testimonial-footer">
+                        <div class="testimonial-author" style="color: #0047AB;">Dr. Gagandeep Singh Bedi, IAS</div>
+                        <div class="testimonial-role">Commissioner, Greater Chennai Corporation</div>
+                    </div>
                 </div>
-                <div class="testimonial-content">
-                    <p class="testimonial-text">
-                        REEP has been instrumental in our city's transformation to sustainable waste management. Their vehicles have performed flawlessly for over two years, and their service support is unmatched in the industry.
-                    </p>
-                    <div class="author-section">
-                        <div class="author-avatar" style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%);">D</div>
-                        <div class="author-info">
-                            <h3>Dr. Gagandeep Singh Bedi, IAS</h3>
-                            <p>Commissioner, Greater Chennai Corporation</p>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="icon-box" style="background: #FDB813;">
+                            <div>🚚</div>
+                        </div>
+                        <h4 style="margin: 0;">Logistics Excellence</h4>
+                    </div>
+                    <p class="testimonial-text">"Switching to REEP vehicles has reduced our operational costs by 45%. The reliability and range perfectly match our urban delivery needs with zero maintenance issues."</p>
+                    <div class="testimonial-footer">
+                        <div class="testimonial-author" style="color: #FDB813;">Rajesh Kumar</div>
+                        <div class="testimonial-role">Operations Head, QuickDeliver Logistics</div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="icon-box" style="background: #228B22;">
+                            <div>🏥</div>
+                        </div>
+                        <h4 style="margin: 0;">Healthcare Innovation</h4>
+                    </div>
+                    <p class="testimonial-text">"The REEP team understood our unique requirements for rural healthcare delivery. They customized vehicles with medical storage and provided comprehensive training."</p>
+                    <div class="testimonial-footer">
+                        <div class="testimonial-author" style="color: #228B22;">Dr. Priya Ramachandran</div>
+                        <div class="testimonial-role">Director, Tamil Nadu Health Department</div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="icon-box" style="background: #0047AB;">
+                            <div>⭐</div>
+                        </div>
+                        <h4 style="margin: 0;">Client Satisfaction</h4>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-box">
+                            <div class="metric-value" style="color: #0047AB;">95%</div>
+                            <div class="metric-label">Satisfaction</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-value" style="color: #228B22;">98%</div>
+                            <div class="metric-label">Recommend</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-value" style="color: #FDB813;">4.8/5</div>
+                            <div class="metric-label">Rating</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-value" style="color: #0047AB;">50+</div>
+                            <div class="metric-label">Repeat Clients</div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="testimonial-card">
-                <div class="testimonial-header" style="background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%);">
-                    <h3 style="color: white; font-size: clamp(16px, 1.8vw, 24px); font-weight: 700;">Private Sector Excellence</h3>
-                </div>
-                <div class="testimonial-content">
-                    <p class="testimonial-text">
-                        As a logistics company handling last-mile delivery, switching to REEP vehicles has reduced our operational costs by 45%. The reliability and range perfectly match our urban delivery needs.
-                    </p>
-                    <div class="author-section">
-                        <div class="author-avatar" style="background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%);">R</div>
-                        <div class="author-info">
-                            <h3>Rajesh Kumar</h3>
-                            <p>Operations Head, QuickDeliver Logistics</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="testimonial-card">
-                <div class="testimonial-header" style="background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%);">
-                    <h3 style="color: white; font-size: clamp(16px, 1.8vw, 24px); font-weight: 700;">Healthcare Innovation</h3>
-                </div>
-                <div class="testimonial-content">
-                    <p class="testimonial-text">
-                        The REEP team understood our unique requirements for rural healthcare delivery. They customized vehicles with medical storage and provided comprehensive training for our drivers.
-                    </p>
-                    <div class="author-section">
-                        <div class="author-avatar" style="background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%);">P</div>
-                        <div class="author-info">
-                            <h3>Dr. Priya Ramachandran</h3>
-                            <p>Director, Tamil Nadu Health Department</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="metrics-dashboard">
-            <h3 class="metrics-title">Client Satisfaction Excellence</h3>
-            <p class="metrics-subtitle">Based on 500+ customer surveys across government and private sectors</p>
-            
-            <div class="metrics-grid">
-                <div class="metric-item">
-                    <div class="metric-value" style="color: #0047AB;">95%</div>
-                    <div class="metric-label">Overall Satisfaction</div>
-                </div>
-                <div class="metric-item">
-                    <div class="metric-value" style="color: #228B22;">98%</div>
-                    <div class="metric-label">Would Recommend</div>
-                </div>
-                <div class="metric-item">
-                    <div class="metric-value" style="color: #FDB813;">4.8/5</div>
-                    <div class="metric-label">Service Rating</div>
-                </div>
-                <div class="metric-item">
-                    <div class="metric-value" style="color: #0047AB;">50+</div>
-                    <div class="metric-label">Repeat Clients</div>
-                </div>
+            <div class="bottom-banner">
+                <h3>Trusted by 500+ Organizations Across India</h3>
+                <p>From government agencies to private enterprises - delivering excellence every day</p>
             </div>
         </div>
         

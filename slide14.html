@@ -5,462 +5,800 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REEP: Public Sector Efficiency</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Primary Colors */
+            --solar-gold: #FDB813;
+            --solar-gold-light: #FFD700;
+            --trust-blue: #0047AB;
+            --trust-blue-light: #0056D2;
+            
+            /* Backgrounds */
+            --bg-dark: #0a0a0a;
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --bg-glass-border: rgba(255, 255, 255, 0.1);
+            
+            /* Text */
+            --text-primary: rgba(255, 255, 255, 0.9);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.3);
+            
+            /* Typography Scale */
+            --title-xl: clamp(36px, 4.5vw, 64px);
+            --title-lg: clamp(28px, 3.5vw, 56px);
+            --title-md: clamp(24px, 3vw, 36px);
+            --text-lg: clamp(14px, 1.8vw, 22px);
+            --text-md: clamp(13px, 1.6vw, 20px);
+            --text-sm: clamp(12px, 1.6vh, 18px);
+        }
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            background: #f5f5f5;
+            background: var(--bg-dark);
             color: #333;
             line-height: 1.6;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-        }
-        
-        .slide {
-            width: 100vw; 
-            max-width: 1920px;
             min-height: 100vh;
-            height: auto;
-            background: white;
-            margin: 0 auto;
-            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
-            padding: clamp(15px, 2.5vw, 50px);
-            position: relative;
-            overflow-y: auto;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
         }
         
+        /* Mobile-first approach - CRITICAL MOBILE SCROLLING FIX */
+        .slide {
+            display: block;
+            width: 100vw;
+            height: auto;
+            min-height: auto; /* CRITICAL: NO min-height: 100vh on mobile */
+            background: var(--bg-dark);
+            margin: 0 auto;
+            position: relative;
+            overflow-y: visible; /* CRITICAL: Allow natural scroll */
+            overflow-x: hidden;
+            padding: 80px 20px 120px;
+        }
+        
+        /* Desktop enhancement */
+        @media (min-width: 768px) {
+            body {
+                overflow: hidden;
+            }
+            
+            .slide {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                height: 100vh;
+                max-width: 1920px;
+                max-height: 1080px;
+                overflow: hidden;
+                padding: clamp(80px, 8vh, 100px) clamp(20px, 3vw, 60px) clamp(100px, 10vh, 120px);
+            }
+        }
+        
+        /* Ensure proper mobile scrolling */
+        @media (max-width: 768px) {
+            .slide {
+                min-height: auto;
+                padding-bottom: calc(80px + env(safe-area-inset-bottom));
+            }
+        }
+        
+        /* Premium Background with animated gradient */
+        .slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(253, 184, 19, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(0, 71, 171, 0.12) 0%, transparent 40%);
+            animation: gradientShift 25s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(-3%, 3%) scale(1.05) rotate(90deg); }
+            50% { transform: translate(3%, -3%) scale(0.98) rotate(180deg); }
+            75% { transform: translate(-2%, -2%) scale(1.02) rotate(270deg); }
+        }
+        
+        /* Content container - Mobile First */
+        .content-wrapper {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            z-index: 1;
+            position: relative;
+            display: block;
+            gap: clamp(20px, 3vh, 30px);
+        }
+        
+        /* Desktop enhancement for content wrapper */
+        @media (min-width: 768px) and (min-height: 600px) {
+            .content-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: clamp(10px, 1.5vh, 20px);
+                width: 100%;
+                height: 100%;
+                justify-content: space-between;
+            }
+        }
+        
+        /* Header section */
+        .header-section {
+            text-align: center;
+            margin-bottom: clamp(15px, 2vh, 25px);
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .header-section {
+                margin-bottom: clamp(8px, 1vh, 15px);
+            }
+        }
+        
+        /* Solar-themed decorative elements */
+        .solar-rays {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200%;
+            height: 200%;
+            pointer-events: none;
+            opacity: 0.03;
+        }
+        
+        .solar-rays::before,
+        .solar-rays::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                #FDB813 5deg,
+                transparent 10deg,
+                transparent 350deg,
+                #FDB813 355deg,
+                transparent 360deg
+            );
+            animation: rotateSlow 60s linear infinite;
+        }
+        
+        .solar-rays::after {
+            transform: translate(-50%, -50%) rotate(45deg);
+            animation-duration: 90s;
+            animation-direction: reverse;
+        }
+        
+        @keyframes rotateSlow {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Slide number */
         .slide-number {
             position: absolute;
-            top: clamp(15px, 1.5vw, 30px);
-            left: clamp(15px, 1.5vw, 30px);
-            font-size: clamp(12px, 0.8vw, 16px);
-            color: #999;
+            top: clamp(20px, 2vw, 40px);
+            left: clamp(20px, 2vw, 40px);
+            font-size: clamp(14px, 1vw, 18px);
+            color: rgba(255, 255, 255, 0.3);
             font-weight: 500;
         }
         
-        .solar-pattern {
-            position: absolute; 
-            top: -100px; 
-            right: -100px; 
-            width: 400px; 
-            height: 400px; 
-            opacity: 0.08;
-            background: repeating-linear-gradient(45deg, #FDB813, #FDB813 10px, transparent 10px, transparent 20px);
-            transform: rotate(15deg); 
-            animation: subtle-rotate 20s linear infinite;
+        .main-title {
+            font-size: clamp(28px, 3.5vw, 48px);
+            font-weight: 700;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(6px, 0.8vh, 10px);
+            filter: drop-shadow(0 3px 15px rgba(253, 184, 19, 0.5));
+            animation: titleShine 4s ease-in-out infinite;
         }
         
-        @keyframes subtle-rotate { 
-            from { transform: rotate(15deg); } 
-            to { transform: rotate(375deg); } 
+        @keyframes titleShine {
+            0%, 100% { filter: brightness(1) drop-shadow(0 3px 15px rgba(253, 184, 19, 0.5)); }
+            50% { filter: brightness(1.2) drop-shadow(0 3px 20px rgba(253, 184, 19, 0.8)); }
         }
         
-        h1 { 
-            color: #0047AB; 
-            font-size: clamp(24px, 2.5vw, 48px); 
-            font-weight: 700; 
-            margin-bottom: clamp(8px, 1.5vw, 20px); 
-            line-height: 1.2; 
-            text-shadow: 0 2px 4px rgba(0,71,171,0.1); 
+        .subtitle {
+            font-size: clamp(14px, 1.8vw, 20px);
+            color: var(--text-secondary);
+            margin-bottom: clamp(15px, 2vh, 25px);
         }
         
-        .subtitle { 
-            color: #666; 
-            font-size: clamp(14px, 1.2vw, 18px); 
-            margin-bottom: clamp(12px, 2vw, 25px); 
+        /* Main content - Mobile First */
+        .main-content {
+            display: block;
+            gap: clamp(20px, 3vh, 30px);
+            margin-bottom: clamp(20px, 3vh, 30px);
         }
         
-        h3 { 
-            color: #0047AB; 
-            font-size: clamp(16px, 1.5vw, 24px); 
-            font-weight: 600; 
-            margin-bottom: clamp(8px, 1.2vw, 12px); 
+        /* Desktop enhancement for main content */
+        @media (min-width: 768px) and (min-height: 600px) {
+            .main-content {
+                display: flex;
+                flex-direction: column;
+                gap: clamp(10px, 1.5vh, 20px);
+                margin-bottom: 0;
+                flex: 1;
+                justify-content: space-between;
+            }
         }
         
-        .grid-3 { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-            gap: clamp(12px, 2vw, 25px); 
-            margin-bottom: clamp(15px, 2.5vw, 30px); 
+        /* Services grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(15px, 2vw, 20px);
         }
         
+        @media (min-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: clamp(10px, 1.5vw, 20px);
+            }
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .services-grid {
+                gap: clamp(8px, 1vw, 15px);
+            }
+        }
+        
+        /* Service card - Glassmorphic */
         .service-card {
-            background: white;
-            border-radius: clamp(7px, 0.8vw, 15px);
-            box-shadow: 0 0.5vw 1.6vw rgba(0,0,0,0.1);
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--bg-glass-border);
+            border-radius: 20px;
             overflow: hidden;
-            height: 100%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
         }
         
-        .service-header {
-            padding: clamp(15px, 2.5vw, 25px);
-            text-align: center;
-            color: white;
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
         }
         
-        .service-header div:first-child {
-            font-size: clamp(30px, 4vw, 48px);
-            margin-bottom: clamp(8px, 1.2vw, 15px);
+        /* Service header - Glassmorphic with color accents */
+        .service-header {
+            padding: clamp(20px, 3vw, 30px);
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .service-header {
+                padding: clamp(15px, 2vh, 25px);
+            }
+        }
+        
+        .service-header.green {
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.2) 0%, rgba(34, 139, 34, 0.15) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(34, 139, 34, 0.3);
+        }
+        
+        .service-header.blue {
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.2) 0%, rgba(0, 71, 171, 0.15) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 71, 171, 0.3);
+        }
+        
+        .service-header.gold {
+            background: linear-gradient(135deg, rgba(253, 184, 19, 0.2) 0%, rgba(253, 184, 19, 0.15) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(253, 184, 19, 0.3);
+        }
+        
+        .service-icon {
+            font-size: clamp(36px, 4vw, 48px);
+            margin-bottom: clamp(10px, 1.5vh, 15px);
+            filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.3));
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .service-icon {
+                font-size: clamp(30px, 3.5vw, 40px);
+                margin-bottom: clamp(8px, 1vh, 12px);
+            }
         }
         
         .service-header h3 {
             color: white;
-            font-size: clamp(18px, 2.2vw, 28px);
+            font-size: clamp(20px, 2.5vw, 28px);
             margin-bottom: 0;
+            font-weight: 600;
+            filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.2));
         }
         
+        @media (min-width: 768px) and (min-height: 600px) {
+            .service-header h3 {
+                font-size: clamp(18px, 2.2vw, 24px);
+            }
+        }
+        
+        /* Service content */
         .service-content {
-            padding: clamp(12px, 2vw, 20px);
+            padding: clamp(20px, 3vw, 30px);
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
         
-        .vehicle-image-placeholder {
-            height: clamp(80px, 10vw, 120px);
-            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
-            border-radius: clamp(6px, 0.6vw, 12px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: clamp(8px, 1.2vw, 12px);
-            border: 3px solid;
+        @media (min-width: 768px) and (min-height: 600px) {
+            .service-content {
+                padding: clamp(15px, 2vh, 25px);
+            }
+        }
+        
+        .service-description {
+            font-size: clamp(14px, 1.7vw, 18px);
+            color: var(--text-primary);
+            line-height: 1.5;
+            margin-bottom: clamp(15px, 2vh, 20px);
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .service-description {
+                font-size: clamp(13px, 1.6vw, 16px);
+                margin-bottom: clamp(10px, 1.5vh, 15px);
+            }
+        }
+        
+        /* Service metric - Glassmorphic */
+        .service-metric {
+            padding: clamp(12px, 1.8vh, 18px);
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .service-metric {
+                padding: clamp(10px, 1.5vh, 15px);
+            }
+        }
+        
+        .metric-green {
+            background: rgba(34, 139, 34, 0.1);
+            border: 1px solid rgba(34, 139, 34, 0.2);
+        }
+        
+        .metric-blue {
+            background: rgba(0, 71, 171, 0.1);
+            border: 1px solid rgba(0, 71, 171, 0.2);
+        }
+        
+        .metric-gold {
+            background: rgba(253, 184, 19, 0.1);
+            border: 1px solid rgba(253, 184, 19, 0.2);
+        }
+        
+        .service-metric p {
+            font-size: clamp(16px, 2vw, 22px);
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .service-metric p {
+                font-size: clamp(14px, 1.8vw, 20px);
+            }
+        }
+        
+        .metric-green p {
+            color: #2ECC40;
+            filter: drop-shadow(0 2px 8px rgba(34, 139, 34, 0.5));
+        }
+        
+        .metric-blue p {
+            color: #0099FF;
+            filter: drop-shadow(0 2px 8px rgba(0, 71, 171, 0.5));
+        }
+        
+        .metric-gold p {
+            color: var(--solar-gold);
+            filter: drop-shadow(0 2px 8px rgba(253, 184, 19, 0.5));
+        }
+        
+        /* Partnership section - Glassmorphic */
+        .partnership-section {
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.1) 0%, rgba(0, 71, 171, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 71, 171, 0.2);
+            padding: clamp(25px, 3.5vh, 35px);
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 71, 171, 0.2);
+            margin-top: clamp(20px, 3vh, 30px);
             position: relative;
             overflow: hidden;
         }
         
-        .vehicle-label {
-            font-size: clamp(12px, 1.2vw, 16px);
-            font-weight: 700;
-            color: #0047AB;
-            background: rgba(255,255,255,0.95);
-            padding: clamp(6px, 1vw, 8px) clamp(10px, 1.5vw, 12px);
-            border-radius: clamp(3px, 0.3vw, 5px);
-            box-shadow: 0 0.2vw 0.8vw rgba(0,71,171,0.15);
-            z-index: 1;
-            position: relative;
+        @media (min-width: 768px) and (min-height: 600px) {
+            .partnership-section {
+                padding: clamp(20px, 2.5vh, 30px);
+                margin-top: clamp(10px, 1.5vh, 20px);
+            }
         }
         
-        .service-description {
-            font-size: clamp(12px, 1.3vw, 16px);
-            color: #666;
-            line-height: 1.4;
-            margin-bottom: clamp(8px, 1.2vw, 12px);
-        }
-        
-        .service-metric {
-            padding: clamp(6px, 1vw, 10px);
-            border-radius: clamp(4px, 0.4vw, 8px);
-            text-align: center;
-        }
-        
-        .service-metric p {
-            font-size: clamp(11px, 1.2vw, 14px);
-            font-weight: 600;
-            margin: 0;
-        }
-        
-        .partnership-section {
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-            padding: clamp(15px, 2.5vw, 25px);
-            border-radius: clamp(7px, 0.8vw, 15px);
-            border: 2px solid #e0e0e0;
+        .partnership-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.05) 0%, transparent 100%);
+            pointer-events: none;
         }
         
         .partnership-title {
             text-align: center;
-            color: #0047AB;
-            font-size: clamp(16px, 1.8vw, 24px);
-            margin-bottom: clamp(12px, 2vw, 20px);
+            color: var(--trust-blue-light);
+            font-size: clamp(22px, 2.8vw, 32px);
+            margin-bottom: clamp(20px, 3vh, 30px);
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 2px 8px rgba(0, 71, 171, 0.5));
         }
         
+        @media (min-width: 768px) and (min-height: 600px) {
+            .partnership-title {
+                font-size: clamp(20px, 2.5vw, 28px);
+                margin-bottom: clamp(15px, 2vh, 20px);
+            }
+        }
+        
+        /* Partnership benefits grid */
         .partnership-benefits {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: clamp(8px, 1.5vw, 15px);
+            grid-template-columns: 1fr;
+            gap: clamp(15px, 2vw, 20px);
+            position: relative;
+            z-index: 1;
         }
         
+        @media (min-width: 480px) {
+            .partnership-benefits {
+                grid-template-columns: repeat(2, 1fr);
+                gap: clamp(10px, 1.5vw, 15px);
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .partnership-benefits {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .partnership-benefits {
+                gap: clamp(8px, 1vw, 12px);
+            }
+        }
+        
+        /* Benefit item - Glassmorphic */
         .benefit-item {
             display: flex;
             align-items: center;
-            gap: clamp(6px, 1vw, 10px);
-            padding: clamp(8px, 1.2vw, 12px);
-            background: white;
-            border-radius: clamp(5px, 0.5vw, 8px);
-            box-shadow: 0 0.2vw 0.6vw rgba(0,0,0,0.05);
+            gap: clamp(12px, 1.8vw, 18px);
+            padding: clamp(18px, 2.5vw, 25px);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .benefit-item {
+                padding: clamp(14px, 2vh, 20px);
+                gap: clamp(10px, 1.5vw, 15px);
+            }
+        }
+        
+        .benefit-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 71, 171, 0.3);
+            background: rgba(255, 255, 255, 0.08);
         }
         
         .benefit-icon {
-            font-size: clamp(16px, 1.8vw, 24px);
+            font-size: clamp(28px, 3.5vw, 36px);
             flex-shrink: 0;
         }
         
-        .benefit-text {
-            font-size: clamp(11px, 1.2vw, 14px);
-            color: #333;
-            font-weight: 500;
-            margin: 0;
-        }
-        
-        .logo-corner { 
-            position: absolute; 
-            bottom: clamp(15px, 2vw, 25px); 
-            right: clamp(15px, 2vw, 25px); 
-            font-size: clamp(20px, 2.5vw, 28px); 
-            font-weight: 700; 
-            color: #0047AB; 
-            opacity: 0.6; 
-        }
-        
-        /* Short screen optimization for 800px and below */
-        @media (max-height: 850px) {
-            .slide {
-                padding: clamp(8px, 1.5vw, 20px);
-            }
-            
-            h1 {
-                font-size: clamp(18px, 2vw, 32px);
-                margin-bottom: clamp(4px, 0.8vw, 10px);
-            }
-            
-            .subtitle {
-                font-size: clamp(12px, 1vw, 16px);
-                margin-bottom: clamp(6px, 1.2vw, 15px);
-            }
-            
-            .grid-3 {
-                grid-template-columns: 1fr;
-                gap: clamp(8px, 1.2vw, 15px);
-                margin-bottom: clamp(10px, 1.5vw, 20px);
-            }
-            
-            .service-card {
-                flex-direction: row;
-                height: auto;
-            }
-            
-            .service-header {
-                padding: clamp(8px, 1.5vw, 15px);
-                min-width: clamp(100px, 15vw, 140px);
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
-            
-            .service-header div:first-child {
-                font-size: clamp(20px, 2.5vw, 30px);
-                margin-bottom: clamp(4px, 0.6vw, 8px);
-            }
-            
-            .service-header h3 {
-                font-size: clamp(12px, 1.4vw, 18px);
-            }
-            
-            .service-content {
-                padding: clamp(8px, 1.5vw, 15px);
-                flex-direction: row;
-                align-items: center;
-                gap: clamp(8px, 1.2vw, 15px);
-            }
-            
-            .vehicle-image-placeholder {
-                height: clamp(50px, 6vw, 70px);
-                width: clamp(80px, 12vw, 120px);
-                margin-bottom: 0;
-                flex-shrink: 0;
-            }
-            
-            .vehicle-label {
-                font-size: clamp(8px, 0.9vw, 12px);
-                padding: clamp(3px, 0.5vw, 5px) clamp(6px, 0.8vw, 8px);
-            }
-            
-            .service-description {
-                font-size: clamp(10px, 1.1vw, 14px);
-                margin-bottom: 0;
-                flex: 1;
-            }
-            
-            .service-metric {
-                padding: clamp(4px, 0.6vw, 8px);
-                min-width: clamp(80px, 12vw, 120px);
-                flex-shrink: 0;
-            }
-            
-            .service-metric p {
-                font-size: clamp(9px, 1vw, 12px);
-            }
-            
-            .partnership-section {
-                padding: clamp(8px, 1.5vw, 15px);
-            }
-            
-            .partnership-title {
-                font-size: clamp(14px, 1.5vw, 18px);
-                margin-bottom: clamp(6px, 1vw, 12px);
-            }
-            
-            .partnership-benefits {
-                grid-template-columns: repeat(2, 1fr);
-                gap: clamp(4px, 0.8vw, 8px);
-            }
-            
-            .benefit-item {
-                padding: clamp(4px, 0.8vw, 8px);
-                gap: clamp(4px, 0.6vw, 6px);
-            }
-            
+        @media (min-width: 768px) and (min-height: 600px) {
             .benefit-icon {
-                font-size: clamp(12px, 1.4vw, 18px);
-            }
-            
-            .benefit-text {
-                font-size: clamp(9px, 1vw, 12px);
+                font-size: clamp(24px, 3vw, 32px);
             }
         }
         
-        /* Navigation Styles */
+        .benefit-text {
+            font-size: clamp(14px, 1.7vw, 18px);
+            color: var(--text-primary);
+            font-weight: 600;
+            margin: 0;
+            line-height: 1.4;
+        }
+        
+        @media (min-width: 768px) and (min-height: 600px) {
+            .benefit-text {
+                font-size: clamp(13px, 1.6vw, 16px);
+            }
+        }
+        
+        /* REEP Logo */
+        .logo-corner {
+            position: absolute;
+            bottom: clamp(20px, 2vw, 40px);
+            right: clamp(20px, 2vw, 40px);
+            font-size: clamp(24px, 3vw, 40px);
+            font-weight: 700;
+            background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.6;
+        }
+        
+        /* Navigation Styles with Progress Bar */
         .nav-container {
             position: fixed;
-            top: clamp(10px, 1vw, 20px);
+            top: clamp(10px, 1.5vh, 25px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: clamp(8px, 0.8vw, 15px);
-            background: rgba(255, 255, 255, 0.95);
-            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
-            border-radius: clamp(15px, 1.3vw, 25px);
-            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
+            gap: clamp(10px, 1vw, 20px);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: clamp(8px, 1vh, 12px) clamp(15px, 1.5vw, 25px);
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
         .slide-counter {
-            font-size: clamp(11px, 0.7vw, 14px);
+            font-size: clamp(11px, 1.4vh, 16px);
             font-weight: 600;
-            color: #0047AB;
-            min-width: clamp(60px, 4vw, 80px);
+            color: rgba(255, 255, 255, 0.9);
+            min-width: clamp(60px, 5vw, 80px);
             text-align: center;
         }
 
-        .slide-select {
-            padding: clamp(6px, 0.4vw, 8px) clamp(8px, 0.6vw, 12px);
-            border: 1px solid #ddd;
-            border-radius: clamp(4px, 0.3vw, 6px);
-            font-size: clamp(11px, 0.7vw, 14px);
-            background: white;
-            cursor: pointer;
-            outline: none;
+        .progress-bar {
+            width: clamp(80px, 10vw, 150px);
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
         }
 
-        .slide-select:focus {
-            border-color: #0047AB;
-            box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.1);
+        .progress-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: calc(18 / 28 * 100%);
+            background: linear-gradient(90deg, #FDB813 0%, #FFD700 100%);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .slide-select {
+            padding: clamp(6px, 0.8vh, 10px) clamp(10px, 0.8vw, 15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-size: clamp(11px, 1.4vh, 15px);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .slide-select:focus,
+        .slide-select:hover {
+            border-color: #FDB813;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .slide-select option {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        /* Navigation Buttons - Bottom */
+        .nav-buttons {
+            position: fixed;
+            bottom: clamp(20px, 3vh, 40px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            gap: clamp(15px, 2vw, 30px);
         }
 
         .nav-btn {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            background: rgba(0, 71, 171, 0.9);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             color: white;
-            border: none;
-            width: clamp(35px, 2.6vw, 50px);
-            height: clamp(35px, 2.6vw, 50px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: clamp(40px, 5vh, 55px);
+            height: clamp(40px, 5vh, 55px);
             border-radius: 50%;
-            font-size: clamp(14px, 1vw, 20px);
+            font-size: clamp(16px, 2vh, 22px);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
-        .nav-btn:hover {
-            background: rgba(0, 71, 171, 1);
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 0.3vw 1.0vw rgba(0, 71, 171, 0.4);
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(253, 184, 19, 0.2);
+            border-color: rgba(253, 184, 19, 0.5);
+            transform: scale(1.1);
         }
 
         .nav-btn:disabled {
-            background: rgba(150, 150, 150, 0.5);
+            opacity: 0.3;
             cursor: not-allowed;
-            transform: translateY(-50%) scale(1);
         }
-
-        .nav-btn.prev {
-            left: clamp(15px, 1.5vw, 30px);
-        }
-
-        .nav-btn.next {
-            right: clamp(15px, 1.5vw, 30px);
-        }
-
-        @media (max-width: 768px) {
-            .nav-container {
-                position: fixed;
-                top: clamp(10px, 1vw, 20px);
-                left: 50%;
-                transform: translateX(-50%);
-                z-index: 1000;
-                display: flex;
-                align-items: center;
-                gap: clamp(8px, 0.8vw, 15px);
-                background: rgba(255, 255, 255, 0.95);
-                padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
-                border-radius: clamp(15px, 1.3vw, 25px);
-                box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
-                backdrop-filter: blur(10px);
+        
+        /* Responsive adjustments for 780px height */
+        @media (max-height: 780px) and (min-width: 768px) {
+            .slide {
+                padding: clamp(70px, 7vh, 85px) clamp(15px, 2vw, 40px) clamp(90px, 9vh, 110px);
             }
             
-            .nav-btn {
-                position: fixed;
-                top: 50%;
-                transform: translateY(-50%);
-                z-index: 1000;
-                background: rgba(0, 71, 171, 0.9);
-                color: white;
-                border: none;
-                width: clamp(35px, 2.6vw, 50px);
-                height: clamp(35px, 2.6vw, 50px);
-                border-radius: 50%;
-                font-size: clamp(14px, 1vw, 20px);
-                cursor: pointer;
-                transition: all 0.3s ease;
+            .content-wrapper {
+                gap: 8px;
+            }
+            
+            .service-card {
+                flex-direction: row;
+            }
+            
+            .service-header {
+                min-width: 140px;
                 display: flex;
-                align-items: center;
+                flex-direction: column;
                 justify-content: center;
-                box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+                padding: 15px;
             }
             
-            .nav-btn.prev {
-                left: 15px;
+            .service-content {
+                flex-direction: row;
+                align-items: center;
+                gap: 15px;
+                padding: 15px;
             }
             
-            .nav-btn.next {
-                right: 15px;
+            .service-description {
+                flex: 1;
+                margin-bottom: 0;
             }
             
-            .grid-3 {
-                grid-template-columns: 1fr;
+            .service-metric {
+                min-width: 120px;
+                flex-shrink: 0;
+            }
+            
+            .partnership-section {
+                padding: clamp(15px, 2vh, 25px);
+            }
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                gap: 20px;
+            }
+            
+            .main-title {
+                font-size: 32px;
+                margin-bottom: 10px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+            
+            .service-card {
+                margin-bottom: 15px;
+            }
+            
+            .partnership-section {
+                padding: 25px;
+                border-radius: 15px;
             }
             
             .partnership-benefits {
-                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .nav-container {
+                padding: 8px 12px;
+                gap: 8px;
+            }
+            
+            .nav-buttons {
+                bottom: calc(20px + env(safe-area-inset-bottom));
             }
         }
-
+        
         @media (max-width: 480px) {
+            .service-header {
+                padding: 20px;
+            }
+            
+            .service-icon {
+                font-size: 36px;
+            }
+            
+            .service-header h3 {
+                font-size: 18px;
+            }
+            
+            .service-description {
+                font-size: 14px;
+            }
+            
+            .service-metric p {
+                font-size: 16px;
+            }
+            
+            .partnership-title {
+                font-size: 20px;
+            }
+            
+            .benefit-item {
+                gap: 12px;
+            }
+            
+            .benefit-icon {
+                font-size: 24px;
+            }
+            
+            .benefit-text {
+                font-size: 14px;
+            }
+            
             .nav-container {
                 padding: 6px 10px;
                 gap: 6px;
@@ -476,12 +814,47 @@
                 padding: 4px 6px;
             }
         }
+        
+        /* Animation on load */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .content-wrapper > * {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .content-wrapper > *:nth-child(1) { animation-delay: 0.2s; }
+        .content-wrapper > *:nth-child(2) { animation-delay: 0.3s; }
+        .content-wrapper > *:nth-child(3) { animation-delay: 0.4s; }
+        
+        /* Mobile content spacing */
+        @media (max-width: 768px) {
+            .header-section {
+                margin-bottom: 20px;
+            }
+            
+            .services-grid {
+                margin-bottom: 20px;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <div class="nav-container">
         <div class="slide-counter">18 / 28</div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
         <select class="slide-select" onchange="jumpToSlide(this.value)">
             <option value="index.html">1. Welcome</option>
             <option value="slide2.html">2. About</option>
@@ -490,12 +863,12 @@
             <option value="slide5.html">5. Excellence</option>
             <option value="slide6.html">6. L3 Open Body</option>
             <option value="slide6b.html">7. L3 Closed Body</option>
-            <option value="slide7.html">8. L5 Tipper</option>
+            <option value="slide7.html">8. L3 Passenger</option>
             <option value="slide8.html">9. L3 Water Tanker</option>
             <option value="slide8b.html">10. L3 Fogging</option>
-            <option value="slide9.html">11. Product Range</option>
-            <option value="slide9b.html">12. L5 Premium</option>
-            <option value="slide9c.html">13. L5 Deluxe</option>
+            <option value="slide9.html">11. L5 Open Body Heavy Duty</option>
+            <option value="slide9b.html">12. L5 Closed Body Heavy Duty</option>
+            <option value="slide9c.html">13. L5 Passenger Premium</option>
             <option value="slide10.html">14. Technical Excellence</option>
             <option value="slide11.html">15. Future E-Bus</option>
             <option value="slide12.html">16. Last-Mile Logistics</option>
@@ -514,97 +887,91 @@
         </select>
     </div>
     
-    <button class="nav-btn prev" onclick="prevSlide()">‹</button>
-    <button class="nav-btn next" onclick="nextSlide()">›</button>
+    <!-- Navigation Buttons at Bottom -->
+    <div class="nav-buttons">
+        <button class="nav-btn prev" onclick="prevSlide()">‹</button>
+        <button class="nav-btn next" onclick="nextSlide()">›</button>
+    </div>
 
+    <!-- Slide 18: Public Sector -->
     <div class="slide">
         <div class="slide-number">18</div>
-        <div class="solar-pattern"></div>
+        <div class="solar-rays"></div>
         
-        <h1>Driving Public Sector Efficiency</h1>
-        <div class="subtitle">Partnering with government for sustainable public services</div>
-        
-        <div class="grid-3">
-            <div class="service-card">
-                <div class="service-header" style="background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%);">
-                    <div>🗑️</div>
-                    <h3>Waste Management</h3>
-                </div>
-                <div class="service-content">
-                    <div>
-                        <div class="vehicle-image-placeholder" style="border-color: #228B22;">
-                            <div class="vehicle-label">WASTE COLLECTION</div>
-                        </div>
-                        <p class="service-description">Supporting Swachh Bharat Mission with 3,000+ garbage collection vehicles</p>
-                    </div>
-                    <div class="service-metric" style="background: #e8f5e8;">
-                        <p style="color: #228B22;">40% efficiency improvement</p>
-                    </div>
-                </div>
+        <div class="content-wrapper">
+            <div class="header-section">
+                <h1 class="main-title">Driving Public Sector Efficiency</h1>
+                <div class="subtitle">Partnering with government for sustainable public services</div>
             </div>
             
-            <div class="service-card">
-                <div class="service-header" style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%);">
-                    <div>🏥</div>
-                    <h3>Health Services</h3>
-                </div>
-                <div class="service-content">
-                    <div>
-                        <div class="vehicle-image-placeholder" style="border-color: #0047AB;">
-                            <div class="vehicle-label">MEDICAL UNIT</div>
+            <div class="main-content">
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-header green">
+                            <div class="service-icon">🗑️</div>
+                            <h3>Waste Management</h3>
                         </div>
-                        <p class="service-description">Mobile health units and medicine distribution for Tamil Nadu Health Department</p>
-                    </div>
-                    <div class="service-metric" style="background: #f0f8ff;">
-                        <p style="color: #0047AB;">500+ villages covered</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="service-card">
-                <div class="service-header" style="background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%);">
-                    <div>🌾</div>
-                    <h3>Rural Development</h3>
-                </div>
-                <div class="service-content">
-                    <div>
-                        <div class="vehicle-image-placeholder" style="border-color: #FDB813;">
-                            <div class="vehicle-label">AGRI SUPPORT</div>
+                        <div class="service-content">
+                            <p class="service-description">Supporting Swachh Bharat Mission with 3,000+ garbage collection vehicles</p>
+                            <div class="service-metric metric-green">
+                                <p>40% efficiency improvement</p>
+                            </div>
                         </div>
-                        <p class="service-description">Empowering 500+ panchayats with sustainable transport solutions</p>
                     </div>
-                    <div class="service-metric" style="background: #fff8e1;">
-                        <p style="color: #FDB813;">671 villages served</p>
+                    
+                    <div class="service-card">
+                        <div class="service-header blue">
+                            <div class="service-icon">🏥</div>
+                            <h3>Health Services</h3>
+                        </div>
+                        <div class="service-content">
+                            <p class="service-description">Mobile health units and medicine distribution for Tamil Nadu Health Department</p>
+                            <div class="service-metric metric-blue">
+                                <p>500+ villages covered</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-header gold">
+                            <div class="service-icon">🌾</div>
+                            <h3>Rural Development</h3>
+                        </div>
+                        <div class="service-content">
+                            <p class="service-description">Empowering 500+ panchayats with sustainable transport solutions</p>
+                            <div class="service-metric metric-gold">
+                                <p>671 villages served</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <div class="partnership-section">
-            <h3 class="partnership-title">Government Partnership Benefits</h3>
-            <div class="partnership-benefits">
-                <div class="benefit-item">
-                    <div class="benefit-icon">✅</div>
-                    <p class="benefit-text">GeM Portal Registered</p>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon">📋</div>
-                    <p class="benefit-text">Tender-Ready Documentation</p>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon">📦</div>
-                    <p class="benefit-text">Bulk Order Capability</p>
-                </div>
-                <div class="benefit-item">
-                    <div class="benefit-icon">🇮🇳</div>
-                    <p class="benefit-text">Pan-India Service</p>
+                
+                <div class="partnership-section">
+                    <h3 class="partnership-title">Government Partnership Benefits</h3>
+                    <div class="partnership-benefits">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">✅</div>
+                            <p class="benefit-text">GeM Portal Registered</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">📋</div>
+                            <p class="benefit-text">Tender-Ready Documentation</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">📦</div>
+                            <p class="benefit-text">Bulk Order Capability</p>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🇮🇳</div>
+                            <p class="benefit-text">Pan-India Service</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         
         <div class="logo-corner">REEP</div>
     </div>
-    
     <script>
         const slides = [
             'index.html',
@@ -658,14 +1025,37 @@
             }
         }
         
-        // Keyboard navigation
+        // Keyboard navigation - including spacebar
         document.addEventListener('keydown', function(e) {
             if (e.key === 'ArrowLeft') {
                 prevSlide();
-            } else if (e.key === 'ArrowRight') {
+            } else if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
                 nextSlide();
             }
         });
+        
+        // Touch/swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                prevSlide();
+            }
+        }
         
         // Set the correct option in dropdown
         document.querySelector('.slide-select').value = currentSlide;

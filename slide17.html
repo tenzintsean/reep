@@ -5,233 +5,781 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REEP: Panchayat Case Study</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Primary Colors */
+            --solar-gold: #FDB813;
+            --solar-gold-light: #FFD700;
+            --trust-blue: #0047AB;
+            --trust-blue-light: #0056D2;
+            --green-primary: #228B22;
+            --green-light: #2ECC40;
+            
+            /* Backgrounds */
+            --bg-dark: #0a0a0a;
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --bg-glass-border: rgba(255, 255, 255, 0.1);
+            
+            /* Text */
+            --text-primary: rgba(255, 255, 255, 0.9);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.3);
+            
+            /* Typography Scale */
+            --title-xl: clamp(36px, 4.5vw, 64px);
+            --title-lg: clamp(28px, 3.5vw, 56px);
+            --title-md: clamp(24px, 3vw, 36px);
+            --text-lg: clamp(14px, 1.8vw, 22px);
+            --text-md: clamp(13px, 1.6vw, 20px);
+            --text-sm: clamp(12px, 1.6vh, 18px);
+        }
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            background: #f5f5f5; color: #333; line-height: 1.6;
-        
+            background: var(--bg-dark);
+            color: #333;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            min-height: 100vh;
         }
         
+        /* Mobile-first approach */
         .slide {
-            width: 100vw; max-width: 1920px;
-            height: 100vh; max-height: 1080px;
-            background: white;
+            display: block;
+            width: 100vw;
+            height: auto;
+            min-height: auto;
+            background: var(--bg-dark);
             margin: 0 auto;
-            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
-            padding: clamp(20px, 3vw, 50px);
+            position: relative;
+            overflow-y: visible;
+            overflow-x: hidden;
+            padding: 80px 20px 120px;
+        }
+        
+        /* Desktop enhancement */
+        @media (min-width: 768px) {
+            body {
+                overflow: hidden;
+            }
+            
+            .slide {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                height: 100vh;
+                max-width: 1920px;
+                max-height: 1080px;
+                overflow: hidden;
+                padding: clamp(80px, 8vh, 100px) clamp(20px, 3vw, 60px) clamp(100px, 10vh, 120px);
+            }
+        }
+        
+        /* Premium Background */
+        .slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(253, 184, 19, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(0, 71, 171, 0.12) 0%, transparent 40%);
+            animation: gradientShift 25s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(-3%, 3%) scale(1.05) rotate(90deg); }
+            50% { transform: translate(3%, -3%) scale(0.98) rotate(180deg); }
+            75% { transform: translate(-2%, -2%) scale(1.02) rotate(270deg); }
+        }
+        
+        /* Content container */
+        .content-wrapper {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            z-index: 1;
+            position: relative;
+            display: block;
+            gap: clamp(20px, 3vh, 30px);
+        }
+        
+        /* Header section */
+        .header-section {
+            text-align: center;
+            margin-bottom: clamp(20px, 3vh, 30px);
+        }
+        
+        /* Main title with gradient */
+        h1 {
+            font-size: var(--title-lg);
+            font-weight: 700;
+            margin-bottom: clamp(10px, 1.5vh, 15px);
+            line-height: 1.2;
+            background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 2px 10px rgba(253, 184, 19, 0.5));
+            animation: titleGlow 4s ease-in-out infinite;
+        }
+        
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 2px 10px rgba(253, 184, 19, 0.5)); }
+            50% { filter: drop-shadow(0 2px 20px rgba(253, 184, 19, 0.8)); }
+        }
+        
+        /* Subtitle - Glassmorphic */
+        .subtitle {
+            font-size: clamp(14px, 1.8vw, 20px);
+            color: var(--text-primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.1) 0%, rgba(0, 71, 171, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: clamp(8px, 1.2vh, 12px) clamp(20px, 3vw, 30px);
+            border-radius: 25px;
+            border: 1px solid rgba(0, 71, 171, 0.3);
+            display: inline-block;
+            margin: 0 auto;
+            box-shadow: 0 8px 32px rgba(0, 71, 171, 0.2);
+        }
+        
+        /* Grid layout */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(20px, 3vh, 30px);
+            margin-bottom: clamp(25px, 3.5vh, 35px);
+        }
+        
+        @media (min-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr 1fr;
+                gap: clamp(15px, 2vw, 25px);
+            }
+        }
+        
+        /* District cards - Glassmorphic */
+        .district-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--bg-glass-border);
+            transition: all 0.3s ease;
+        }
+        
+        .district-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* District headers - Glassmorphic with color overlay */
+        .district-header {
+            padding: clamp(20px, 3vh, 30px);
+            text-align: center;
             position: relative;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
         }
-            aspect-ratio: 16/9;
         
-                .slide-number {
+        .district-header.gold {
+            background: linear-gradient(135deg, rgba(253, 184, 19, 0.15) 0%, rgba(253, 184, 19, 0.1) 100%);
+            border-bottom: 1px solid rgba(253, 184, 19, 0.3);
+        }
+        
+        .district-header.blue {
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.15) 0%, rgba(0, 71, 171, 0.1) 100%);
+            border-bottom: 1px solid rgba(0, 71, 171, 0.3);
+        }
+        
+        .district-header h3 {
+            font-size: clamp(22px, 2.8vw, 32px);
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+        
+        .district-header.gold h3 {
+            filter: drop-shadow(0 2px 8px rgba(253, 184, 19, 0.5));
+        }
+        
+        .district-header.blue h3 {
+            filter: drop-shadow(0 2px 8px rgba(0, 71, 171, 0.5));
+        }
+        
+        .district-header p {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--text-secondary);
+        }
+        
+        /* District content */
+        .district-content {
+            padding: clamp(20px, 3vh, 30px);
+        }
+        
+        .district-content h4 {
+            font-size: clamp(18px, 2.2vw, 24px);
+            margin-bottom: clamp(15px, 2vh, 20px);
+            font-weight: 600;
+        }
+        
+        .district-content.gold h4 {
+            color: var(--solar-gold);
+            filter: drop-shadow(0 2px 8px rgba(253, 184, 19, 0.5));
+        }
+        
+        .district-content.blue h4 {
+            color: #0099FF;
+            filter: drop-shadow(0 2px 8px rgba(0, 71, 171, 0.5));
+        }
+        
+        /* District items */
+        .district-items {
+            font-size: clamp(14px, 1.8vw, 18px);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        .district-items p {
+            margin-bottom: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .district-items .emoji {
+            font-size: 1.2em;
+            filter: saturate(2);
+        }
+        
+        /* Banner - Glassmorphic */
+        .impact-banner {
+            background: linear-gradient(135deg, rgba(253, 184, 19, 0.15) 0%, rgba(253, 184, 19, 0.1) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: clamp(15px, 2vh, 20px);
+            border-radius: 15px;
+            margin-top: clamp(15px, 2vh, 20px);
+            text-align: center;
+            border: 1px solid rgba(253, 184, 19, 0.3);
+            box-shadow: 0 8px 32px rgba(253, 184, 19, 0.2);
+        }
+        
+        .impact-banner.blue {
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.15) 0%, rgba(0, 71, 171, 0.1) 100%);
+            border-color: rgba(0, 71, 171, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 71, 171, 0.2);
+        }
+        
+        .impact-banner p {
+            font-size: clamp(16px, 2vw, 20px);
+            font-weight: 700;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-primary);
+        }
+        
+        /* Transformation section - Glassmorphic green */
+        .transformation-section {
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.15) 0%, rgba(34, 139, 34, 0.1) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: clamp(25px, 3.5vh, 35px);
+            border-radius: 20px;
+            margin-bottom: clamp(30px, 4vh, 50px);
+            box-shadow: 0 8px 32px rgba(34, 139, 34, 0.3);
+            border: 1px solid rgba(34, 139, 34, 0.3);
+        }
+        
+        .transformation-section h3 {
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: clamp(20px, 2.5vh, 25px);
+            font-size: clamp(22px, 2.8vw, 32px);
+            filter: drop-shadow(0 2px 8px rgba(34, 139, 34, 0.5));
+        }
+        
+        /* Impact items */
+        .impact-items {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            flex-wrap: wrap;
+            gap: clamp(15px, 2vw, 20px);
+        }
+        
+        .impact-item {
+            flex: 1;
+            min-width: 100px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: clamp(10px, 1.5vh, 15px);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .impact-item:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .impact-item .icon {
+            font-size: clamp(28px, 3.5vw, 40px);
+            margin-bottom: 8px;
+            filter: saturate(2);
+        }
+        
+        .impact-item p {
+            font-size: clamp(13px, 1.6vw, 16px);
+            color: var(--text-primary);
+            margin: 0;
+        }
+        
+        /* Slide number */
+        .slide-number {
             position: absolute;
-            top: clamp(15px, 1.5vw, 30px);
-            left: clamp(15px, 1.5vw, 30px);
-            font-size: clamp(12px, 0.8vw, 16px);
-            color: #999;
+            top: clamp(20px, 2vw, 40px);
+            left: clamp(20px, 2vw, 40px);
+            font-size: clamp(14px, 1.4vw, 18px);
+            color: var(--text-muted);
             font-weight: 500;
         }
         
-        .solar-pattern {
-            position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; opacity: 0.08;
-            background: repeating-linear-gradient(45deg, #FDB813, #FDB813 10px, transparent 10px, transparent 20px);
-            transform: rotate(15deg); animation: subtle-rotate 20s linear infinite;
+        /* Solar decorative element */
+        .solar-rays {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200%;
+            height: 200%;
+            pointer-events: none;
+            opacity: 0.03;
         }
         
-        @keyframes subtle-rotate { from { transform: rotate(15deg); } to { transform: rotate(375deg); } }
+        .solar-rays::before,
+        .solar-rays::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                #FDB813 5deg,
+                transparent 10deg,
+                transparent 350deg,
+                #FDB813 355deg,
+                transparent 360deg
+            );
+            animation: rotateSlow 120s linear infinite;
+        }
         
-        h1 { color: #0047AB; font-size: clamp(24px, 2.5vw, 48px); font-weight: 700; margin-bottom: 20px; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,71,171,0.1); }
-        .subtitle { color: #666; font-size: clamp(14px, 1.0vw, 20px); margin-bottom: 28px; }
-        h2 { color: #0047AB; font-size: clamp(18px, 1.8vw, 34px); font-weight: 600; margin-bottom: 20px; line-height: 1.3; }
-        h3 { color: #0047AB; font-size: clamp(16px, 1.4vw, 26px); font-weight: 600; margin-bottom: 12px; }
-        h4 { color: #0047AB; font-size: clamp(14px, 1.1vw, 22px); font-weight: 600; margin-bottom: 10px; }
+        .solar-rays::after {
+            transform: rotate(180deg);
+            animation-direction: reverse;
+        }
         
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; margin-bottom: 28px; }
+        @keyframes rotateSlow {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
         
-        .logo-corner { position: absolute; bottom: 30px; right: 30px; font-size: 32px; font-weight: 700; color: #0047AB; opacity: 0.6; }
+        /* REEP Logo */
+        .logo-corner {
+            position: absolute;
+            bottom: clamp(20px, 2vw, 40px);
+            right: clamp(20px, 2vw, 40px);
+            font-size: clamp(24px, 3vw, 40px);
+            font-weight: 700;
+            background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.6;
+        }
         
-        @media (max-width: 1920px) { .slide { width: 100%; max-width: 1920px; } }
-    
-        /* Navigation Styles */
-                .nav-container {
+        /* Navigation Container - Glassmorphic */
+        .nav-container {
             position: fixed;
-            top: clamp(10px, 1vw, 20px);
+            top: clamp(15px, 2vh, 30px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: clamp(8px, 0.8vw, 15px);
-            background: rgba(255, 255, 255, 0.95);
-            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
-            border-radius: clamp(15px, 1.3vw, 25px);
-            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
+            gap: clamp(10px, 1.5vw, 20px);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: clamp(10px, 1.5vh, 15px) clamp(15px, 2vw, 25px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
-
-                .slide-counter {
-            font-size: clamp(11px, 0.7vw, 14px);
+        
+        .slide-counter {
+            font-size: clamp(11px, 1.4vh, 16px);
             font-weight: 600;
-            color: #0047AB;
-            min-width: clamp(60px, 4vw, 80px);
+            color: rgba(255, 255, 255, 0.9);
+            min-width: clamp(60px, 5vw, 80px);
             text-align: center;
         }
-
-                .slide-select {
-            padding: clamp(6px, 0.4vw, 8px) clamp(8px, 0.6vw, 12px);
-            border: 1px solid #ddd;
-            border-radius: clamp(4px, 0.3vw, 6px);
-            font-size: clamp(11px, 0.7vw, 14px);
-            background: white;
+        
+        .progress-bar {
+            width: clamp(80px, 10vw, 150px);
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: calc(21 / 28 * 100%);
+            background: linear-gradient(90deg, #FDB813 0%, #FFD700 100%);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        
+        .slide-select {
+            padding: clamp(6px, 0.8vh, 10px) clamp(10px, 0.8vw, 15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-size: clamp(11px, 1.4vh, 15px);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
             cursor: pointer;
             outline: none;
-        }
-
-        .slide-select:focus {
-            border-color: #0047AB;
-            box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.1);
-        }
-
-                .nav-btn {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            background: rgba(0, 71, 171, 0.9);
-            color: white;
-            border: none;
-            width: clamp(35px, 2.6vw, 50px);
-            height: clamp(35px, 2.6vw, 50px);
-            border-radius: 50%;
-            font-size: clamp(14px, 1vw, 20px);
-            cursor: pointer;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
         }
-
-        .nav-btn:hover {
-            background: rgba(0, 71, 171, 1);
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 0.3vw 1.0vw rgba(0, 71, 171, 0.4);
+        
+        .slide-select:focus,
+        .slide-select:hover {
+            border-color: #FDB813;
+            background: rgba(0, 0, 0, 0.7);
         }
-
-        .nav-btn:disabled {
-            background: rgba(150, 150, 150, 0.5);
-            cursor: not-allowed;
-            transform: translateY(-50%) scale(1);
+        
+        .slide-select option {
+            background: #1a1a1a;
+            color: white;
         }
-
-                .nav-btn.prev {
-            left: clamp(15px, 1.5vw, 30px);
-        }
-
-                .nav-btn.next {
-            right: clamp(15px, 1.5vw, 30px);
-        }
-
-        @media (max-width: 768px) {
-                    .nav-container {
+        
+        /* Navigation Buttons - Bottom */
+        .nav-buttons {
             position: fixed;
-            top: clamp(10px, 1vw, 20px);
+            bottom: clamp(20px, 3vh, 40px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             display: flex;
-            align-items: center;
-            gap: clamp(8px, 0.8vw, 15px);
-            background: rgba(255, 255, 255, 0.95);
-            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
-            border-radius: clamp(15px, 1.3vw, 25px);
-            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
+            gap: clamp(15px, 2vw, 30px);
         }
-            
-                    .nav-btn {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            background: rgba(0, 71, 171, 0.9);
+        
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             color: white;
-            border: none;
-            width: clamp(35px, 2.6vw, 50px);
-            height: clamp(35px, 2.6vw, 50px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: clamp(40px, 5vh, 55px);
+            height: clamp(40px, 5vh, 55px);
             border-radius: 50%;
-            font-size: clamp(14px, 1vw, 20px);
+            font-size: clamp(16px, 2vh, 22px);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
-            
-            .nav-btn.prev {
-                left: 15px;
+        
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(253, 184, 19, 0.2);
+            border-color: rgba(253, 184, 19, 0.5);
+            transform: scale(1.1);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        /* Desktop optimization with viewport units */
+        @media (min-width: 768px) and (min-height: 600px) {
+            .content-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: clamp(15px, 2vh, 25px);
+                width: 100%;
+                height: 100%;
+                justify-content: flex-start;
             }
             
-            .nav-btn.next {
-                right: 15px;
+            .header-section {
+                margin-bottom: clamp(15px, 2vh, 25px);
+            }
+            
+            .grid-2 {
+                gap: clamp(15px, 2vw, 25px);
+                margin-bottom: clamp(20px, 2.5vh, 30px);
+            }
+            
+            .district-header {
+                padding: clamp(15px, 2vh, 25px);
+            }
+            
+            .district-header h3 {
+                font-size: clamp(20px, 2.5vw, 28px);
+            }
+            
+            .district-content {
+                padding: clamp(15px, 2vh, 25px);
+            }
+            
+            .district-content h4 {
+                font-size: clamp(16px, 2vw, 22px);
+                margin-bottom: clamp(12px, 1.5vh, 18px);
+            }
+            
+            .district-items {
+                font-size: clamp(13px, 1.6vw, 16px);
+            }
+            
+            .transformation-section {
+                padding: clamp(20px, 2.5vh, 30px);
+                margin-bottom: clamp(20px, 2.5vh, 30px);
+            }
+            
+            .transformation-section h3 {
+                font-size: clamp(20px, 2.5vw, 28px);
+                margin-bottom: clamp(15px, 2vh, 20px);
+            }
+            
+            .impact-item .icon {
+                font-size: clamp(24px, 3vw, 32px);
+            }
+            
+            .impact-item p {
+                font-size: clamp(12px, 1.5vw, 14px);
             }
         }
-    
-        /* Enhanced Responsive Design */
-        @media (max-width: 1366px) {
+        
+        /* Height-constrained screens */
+        @media (max-height: 850px) and (min-width: 768px) {
             .slide {
-                padding: clamp(15px, 2.5vw, 40px);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .slide {
-                padding: clamp(10px, 2vw, 25px);
+                padding: clamp(60px, 6vh, 80px) clamp(15px, 2vw, 40px) clamp(80px, 8vh, 100px);
             }
             
             h1 {
-                font-size: clamp(24px, 5vw, 48px) !important;
+                font-size: clamp(24px, 3vw, 40px);
+                margin-bottom: clamp(8px, 1vh, 12px);
             }
             
-            h2 {
-                font-size: clamp(20px, 4vw, 36px) !important;
+            .subtitle {
+                font-size: clamp(13px, 1.6vw, 18px);
+                padding: clamp(6px, 0.8vh, 10px) clamp(15px, 2vw, 25px);
             }
             
-            h3 {
-                font-size: clamp(18px, 3.5vw, 28px) !important;
+            .grid-2 {
+                gap: clamp(10px, 1.5vw, 20px);
+                margin-bottom: clamp(15px, 2vh, 25px);
+            }
+            
+            .district-header {
+                padding: clamp(12px, 1.5vh, 20px);
+            }
+            
+            .district-header h3 {
+                font-size: clamp(18px, 2.2vw, 24px);
+            }
+            
+            .district-header p {
+                font-size: clamp(14px, 1.8vw, 18px);
+            }
+            
+            .district-content {
+                padding: clamp(12px, 1.5vh, 20px);
+            }
+            
+            .district-content h4 {
+                font-size: clamp(15px, 1.8vw, 20px);
+                margin-bottom: clamp(10px, 1.2vh, 15px);
+            }
+            
+            .district-items {
+                font-size: clamp(12px, 1.5vw, 15px);
+            }
+            
+            .district-items p {
+                margin-bottom: 6px;
+            }
+            
+            .impact-banner {
+                padding: clamp(10px, 1.2vh, 15px);
+                margin-top: clamp(10px, 1.2vh, 15px);
+            }
+            
+            .impact-banner p {
+                font-size: clamp(14px, 1.8vw, 18px);
+            }
+            
+            .transformation-section {
+                padding: clamp(15px, 2vh, 25px);
+                margin-bottom: clamp(15px, 2vh, 25px);
+            }
+            
+            .transformation-section h3 {
+                font-size: clamp(18px, 2.2vw, 24px);
+                margin-bottom: clamp(12px, 1.5vh, 18px);
+            }
+            
+            .impact-item {
+                padding: clamp(8px, 1vh, 12px);
+            }
+            
+            .impact-item .icon {
+                font-size: clamp(22px, 2.8vw, 28px);
+                margin-bottom: 5px;
+            }
+            
+            .impact-item p {
+                font-size: clamp(11px, 1.4vw, 13px);
             }
         }
-
-        @media (max-width: 480px) {
-            .nav-container {
-                padding: 6px 10px;
-                gap: 6px;
+        
+        /* ULTIMATE FIX: Apply to ALL desktop screens */
+        @media (min-width: 768px) {
+            /* Use viewport units for precise control */
+            .slide {
+                padding: 10vh 2vw 6vh !important; /* Increased top padding to clear navigation */
             }
             
-            .slide-counter {
-                min-width: 50px;
-                font-size: 10px;
+            .content-wrapper {
+                height: 84vh !important; /* Adjusted for increased top padding */
+                max-height: 84vh !important;
+                overflow: hidden !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 1vh !important;
             }
             
-            .slide-select {
-                font-size: 10px;
-                padding: 4px 6px;
+            .header-section {
+                flex: 0 0 auto;
+                max-height: 15vh;
+            }
+            
+            .grid-2 {
+                flex: 1 1 auto;
+                min-height: 0;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+            
+            .transformation-section {
+                flex: 0 0 auto;
+                max-height: 25vh;
+            }
+            
+            /* Force compact sizes on all desktop */
+            h1 { 
+                font-size: min(4vh, 40px) !important;
+                margin-bottom: 1vh !important;
+            }
+            
+            .subtitle {
+                font-size: min(2vh, 18px) !important;
+                padding: 0.8vh 2vw !important;
+            }
+            
+            .district-header h3 {
+                font-size: min(3vh, 26px) !important;
+            }
+            
+            .district-header p {
+                font-size: min(2.2vh, 18px) !important;
+            }
+            
+            .transformation-section h3 {
+                font-size: min(3vh, 26px) !important;
+            }
+            
+            .impact-item .icon {
+                font-size: min(4vh, 32px) !important;
+            }
+            
+            .impact-item p {
+                font-size: min(1.8vh, 14px) !important;
             }
         }
+        
+        /* Mobile specific */
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .impact-items {
+                gap: 10px;
+            }
+            
+            .impact-item {
+                min-width: 80px;
+            }
+        }
+        
+        /* Animation on load */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .content-wrapper > * {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .content-wrapper > *:nth-child(1) { animation-delay: 0.2s; }
+        .content-wrapper > *:nth-child(2) { animation-delay: 0.3s; }
+        .content-wrapper > *:nth-child(3) { animation-delay: 0.4s; }
     </style>
 </head>
 <body>
     <!-- Navigation -->
     <div class="nav-container">
         <div class="slide-counter">21 / 28</div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
         <select class="slide-select" onchange="jumpToSlide(this.value)">
             <option value="index.html">1. Welcome</option>
             <option value="slide2.html">2. About</option>
@@ -264,93 +812,92 @@
         </select>
     </div>
     
-    <button class="nav-btn prev" onclick="prevSlide()">‹</button>
-    <button class="nav-btn next" onclick="nextSlide()">›</button>
+    <!-- Navigation Buttons at Bottom -->
+    <div class="nav-buttons">
+        <button class="nav-btn prev" onclick="prevSlide()">‹</button>
+        <button class="nav-btn next" onclick="nextSlide()">›</button>
+    </div>
 
     <div class="slide">
         <div class="slide-number">21</div>
-        <div class="solar-pattern"></div>
-        <h1>Case Study: Tamil Nadu Panchayats</h1>
-        <div class="subtitle">Grassroots transformation through sustainable mobility</div>
+        <div class="solar-rays"></div>
         
-        <div style="text-align: center; margin-bottom: 22px;">
-            <div style="display: inline-block; background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%); color: white; padding: 16px 32px; border-radius: clamp(16px, 1.7vw, 32px); box-shadow: 0 0.5vw 1.5vw rgba(34,139,34,0.3);">
-                <h2 style="color: white; margin: 0; font-size: 28px;">671 Villages Empowered</h2>
+        <div class="content-wrapper">
+            <div class="header-section">
+                <h1>Case Study: Tamil Nadu Panchayats</h1>
+                <div class="subtitle">TRANSFORMING RURAL INDIA • 671 VILLAGES EMPOWERED</div>
             </div>
-        </div>
-        
-        <div class="grid-2">
-            <div style="background: white; border-radius: clamp(8px, 0.8vw, 16px); overflow: hidden; box-shadow: 0 0.5vw 1.5vw rgba(0,0,0,0.1);">
-                <div style="background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%); color: white; padding: 20px; text-align: center;">
-                    <h3 style="color: white; font-size: 26px; margin-bottom: 4px;">Coimbatore District</h3>
-                    <p style="font-size: 18px; opacity: 0.9;">248 Vehicles Deployed</p>
-                </div>
-                <div style="padding: 24px;">
-                    <h4 style="color: #FDB813; margin-bottom: 14px; font-size: 20px;">Applications</h4>
-                    <div style="font-size: 16px; color: #666; line-height: 1.6;">
-                        <p>🗑️ Waste collection in 120 panchayats</p>
-                        <p>💧 Water supply distribution</p>
-                        <p>🏥 Healthcare service delivery</p>
-                        <p>🌾 Agricultural produce transport</p>
+            
+            <div class="grid-2">
+                <div class="district-card">
+                    <div class="district-header gold">
+                        <h3>Coimbatore District</h3>
+                        <p>248 Vehicles Deployed</p>
                     </div>
-                    <div style="background: #fff8e1; padding: 14px; border-radius: clamp(5px, 0.5vw, 10px); margin-top: 14px; text-align: center;">
-                        <p style="font-size: 17px; color: #FDB813; font-weight: 600; margin: 0;">
-                            "30% improvement in service delivery efficiency"
-                        </p>
+                    <div class="district-content gold">
+                        <h4>Applications</h4>
+                        <div class="district-items">
+                            <p><span class="emoji">🗑️</span> Waste collection in 120 panchayats</p>
+                            <p><span class="emoji">💧</span> Water supply distribution</p>
+                            <p><span class="emoji">🏥</span> Healthcare service delivery</p>
+                            <p><span class="emoji">🌾</span> Agricultural produce transport</p>
+                        </div>
+                        <div class="impact-banner">
+                            <p>30% EFFICIENCY IMPROVEMENT</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="district-card">
+                    <div class="district-header blue">
+                        <h3>Tiruvallur District</h3>
+                        <p>423 Vehicles Deployed</p>
+                    </div>
+                    <div class="district-content blue">
+                        <h4>Impact Metrics</h4>
+                        <div class="district-items">
+                            <p><span class="emoji">🏘️</span> 200+ panchayats served</p>
+                            <p><span class="emoji">🏠</span> 50,000+ households benefited</p>
+                            <p><span class="emoji">👨‍💼</span> Direct employment for 400+ drivers</p>
+                            <p><span class="emoji">💰</span> ₹2 Cr annual fuel savings</p>
+                        </div>
+                        <div class="impact-banner blue">
+                            <p>SUSTAINABLE DEVELOPMENT MODEL</p>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <div style="background: white; border-radius: clamp(8px, 0.8vw, 16px); overflow: hidden; box-shadow: 0 0.5vw 1.5vw rgba(0,0,0,0.1);">
-                <div style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); color: white; padding: 20px; text-align: center;">
-                    <h3 style="color: white; font-size: 26px; margin-bottom: 4px;">Tiruvallur District</h3>
-                    <p style="font-size: 18px; opacity: 0.9;">423 Vehicles Deployed</p>
-                </div>
-                <div style="padding: 24px;">
-                    <h4 style="color: #0047AB; margin-bottom: 14px; font-size: 20px;">Impact Metrics</h4>
-                    <div style="font-size: 16px; color: #666; line-height: 1.6;">
-                        <p>🏘️ 200+ panchayats served</p>
-                        <p>🏠 50,000+ households benefited</p>
-                        <p>👨‍💼 Direct employment for 400+ drivers</p>
-                        <p>💰 ₹2 Cr annual fuel savings</p>
+            <div class="transformation-section">
+                <h3>Rural Transformation Impact</h3>
+                <div class="impact-items">
+                    <div class="impact-item">
+                        <div class="icon">🏘️</div>
+                        <p>Clean Villages</p>
                     </div>
-                    <div style="background: #f0f8ff; padding: 14px; border-radius: clamp(5px, 0.5vw, 10px); margin-top: 14px; text-align: center;">
-                        <p style="font-size: 17px; color: #0047AB; font-weight: 600; margin: 0;">
-                            "Model for sustainable rural development"
-                        </p>
+                    <div class="impact-item">
+                        <div class="icon">🏥</div>
+                        <p>Better Healthcare Access</p>
                     </div>
-                </div>
-            </div>
-        </div>
-        
-        <div style="background: linear-gradient(135deg, #228B22 0%, #2ECC40 100%); color: white; padding: 28px; border-radius: clamp(8px, 0.8vw, 16px); margin-bottom: 48px; box-shadow: 0 0.6vw 1.9vw rgba(34,139,34,0.3);">
-            <h3 style="color: white; text-align: center; margin-bottom: 20px; font-size: 26px;">Rural Transformation Impact</h3>
-            <div style="display: flex; justify-content: space-around; text-align: center; flex-wrap: wrap; gap: 16px;">
-                <div style="flex: 1; min-width: 112px;">
-                    <div style="font-size: 34px; margin-bottom: 6px;">🏘️</div>
-                    <p style="font-size: 15px;">Clean Villages</p>
-                </div>
-                <div style="flex: 1; min-width: 112px;">
-                    <div style="font-size: 34px; margin-bottom: 6px;">🏥</div>
-                    <p style="font-size: 15px;">Better Healthcare Access</p>
-                </div>
-                <div style="flex: 1; min-width: 112px;">
-                    <div style="font-size: 34px; margin-bottom: 6px;">🌾</div>
-                    <p style="font-size: 15px;">Improved Agri Logistics</p>
-                </div>
-                <div style="flex: 1; min-width: 112px;">
-                    <div style="font-size: 34px; margin-bottom: 6px;">👥</div>
-                    <p style="font-size: 15px;">Youth Employment</p>
-                </div>
-                <div style="flex: 1; min-width: 112px;">
-                    <div style="font-size: 34px; margin-bottom: 6px;">🌱</div>
-                    <p style="font-size: 15px;">Environmental Leadership</p>
+                    <div class="impact-item">
+                        <div class="icon">🌾</div>
+                        <p>Improved Agri Logistics</p>
+                    </div>
+                    <div class="impact-item">
+                        <div class="icon">👥</div>
+                        <p>Youth Employment</p>
+                    </div>
+                    <div class="impact-item">
+                        <div class="icon">🌱</div>
+                        <p>Environmental Leadership</p>
+                    </div>
                 </div>
             </div>
         </div>
         
         <div class="logo-corner">REEP</div>
     </div>
+    
     <script>
         const slides = [
             'index.html',
@@ -408,10 +955,33 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'ArrowLeft') {
                 prevSlide();
-            } else if (e.key === 'ArrowRight') {
+            } else if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
                 nextSlide();
             }
         });
+        
+        // Touch/swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                prevSlide();
+            }
+        }
         
         // Set the correct option in dropdown
         document.querySelector('.slide-select').value = currentSlide;

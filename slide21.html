@@ -5,219 +5,323 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REEP: Awards & Recognition</title>
     <style>
-        :root {
-            --primary-blue: #0047AB;
-            --secondary-green: #228B22;
-            --accent-yellow: #FDB813;
-            --light-gray: #f5f5f5;
-            --white: #ffffff;
-            --text-dark: #333;
-            --text-light: #666;
-            --text-lighter: #999;
-            
-            /* Responsive spacing system */
-            --space-xs: clamp(4px, 0.5vw, 8px);
-            --space-sm: clamp(8px, 1vw, 16px);
-            --space-md: clamp(12px, 1.5vw, 24px);
-            --space-lg: clamp(16px, 2vw, 32px);
-            --space-xl: clamp(20px, 2.5vw, 40px);
-            --space-2xl: clamp(24px, 3vw, 48px);
-            
-            /* Responsive typography */
-            --text-xs: clamp(10px, 1vw, 12px);
-            --text-sm: clamp(12px, 1.2vw, 16px);
-            --text-base: clamp(14px, 1.4vw, 18px);
-            --text-lg: clamp(16px, 1.6vw, 22px);
-            --text-xl: clamp(18px, 2vw, 28px);
-            --text-2xl: clamp(24px, 2.8vw, 36px);
-            --text-3xl: clamp(32px, 3.5vw, 48px);
-            
-            /* Component sizes */
-            --nav-height: clamp(50px, 6vw, 80px);
-            --button-size: clamp(40px, 5vw, 60px);
-            --border-radius: clamp(6px, 0.8vw, 12px);
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
+        :root {
+            /* Primary Colors */
+            --solar-gold: #FDB813;
+            --solar-gold-light: #FFD700;
+            --trust-blue: #0047AB;
+            --trust-blue-light: #0056D2;
+            --green-primary: #228B22;
+            --green-light: #2ECC40;
+            
+            /* Backgrounds */
+            --bg-dark: #0a0a0a;
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --bg-glass-border: rgba(255, 255, 255, 0.1);
+            
+            /* Text */
+            --text-primary: rgba(255, 255, 255, 0.9);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.3);
+            
+            /* Typography Scale */
+            --title-xl: clamp(36px, 4.5vw, 64px);
+            --title-lg: clamp(28px, 3.5vw, 56px);
+            --title-md: clamp(24px, 3vw, 36px);
+            --text-lg: clamp(14px, 1.8vw, 22px);
+            --text-md: clamp(13px, 1.6vw, 20px);
+            --text-sm: clamp(12px, 1.6vh, 18px);
+        }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            background: var(--light-gray);
-            color: var(--text-dark);
+            background: var(--bg-dark);
+            color: #333;
             line-height: 1.6;
+            margin: 0;
+            padding: 0;
             overflow-x: hidden;
-        }
-        
-        .slide-container {
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: var(--space-md);
-            padding-top: calc(var(--nav-height) + var(--space-md));
         }
         
+        /* Mobile-first approach */
         .slide {
-            width: 100%;
-            max-width: 1200px;
-            background: var(--white);
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            padding: var(--space-xl);
+            display: block;
+            width: 100vw;
+            height: auto;
+            min-height: auto;
+            background: var(--bg-dark);
+            margin: 0 auto;
             position: relative;
-            overflow: hidden;
+            overflow-y: visible;
+            overflow-x: hidden;
+            padding: 80px 20px 120px;
         }
         
+        /* Desktop enhancement with proper navigation clearance */
+        @media (min-width: 768px) {
+            body {
+                overflow: hidden;
+            }
+            
+            .slide {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                height: 100vh;
+                max-width: 1920px;
+                max-height: 1080px;
+                overflow: hidden;
+                padding: 10vh 2vw 6vh !important;
+            }
+            
+            .content-wrapper {
+                height: 84vh !important;
+                max-height: 84vh !important;
+                overflow: hidden !important;
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 0.5vh !important;
+            }
+            
+            /* Header section - fixed space */
+            h1, .subtitle {
+                flex: 0 0 auto;
+                max-height: 12vh;
+            }
+            
+            /* ARAI section - fixed space */
+            .arai-section {
+                flex: 0 0 auto;
+                max-height: 15vh;
+            }
+            
+            /* Main content grid - flexible space */
+            .content-grid {
+                flex: 1 1 auto;
+                min-height: 0;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+            
+            /* Final note - fixed space */
+            .final-note {
+                flex: 0 0 auto;
+                max-height: 10vh;
+                margin-top: 0.5vh !important;
+            }
+            
+            /* Force compact sizes on desktop */
+            h1 { 
+                font-size: min(3vh, 28px) !important;
+                margin-bottom: 0.5vh !important;
+            }
+            
+            .subtitle {
+                font-size: min(2vh, 18px) !important;
+                margin-bottom: 1vh !important;
+            }
+        }
+        
+        /* Premium Background */
+        .slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(253, 184, 19, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(0, 71, 171, 0.12) 0%, transparent 40%);
+            animation: gradientShift 25s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(-3%, 3%) scale(1.05) rotate(90deg); }
+            50% { transform: translate(3%, -3%) scale(0.98) rotate(180deg); }
+            75% { transform: translate(-2%, -2%) scale(1.02) rotate(270deg); }
+        }
+        
+        /* Content wrapper for desktop layout control */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(15px, 2.5vh, 25px);
+        }
+        
+        /* Slide number */
         .slide-number {
             position: absolute;
-            top: var(--space-md);
-            left: var(--space-md);
-            font-size: var(--text-sm);
-            color: var(--text-lighter);
+            top: clamp(15px, 1.5vw, 30px);
+            left: clamp(15px, 1.5vw, 30px);
+            font-size: clamp(12px, 0.8vw, 16px);
+            color: var(--text-muted);
             font-weight: 500;
+            z-index: 20;
         }
         
-        .solar-pattern {
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 200px;
-            height: 200px;
-            opacity: 0.05;
-            background: repeating-linear-gradient(
-                45deg,
-                var(--accent-yellow),
-                var(--accent-yellow) 10px,
-                transparent 10px,
-                transparent 20px
-            );
-            transform: rotate(15deg);
-            animation: subtle-rotate 20s linear infinite;
-        }
-        
-        @keyframes subtle-rotate {
-            from { transform: rotate(15deg); }
-            to { transform: rotate(375deg); }
-        }
-        
-        .slide-header {
-            text-align: center;
-            margin-bottom: var(--space-2xl);
-        }
-        
-        .slide-title {
-            color: var(--primary-blue);
-            font-size: var(--text-3xl);
+        /* Title styling */
+        h1 {
+            color: var(--text-primary);
+            font-size: var(--title-lg);
             font-weight: 700;
-            margin-bottom: var(--space-sm);
+            margin-bottom: clamp(8px, 1.5vh, 15px);
             line-height: 1.2;
-        }
-        
-        .slide-subtitle {
-            color: var(--text-light);
-            font-size: var(--text-lg);
-        }
-        
-        .arai-section {
-            background: linear-gradient(135deg, var(--secondary-green) 0%, #2ECC40 100%);
-            color: var(--white);
-            padding: var(--space-xl);
-            border-radius: var(--border-radius);
             text-align: center;
-            margin-bottom: var(--space-2xl);
-            box-shadow: 0 4px 20px rgba(34,139,34,0.3);
+            background: linear-gradient(135deg, var(--solar-gold) 0%, var(--solar-gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: var(--text-lg);
+            text-align: center;
+            margin-bottom: clamp(15px, 2.5vh, 25px);
+        }
+        
+        /* ARAI Section with glassmorphism */
+        .arai-section {
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.15) 0%, rgba(34, 139, 34, 0.1) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(34, 139, 34, 0.3);
+            color: var(--text-primary);
+            padding: clamp(20px, 3vh, 30px);
+            border-radius: clamp(12px, 1.5vw, 20px);
+            text-align: center;
+            margin-bottom: clamp(20px, 3vh, 30px);
+            box-shadow: 0 8px 32px rgba(34, 139, 34, 0.3);
         }
         
         .arai-title {
-            font-size: var(--text-2xl);
+            font-size: clamp(22px, 2.8vw, 32px);
             font-weight: 700;
-            margin-bottom: var(--space-sm);
+            margin-bottom: clamp(8px, 1.5vh, 12px);
+            color: var(--text-primary);
+            filter: drop-shadow(0 2px 8px rgba(34, 139, 34, 0.5));
         }
         
         .arai-description {
-            font-size: var(--text-lg);
+            font-size: clamp(14px, 1.8vw, 20px);
             opacity: 0.9;
+            color: var(--text-secondary);
         }
         
+        /* Content grid */
         .content-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-2xl);
-            margin-bottom: var(--space-2xl);
+            grid-template-columns: 1fr;
+            gap: clamp(20px, 3vh, 30px);
+        }
+        
+        @media (min-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: clamp(15px, 2vw, 25px);
+            }
         }
         
         .section-title {
-            color: var(--primary-blue);
-            font-size: var(--text-xl);
+            color: var(--text-primary);
+            font-size: clamp(18px, 2.2vw, 26px);
             font-weight: 600;
-            margin-bottom: var(--space-lg);
+            margin-bottom: clamp(15px, 2vh, 20px);
+            text-align: center;
         }
         
+        /* Compliance cards with glassmorphism */
         .compliance-card {
-            background: var(--white);
-            border-left: 4px solid var(--primary-blue);
-            padding: var(--space-lg);
-            margin-bottom: var(--space-md);
-            border-radius: var(--border-radius);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--bg-glass-border);
+            padding: clamp(15px, 2.5vh, 20px);
+            margin-bottom: clamp(12px, 2vh, 16px);
+            border-radius: clamp(10px, 1.2vw, 16px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid;
         }
         
         .compliance-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .compliance-card.safety {
+            border-left-color: var(--trust-blue);
         }
         
         .compliance-card.environmental {
-            border-left-color: var(--secondary-green);
+            border-left-color: var(--green-primary);
         }
         
         .compliance-card.performance {
-            border-left-color: var(--accent-yellow);
+            border-left-color: var(--solar-gold);
         }
         
         .card-title {
-            font-size: var(--text-base);
+            font-size: clamp(14px, 1.8vw, 18px);
             font-weight: 600;
-            margin-bottom: var(--space-sm);
+            margin-bottom: clamp(8px, 1.2vh, 12px);
             display: flex;
             align-items: center;
-            gap: var(--space-sm);
+            gap: clamp(8px, 1vw, 12px);
+            color: var(--text-primary);
         }
         
+        .card-title.blue { color: var(--trust-blue); }
+        .card-title.green { color: var(--green-primary); }
+        .card-title.gold { color: var(--solar-gold); }
+        
         .card-content {
-            font-size: var(--text-sm);
-            color: var(--text-light);
+            font-size: clamp(13px, 1.6vw, 16px);
+            color: var(--text-secondary);
             line-height: 1.6;
         }
         
         .card-content p {
-            margin-bottom: var(--space-xs);
+            margin-bottom: clamp(4px, 0.8vh, 6px);
         }
         
+        /* Quality process with glassmorphism */
         .quality-process {
-            background: linear-gradient(135deg, #f8f9fa 0%, var(--white) 100%);
-            padding: var(--space-xl);
-            border-radius: var(--border-radius);
-            border: 2px solid #e0e0e0;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--bg-glass-border);
+            padding: clamp(20px, 3vh, 25px);
+            border-radius: clamp(12px, 1.5vw, 20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
         .process-step {
             display: flex;
             align-items: flex-start;
-            gap: var(--space-md);
-            margin-bottom: var(--space-lg);
-            padding: var(--space-md);
-            border-radius: var(--border-radius);
-            transition: background-color 0.2s ease;
+            gap: clamp(12px, 2vw, 20px);
+            margin-bottom: clamp(15px, 2.5vh, 20px);
+            padding: clamp(12px, 2vh, 16px);
+            border-radius: clamp(8px, 1vw, 12px);
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.02);
         }
         
         .process-step:hover {
-            background-color: rgba(0,71,171,0.05);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateX(5px);
         }
         
         .process-step:last-child {
@@ -225,16 +329,31 @@
         }
         
         .step-number {
-            width: 40px;
-            height: 40px;
+            width: clamp(35px, 4vw, 45px);
+            height: clamp(35px, 4vw, 45px);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--white);
+            color: white;
             font-weight: bold;
-            font-size: var(--text-sm);
+            font-size: clamp(14px, 1.8vw, 18px);
             flex-shrink: 0;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .step-number.blue {
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.9) 0%, rgba(0, 86, 210, 0.9) 100%);
+        }
+        
+        .step-number.gold {
+            background: linear-gradient(135deg, rgba(253, 184, 19, 0.9) 0%, rgba(255, 215, 0, 0.9) 100%);
+        }
+        
+        .step-number.green {
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.9) 0%, rgba(46, 204, 64, 0.9) 100%);
         }
         
         .step-content {
@@ -242,330 +361,208 @@
         }
         
         .step-title {
-            font-size: var(--text-base);
+            font-size: clamp(14px, 1.8vw, 18px);
             font-weight: 600;
-            margin-bottom: var(--space-xs);
+            margin-bottom: clamp(4px, 0.8vh, 6px);
+            color: var(--text-primary);
         }
+        
+        .step-title.blue { color: var(--trust-blue); }
+        .step-title.green { color: var(--green-primary); }
+        .step-title.gold { color: var(--solar-gold); }
         
         .step-description {
-            font-size: var(--text-sm);
-            color: var(--text-light);
+            font-size: clamp(12px, 1.5vw, 16px);
+            color: var(--text-secondary);
+            line-height: 1.5;
         }
         
+        /* Final note with glassmorphism */
         .final-note {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, #0056D2 100%);
-            color: var(--white);
-            padding: var(--space-lg);
-            border-radius: var(--border-radius);
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.15) 0%, rgba(0, 71, 171, 0.1) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 71, 171, 0.3);
+            color: var(--text-primary);
+            padding: clamp(15px, 2.5vh, 20px);
+            border-radius: clamp(10px, 1.2vw, 16px);
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,71,171,0.3);
+            box-shadow: 0 8px 32px rgba(0, 71, 171, 0.3);
+            margin-top: auto;
         }
         
         .final-note p {
-            font-size: var(--text-base);
+            font-size: clamp(14px, 1.8vw, 18px);
             margin: 0;
+            color: var(--text-primary);
         }
         
+        /* Logo corner */
         .logo-corner {
             position: absolute;
-            bottom: var(--space-lg);
-            right: var(--space-lg);
-            font-size: var(--text-xl);
+            bottom: clamp(15px, 2vw, 25px);
+            right: clamp(15px, 2vw, 25px);
+            font-size: clamp(20px, 2.5vw, 28px);
             font-weight: 700;
-            color: var(--primary-blue);
-            opacity: 0.6;
+            background: linear-gradient(135deg, var(--solar-gold) 0%, var(--solar-gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.8;
+            z-index: 20;
+            text-shadow: 0 2px 8px rgba(253, 184, 19, 0.3);
         }
         
-        /* Navigation Styles */
+        /* Height constrained screens - Progressive optimization */
+        @media (max-height: 950px) and (min-width: 768px) {
+            .slide { padding: 8vh 2vw 4vh !important; }
+            .content-wrapper { height: 88vh !important; }
+            h1 { font-size: min(2.8vh, 26px) !important; }
+            .subtitle { font-size: min(1.8vh, 16px) !important; }
+        }
+        
+        @media (max-height: 850px) and (min-width: 768px) {
+            .slide { padding: 6vh 2vw 3vh !important; }
+            .content-wrapper { height: 91vh !important; }
+            h1 { font-size: min(2.5vh, 24px) !important; }
+            .subtitle { font-size: min(1.6vh, 14px) !important; }
+            .compliance-card { padding: clamp(10px, 1.5vh, 15px); }
+            .quality-process { padding: clamp(12px, 2vh, 18px); }
+        }
+        
+        @media (max-height: 750px) and (min-width: 768px) {
+            .slide { padding: 4vh 1.5vw 2vh !important; }
+            .content-wrapper { height: 94vh !important; gap: clamp(5px, 0.8vh, 8px); }
+            h1 { font-size: min(2.2vh, 20px) !important; }
+            .subtitle { font-size: min(1.4vh, 12px) !important; }
+            .arai-section { padding: clamp(12px, 2vh, 18px); }
+            .compliance-card { padding: clamp(8px, 1.2vh, 12px); }
+        }
+        
+        /* Navigation Container - Slide17 Style with Progress Bar */
         .nav-container {
             position: fixed;
-            top: var(--space-md);
+            top: clamp(15px, 2vh, 30px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: var(--space-md);
-            background: rgba(255, 255, 255, 0.95);
-            padding: var(--space-sm) var(--space-lg);
-            border-radius: 25px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
+            gap: clamp(10px, 1.5vw, 20px);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: clamp(10px, 1.5vh, 15px) clamp(15px, 2vw, 25px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
 
         .slide-counter {
-            font-size: var(--text-sm);
+            font-size: clamp(11px, 1.4vh, 16px);
             font-weight: 600;
-            color: var(--primary-blue);
-            white-space: nowrap;
+            color: rgba(255, 255, 255, 0.9);
+            min-width: clamp(60px, 5vw, 80px);
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: clamp(80px, 10vw, 150px);
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: calc(25 / 28 * 100%);
+            background: linear-gradient(90deg, #FDB813 0%, #FFD700 100%);
+            border-radius: 2px;
+            transition: width 0.3s ease;
         }
 
         .slide-select {
-            padding: var(--space-sm);
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            font-size: var(--text-sm);
-            background: var(--white);
+            padding: clamp(6px, 0.8vh, 10px) clamp(10px, 0.8vw, 15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-size: clamp(11px, 1.4vh, 15px);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
             cursor: pointer;
             outline: none;
-            min-width: 150px;
+            transition: all 0.3s ease;
         }
 
-        .slide-select:focus {
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.1);
+        .slide-select:focus,
+        .slide-select:hover {
+            border-color: #FDB813;
+            background: rgba(0, 0, 0, 0.7);
         }
 
-        .nav-btn {
+        .slide-select option {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        /* CORRECT BOTTOM NAVIGATION POSITIONING */
+        .nav-buttons {
             position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
+            bottom: clamp(20px, 3vh, 40px);
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 1000;
-            background: rgba(0, 71, 171, 0.9);
-            color: var(--white);
-            border: none;
-            width: var(--button-size);
-            height: var(--button-size);
+            display: flex;
+            gap: clamp(15px, 2vw, 30px);
+        }
+        
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: clamp(40px, 4vw, 60px);
+            height: clamp(40px, 4vw, 60px);
             border-radius: 50%;
-            font-size: var(--text-lg);
+            font-size: clamp(18px, 2vw, 28px);
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 16px rgba(0, 71, 171, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
-
-        .nav-btn:hover {
-            background: var(--primary-blue);
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 71, 171, 0.4);
+        
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(253, 184, 19, 0.2);
+            border-color: rgba(253, 184, 19, 0.5);
+            transform: scale(1.1);
         }
-
+        
         .nav-btn:disabled {
-            background: rgba(150, 150, 150, 0.5);
+            opacity: 0.3;
             cursor: not-allowed;
-            transform: translateY(-50%) scale(1);
         }
 
-        .nav-btn.prev {
-            left: var(--space-lg);
-        }
-
-        .nav-btn.next {
-            right: var(--space-lg);
-        }
-
-        /* Responsive Design */
-        
-        /* Large tablets and small desktops */
-        @media (max-width: 1024px) {
-            .solar-pattern {
-                width: 150px;
-                height: 150px;
-            }
-        }
-        
-        /* Tablets */
-        @media (max-width: 768px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-                gap: var(--space-xl);
-            }
-            
-            .nav-container {
-                gap: var(--space-sm);
-                padding: var(--space-sm);
-            }
-            
-            .slide-select {
-                min-width: 120px;
-                font-size: var(--text-xs);
-            }
-            
-            .nav-btn {
-                width: 45px;
-                height: 45px;
-            }
-            
-            .nav-btn.prev {
-                left: var(--space-md);
-            }
-            
-            .nav-btn.next {
-                right: var(--space-md);
-            }
-            
-            .process-step {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .step-number {
-                margin-bottom: var(--space-sm);
-            }
-        }
-        
-        /* Mobile phones */
         @media (max-width: 480px) {
-            .slide-container {
-                padding: var(--space-sm);
-                padding-top: calc(var(--nav-height) + var(--space-sm));
-            }
-            
-            .slide {
-                padding: var(--space-lg);
-            }
-            
             .nav-container {
-                position: relative;
-                top: auto;
-                left: auto;
-                transform: none;
-                margin-bottom: var(--space-md);
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .slide-container {
-                padding-top: var(--space-sm);
-            }
-            
-            .nav-btn {
-                position: absolute;
-                top: 50%;
-                width: 40px;
-                height: 40px;
-                font-size: var(--text-base);
-            }
-            
-            .nav-btn.prev {
-                left: var(--space-sm);
-            }
-            
-            .nav-btn.next {
-                right: var(--space-sm);
-            }
-            
-            .slide-select {
-                min-width: 100px;
-                max-width: 150px;
-            }
-            
-            .arai-section {
-                padding: var(--space-lg);
-            }
-            
-            .quality-process {
-                padding: var(--space-lg);
-            }
-            
-            .process-step {
-                padding: var(--space-sm);
-                margin-bottom: var(--space-md);
-            }
-            
-            .solar-pattern {
-                display: none;
-            }
-        }
-        
-        /* Extra small screens */
-        @media (max-width: 320px) {
-            .slide {
-                padding: var(--space-md);
-            }
-            
-            .nav-container {
-                padding: var(--space-xs);
-                gap: var(--space-xs);
+                padding: 6px 10px;
+                gap: 6px;
             }
             
             .slide-counter {
-                font-size: var(--text-xs);
+                min-width: 50px;
+                font-size: 10px;
             }
             
             .slide-select {
-                font-size: var(--text-xs);
-                padding: var(--space-xs);
-                min-width: 80px;
-            }
-        }
-        
-        /* Landscape orientation adjustments */
-        @media (max-height: 600px) and (orientation: landscape) {
-            .slide-container {
-                align-items: flex-start;
-                padding-top: var(--space-lg);
-            }
-            
-            .slide {
-                margin: 0;
-            }
-            
-            .arai-section {
-                padding: var(--space-md);
-            }
-            
-            .content-grid {
-                gap: var(--space-lg);
-            }
-            
-            .quality-process {
-                padding: var(--space-md);
-            }
-        }
-        
-        /* High DPI displays */
-        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-            .slide {
-                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            }
-            
-            .compliance-card {
-                box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-            }
-        }
-        
-        /* Print styles */
-        @media print {
-            .nav-container,
-            .nav-btn {
-                display: none;
-            }
-            
-            .slide {
-                box-shadow: none;
-                padding: 20px;
-            }
-            
-            .solar-pattern {
-                display: none;
-            }
-        }
-        
-        /* Focus and accessibility improvements */
-        .nav-btn:focus,
-        .slide-select:focus {
-            outline: 2px solid var(--primary-blue);
-            outline-offset: 2px;
-        }
-        
-        .compliance-card:focus-within {
-            outline: 2px solid var(--primary-blue);
-            outline-offset: 2px;
-        }
-        
-        /* Reduce motion for users who prefer it */
-        @media (prefers-reduced-motion: reduce) {
-            .solar-pattern {
-                animation: none;
-            }
-            
-            .compliance-card,
-            .process-step,
-            .nav-btn {
-                transition: none;
+                font-size: 10px;
+                padding: 4px 6px;
             }
         }
     </style>
@@ -574,7 +571,10 @@
     <!-- Navigation -->
     <div class="nav-container">
         <div class="slide-counter">25 / 28</div>
-        <select class="slide-select" onchange="jumpToSlide(this.value)" aria-label="Jump to slide">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <select class="slide-select" onchange="jumpToSlide(this.value)">
             <option value="index.html">1. Welcome</option>
             <option value="slide2.html">2. About</option>
             <option value="slide3.html">3. Purpose & Direction</option>
@@ -598,7 +598,7 @@
             <option value="slide17.html">21. Panchayat Case Study</option>
             <option value="slide18.html">22. Client Testimonials</option>
             <option value="slide19.html">23. Manufacturing</option>
-            <option value="slide20.html">24. Customer Testimonials</option>
+            <option value="slide20.html">24. Service Network</option>
             <option value="slide21.html" selected>25. Awards & Recognition</option>
             <option value="slide22.html">26. Strategic Partnerships</option>
             <option value="slide23.html">27. Growth Vision</option>
@@ -606,18 +606,18 @@
         </select>
     </div>
     
-    <button class="nav-btn prev" onclick="prevSlide()" aria-label="Previous slide">‹</button>
-    <button class="nav-btn next" onclick="nextSlide()" aria-label="Next slide">›</button>
+    <!-- Navigation Buttons at Bottom -->
+    <div class="nav-buttons">
+        <button class="nav-btn prev" onclick="prevSlide()">‹</button>
+        <button class="nav-btn next" onclick="nextSlide()">›</button>
+    </div>
 
-    <div class="slide-container">
-        <div class="slide">
-            <div class="slide-number">25</div>
-            <div class="solar-pattern"></div>
-            
-            <div class="slide-header">
-                <h1 class="slide-title">Certified Excellence, Assured Quality</h1>
-                <div class="slide-subtitle">Meeting and exceeding India's stringent EV standards</div>
-            </div>
+    <div class="slide">
+        <div class="slide-number">25</div>
+        
+        <div class="content-wrapper">
+            <h1>Certified Excellence, Assured Quality</h1>
+            <div class="subtitle">Meeting and exceeding India's stringent EV standards</div>
             
             <div class="arai-section">
                 <h2 class="arai-title">🏆 ARAI Certified</h2>
@@ -628,8 +628,8 @@
                 <div>
                     <h3 class="section-title">Compliance & Standards</h3>
                     
-                    <div class="compliance-card">
-                        <h4 class="card-title" style="color: var(--primary-blue);">
+                    <div class="compliance-card safety">
+                        <h4 class="card-title blue">
                             🛡️ Vehicle Safety
                         </h4>
                         <div class="card-content">
@@ -640,7 +640,7 @@
                     </div>
                     
                     <div class="compliance-card environmental">
-                        <h4 class="card-title" style="color: var(--secondary-green);">
+                        <h4 class="card-title green">
                             🌱 Environmental Standards
                         </h4>
                         <div class="card-content">
@@ -651,7 +651,7 @@
                     </div>
                     
                     <div class="compliance-card performance">
-                        <h4 class="card-title" style="color: var(--accent-yellow);">
+                        <h4 class="card-title gold">
                             ⚡ Performance Testing
                         </h4>
                         <div class="card-content">
@@ -666,33 +666,33 @@
                     <h3 class="section-title">Quality Assurance Process</h3>
                     <div class="quality-process">
                         <div class="process-step">
-                            <div class="step-number" style="background: var(--primary-blue);">1</div>
+                            <div class="step-number blue">1</div>
                             <div class="step-content">
-                                <h4 class="step-title" style="color: var(--primary-blue);">Pre-Production</h4>
+                                <h4 class="step-title blue">Pre-Production</h4>
                                 <p class="step-description">Component quality verification • Battery performance testing</p>
                             </div>
                         </div>
                         
                         <div class="process-step">
-                            <div class="step-number" style="background: var(--accent-yellow);">2</div>
+                            <div class="step-number gold">2</div>
                             <div class="step-content">
-                                <h4 class="step-title" style="color: var(--accent-yellow);">Production</h4>
+                                <h4 class="step-title gold">Production</h4>
                                 <p class="step-description">In-line inspection at every stage • Torque and alignment checks</p>
                             </div>
                         </div>
                         
                         <div class="process-step">
-                            <div class="step-number" style="background: var(--secondary-green);">3</div>
+                            <div class="step-number green">3</div>
                             <div class="step-content">
-                                <h4 class="step-title" style="color: var(--secondary-green);">Post-Production</h4>
+                                <h4 class="step-title green">Post-Production</h4>
                                 <p class="step-description">Road test every vehicle • Final 47-point inspection</p>
                             </div>
                         </div>
                         
                         <div class="process-step">
-                            <div class="step-number" style="background: var(--primary-blue);">4</div>
+                            <div class="step-number blue">4</div>
                             <div class="step-content">
-                                <h4 class="step-title" style="color: var(--primary-blue);">Delivery</h4>
+                                <h4 class="step-title blue">Delivery</h4>
                                 <p class="step-description">PDI at customer location • Training and handover</p>
                             </div>
                         </div>
@@ -703,9 +703,9 @@
             <div class="final-note">
                 <p>📋 All certification documents available for verification • 🏛️ GeM portal registered vendor</p>
             </div>
-            
-            <div class="logo-corner">REEP</div>
         </div>
+        
+        <div class="logo-corner">REEP</div>
     </div>
     
     <script>
@@ -770,39 +770,8 @@
             }
         });
         
-        // Touch/swipe navigation for mobile
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        document.addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-        
-        document.addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-        
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const swipeDistance = touchEndX - touchStartX;
-            
-            if (Math.abs(swipeDistance) > swipeThreshold) {
-                if (swipeDistance > 0) {
-                    prevSlide(); // Swipe right - go to previous slide
-                } else {
-                    nextSlide(); // Swipe left - go to next slide
-                }
-            }
-        }
-        
         // Set the correct option in dropdown
         document.querySelector('.slide-select').value = currentSlide;
-        
-        // Handle window resize for dynamic adjustments
-        window.addEventListener('resize', function() {
-            // Optional: Add any resize-specific logic here
-        });
     </script>
 </body>
 </html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: Client Testimonials</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        .slide {
+            width: 100vw; max-width: 1920px;
+            min-height: 100vh;
+            height: auto;
+            background: white;
+            margin: 0 auto;
+            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
+            padding: clamp(15px, 2.5vw, 50px);
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: clamp(15px, 1.5vw, 30px);
+            left: clamp(15px, 1.5vw, 30px);
+            font-size: clamp(12px, 0.8vw, 16px);
+            color: #999;
+            font-weight: 500;
+        }
+        
+        .solar-pattern {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            opacity: 0.08;
+            background: repeating-linear-gradient(
+                45deg,
+                #FDB813,
+                #FDB813 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            transform: rotate(15deg);
+            animation: subtle-rotate 20s linear infinite;
+        }
+        
+        @keyframes subtle-rotate {
+            from { transform: rotate(15deg); }
+            to { transform: rotate(375deg); }
+        }
+        
+        h1 {
+            color: #0047AB;
+            font-size: clamp(24px, 2.8vw, 54px);
+            font-weight: 700;
+            margin-bottom: clamp(12px, 2vw, 25px);
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,71,171,0.1);
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: clamp(14px, 1.2vw, 20px);
+            margin-bottom: clamp(15px, 2.5vw, 35px);
+        }
+        
+        h4 {
+            color: #0047AB;
+            font-size: clamp(16px, 1.6vw, 24px);
+            font-weight: 600;
+            margin-bottom: clamp(8px, 1vw, 12px);
+        }
+        
+        .grid-2 { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: clamp(15px, 2.5vw, 25px); 
+            margin-bottom: clamp(15px, 2.5vw, 25px);
+            flex: 1;
+        }
+        
+        .icon-box {
+            width: clamp(50px, 6vw, 70px);
+            height: clamp(50px, 6vw, 70px);
+            border-radius: clamp(7px, 0.8vw, 15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: clamp(8px, 1.2vw, 15px);
+            font-size: clamp(24px, 3vw, 32px);
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .icon-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0.6vw 1.8vw rgba(0,0,0,0.3);
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: clamp(8px, 1.0vw, 16px);
+            padding: clamp(15px, 2.5vw, 25px);
+            box-shadow: 0 0.5vw 1.6vw rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 2vw, 20px);
+            margin-bottom: clamp(10px, 1.5vw, 15px);
+        }
+        
+        .testimonial-text {
+            font-size: clamp(14px, 1.4vw, 18px);
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: clamp(10px, 1.5vw, 15px);
+            font-style: italic;
+            flex: 1;
+        }
+        
+        .testimonial-footer {
+            background: rgba(0,0,0,0.03);
+            padding: clamp(8px, 1.2vw, 12px);
+            border-radius: clamp(5px, 0.5vw, 8px);
+            margin-top: auto;
+        }
+        
+        .testimonial-author {
+            font-size: clamp(12px, 1.3vw, 16px);
+            color: #0047AB;
+            font-weight: 700;
+            margin-bottom: clamp(2px, 0.3vw, 3px);
+        }
+        
+        .testimonial-role {
+            font-size: clamp(11px, 1.1vw, 14px);
+            color: #666;
+        }
+        
+        .logo-corner {
+            position: absolute;
+            bottom: clamp(15px, 2vw, 25px);
+            right: clamp(15px, 2vw, 25px);
+            font-size: clamp(20px, 2.5vw, 28px);
+            font-weight: 700;
+            color: #0047AB;
+            opacity: 0.6;
+        }
+        
+        /* Short screen optimization for 800px and below */
+        @media (max-height: 850px) {
+            .slide {
+                padding: clamp(8px, 1.5vw, 20px);
+            }
+            
+            h1 {
+                font-size: clamp(18px, 2.2vw, 36px);
+                margin-bottom: clamp(6px, 1.2vw, 15px);
+            }
+            
+            .subtitle {
+                font-size: clamp(12px, 1vw, 16px);
+                margin-bottom: clamp(8px, 1.5vw, 20px);
+            }
+            
+            .grid-2 {
+                gap: clamp(8px, 1.5vw, 15px);
+                margin-bottom: clamp(8px, 1.5vw, 15px);
+            }
+            
+            .icon-box {
+                width: clamp(40px, 4.5vw, 55px);
+                height: clamp(40px, 4.5vw, 55px);
+                font-size: clamp(18px, 2.2vw, 26px);
+                margin-bottom: clamp(6px, 1vw, 10px);
+            }
+            
+            .testimonial-card {
+                padding: clamp(8px, 1.5vw, 15px);
+            }
+            
+            .testimonial-header {
+                gap: clamp(8px, 1.2vw, 12px);
+                margin-bottom: clamp(6px, 1vw, 10px);
+            }
+            
+            h4 {
+                font-size: clamp(12px, 1.4vw, 18px);
+                margin-bottom: clamp(4px, 0.6vw, 6px);
+            }
+            
+            .testimonial-text {
+                font-size: clamp(11px, 1.2vw, 14px);
+                margin-bottom: clamp(6px, 1vw, 10px);
+            }
+            
+            .testimonial-footer {
+                padding: clamp(6px, 1vw, 8px);
+            }
+            
+            .testimonial-author {
+                font-size: clamp(10px, 1.1vw, 13px);
+            }
+            
+            .testimonial-role {
+                font-size: clamp(9px, 1vw, 11px);
+            }
+        }
+        
+        /* Navigation Styles */
+        .nav-container {
+            position: fixed;
+            top: clamp(10px, 1vw, 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 0.8vw, 15px);
+            background: rgba(255, 255, 255, 0.95);
+            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+            border-radius: clamp(15px, 1.3vw, 25px);
+            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .slide-counter {
+            font-size: clamp(11px, 0.7vw, 14px);
+            font-weight: 600;
+            color: #0047AB;
+            min-width: clamp(60px, 4vw, 80px);
+            text-align: center;
+        }
+
+        .slide-select {
+            padding: clamp(6px, 0.4vw, 8px) clamp(8px, 0.6vw, 12px);
+            border: 1px solid #ddd;
+            border-radius: clamp(4px, 0.3vw, 6px);
+            font-size: clamp(11px, 0.7vw, 14px);
+            background: white;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .slide-select:focus {
+            border-color: #0047AB;
+            box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.1);
+        }
+
+        .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(0, 71, 171, 0.9);
+            color: white;
+            border: none;
+            width: clamp(35px, 2.6vw, 50px);
+            height: clamp(35px, 2.6vw, 50px);
+            border-radius: 50%;
+            font-size: clamp(14px, 1vw, 20px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 71, 171, 1);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0.3vw 1.0vw rgba(0, 71, 171, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: rgba(150, 150, 150, 0.5);
+            cursor: not-allowed;
+            transform: translateY(-50%) scale(1);
+        }
+
+        .nav-btn.prev {
+            left: clamp(15px, 1.5vw, 30px);
+        }
+
+        .nav-btn.next {
+            right: clamp(15px, 1.5vw, 30px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                position: fixed;
+                top: clamp(10px, 1vw, 20px);
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                gap: clamp(8px, 0.8vw, 15px);
+                background: rgba(255, 255, 255, 0.95);
+                padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+                border-radius: clamp(15px, 1.3vw, 25px);
+                box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
+                backdrop-filter: blur(10px);
+            }
+            
+            .nav-btn {
+                position: fixed;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 1000;
+                background: rgba(0, 71, 171, 0.9);
+                color: white;
+                border: none;
+                width: clamp(35px, 2.6vw, 50px);
+                height: clamp(35px, 2.6vw, 50px);
+                border-radius: 50%;
+                font-size: clamp(14px, 1vw, 20px);
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+            }
+            
+            .nav-btn.prev {
+                left: 15px;
+            }
+            
+            .nav-btn.next {
+                right: 15px;
+            }
+            
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: clamp(10px, 1.5vw, 15px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 6px 10px;
+                gap: 6px;
+            }
+            
+            .slide-counter {
+                min-width: 50px;
+                font-size: 10px;
+            }
+            
+            .slide-select {
+                font-size: 10px;
+                padding: 4px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <div class="slide-counter">22 / 28</div>
+        <select class="slide-select" onchange="jumpToSlide(this.value)">
+            <option value="index.html">1. Welcome</option>
+            <option value="slide2.html">2. About</option>
+            <option value="slide3.html">3. Purpose & Direction</option>
+            <option value="slide4.html">4. Heritage</option>
+            <option value="slide5.html">5. Excellence</option>
+            <option value="slide6.html">6. L3 Open Body</option>
+            <option value="slide6b.html">7. L3 Closed Body</option>
+            <option value="slide7.html">8. L5 Tipper</option>
+            <option value="slide8.html">9. L3 Water Tanker</option>
+            <option value="slide8b.html">10. L3 Fogging</option>
+            <option value="slide9.html">11. Product Range</option>
+            <option value="slide9b.html">12. L5 Premium</option>
+            <option value="slide9c.html">13. L5 Deluxe</option>
+            <option value="slide10.html">14. Technical Excellence</option>
+            <option value="slide11.html">15. Future E-Bus</option>
+            <option value="slide12.html">16. Last-Mile Logistics</option>
+            <option value="slide13.html">17. SMB Empowerment</option>
+            <option value="slide14.html">18. Public Sector</option>
+            <option value="slide15.html">19. Aftermarket Excellence</option>
+            <option value="slide16.html">20. Chennai Case Study</option>
+            <option value="slide17.html">21. Panchayat Case Study</option>
+            <option value="slide18.html" selected>22. Client Testimonials</option>
+            <option value="slide19.html">23. Manufacturing</option>
+            <option value="slide20.html">24. Customer Testimonials</option>
+            <option value="slide21.html">25. Awards & Recognition</option>
+            <option value="slide22.html">26. Strategic Partnerships</option>
+            <option value="slide23.html">27. Growth Vision</option>
+            <option value="slide24.html">28. Thank You</option>
+        </select>
+    </div>
+    
+    <button class="nav-btn prev" onclick="prevSlide()">‹</button>
+    <button class="nav-btn next" onclick="nextSlide()">›</button>
+
+    <div class="slide">
+        <div class="slide-number">22</div>
+        <div class="solar-pattern"></div>
+        <h1>Voices of Trust</h1>
+        <div class="subtitle">What our partners say about REEP's excellence</div>
+        
+        <div class="grid-2">
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="icon-box" style="background: #0047AB;">
+                        <div>🏛️</div>
+                    </div>
+                    <h4 style="margin: 0;">Government Partnership</h4>
+                </div>
+                <p class="testimonial-text">"REEP has been instrumental in our city's transformation to sustainable waste management. Their vehicles have performed flawlessly for over two years, and their service support is unmatched."</p>
+                <div class="testimonial-footer" style="background: #f0f8ff;">
+                    <div class="testimonial-author">Dr. Gagandeep Singh Bedi, IAS</div>
+                    <div class="testimonial-role">Commissioner, Greater Chennai Corporation</div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="icon-box" style="background: #FDB813;">
+                        <div>🚚</div>
+                    </div>
+                    <h4 style="margin: 0;">Logistics Excellence</h4>
+                </div>
+                <p class="testimonial-text">"Switching to REEP vehicles has reduced our operational costs by 45%. The reliability and range perfectly match our urban delivery needs with zero maintenance issues."</p>
+                <div class="testimonial-footer" style="background: #fff8e1;">
+                    <div class="testimonial-author">Rajesh Kumar</div>
+                    <div class="testimonial-role">Operations Head, QuickDeliver Logistics</div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="icon-box" style="background: #228B22;">
+                        <div>🏥</div>
+                    </div>
+                    <h4 style="margin: 0;">Healthcare Innovation</h4>
+                </div>
+                <p class="testimonial-text">"The REEP team understood our unique requirements for rural healthcare delivery. They customized vehicles with medical storage and provided comprehensive training."</p>
+                <div class="testimonial-footer" style="background: #e8f5e8;">
+                    <div class="testimonial-author">Dr. Priya Ramachandran</div>
+                    <div class="testimonial-role">Director, Tamil Nadu Health Department</div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="icon-box" style="background: #0047AB;">
+                        <div>⭐</div>
+                    </div>
+                    <h4 style="margin: 0;">Client Satisfaction</h4>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(8px, 1.2vw, 12px); margin-top: clamp(8px, 1.2vw, 12px);">
+                    <div style="text-align: center; background: #f0f8ff; padding: clamp(6px, 1vw, 10px); border-radius: clamp(4px, 0.4vw, 6px);">
+                        <div style="font-size: clamp(16px, 2vw, 24px); font-weight: 700; color: #0047AB;">95%</div>
+                        <div style="font-size: clamp(9px, 1vw, 11px); color: #666;">Satisfaction</div>
+                    </div>
+                    <div style="text-align: center; background: #e8f5e8; padding: clamp(6px, 1vw, 10px); border-radius: clamp(4px, 0.4vw, 6px);">
+                        <div style="font-size: clamp(16px, 2vw, 24px); font-weight: 700; color: #228B22;">98%</div>
+                        <div style="font-size: clamp(9px, 1vw, 11px); color: #666;">Recommend</div>
+                    </div>
+                    <div style="text-align: center; background: #fff8e1; padding: clamp(6px, 1vw, 10px); border-radius: clamp(4px, 0.4vw, 6px);">
+                        <div style="font-size: clamp(16px, 2vw, 24px); font-weight: 700; color: #FDB813;">4.8/5</div>
+                        <div style="font-size: clamp(9px, 1vw, 11px); color: #666;">Rating</div>
+                    </div>
+                    <div style="text-align: center; background: #f0f8ff; padding: clamp(6px, 1vw, 10px); border-radius: clamp(4px, 0.4vw, 6px);">
+                        <div style="font-size: clamp(16px, 2vw, 24px); font-weight: 700; color: #0047AB;">50+</div>
+                        <div style="font-size: clamp(9px, 1vw, 11px); color: #666;">Repeat Clients</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); color: white; padding: clamp(15px, 2.5vw, 25px); border-radius: clamp(8px, 1.0vw, 16px); text-align: center; margin-top: auto; box-shadow: 0 0.6vw 1.8vw rgba(0,71,171,0.3);">
+            <h3 style="color: white; margin-bottom: clamp(6px, 1vw, 10px); font-size: clamp(16px, 2vw, 26px);">Trusted by 500+ Organizations Across India</h3>
+            <p style="font-size: clamp(12px, 1.4vw, 18px); opacity: 0.9;">From government agencies to private enterprises - delivering excellence every day</p>
+        </div>
+        
+        <div class="logo-corner">REEP</div>
+    </div>
+    
+    <script>
+        const slides = [
+            'index.html',
+            'slide2.html',
+            'slide3.html',
+            'slide4.html',
+            'slide5.html',
+            'slide6.html',
+            'slide6b.html',
+            'slide7.html',
+            'slide8.html',
+            'slide8b.html',
+            'slide9.html',
+            'slide9b.html',
+            'slide9c.html',
+            'slide10.html',
+            'slide11.html',
+            'slide12.html',
+            'slide13.html',
+            'slide14.html',
+            'slide15.html',
+            'slide16.html',
+            'slide17.html',
+            'slide18.html',
+            'slide19.html',
+            'slide20.html',
+            'slide21.html',
+            'slide22.html',
+            'slide23.html',
+            'slide24.html'
+        ];
+        
+        const currentSlide = 'slide18.html';
+        const currentIndex = slides.indexOf(currentSlide);
+        
+        function jumpToSlide(slideFile) {
+            if (slideFile && slideFile !== currentSlide) {
+                window.location.href = slideFile;
+            }
+        }
+        
+        function prevSlide() {
+            if (currentIndex > 0) {
+                window.location.href = slides[currentIndex - 1];
+            }
+        }
+        
+        function nextSlide() {
+            if (currentIndex < slides.length - 1) {
+                window.location.href = slides[currentIndex + 1];
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+        
+        // Set the correct option in dropdown
+        document.querySelector('.slide-select').value = currentSlide;
+    </script>
+</body>
+</html>

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: India's EV Revolution</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        .slide {
+            width: 100vw; max-width: 1920px;
+            min-height: 100vh;
+            height: auto;
+            background: white;
+            margin: 0 auto;
+            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
+            padding: clamp(15px, 2vw, 40px);
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+                .slide-number {
+            position: absolute;
+            top: clamp(15px, 1.5vw, 30px);
+            left: clamp(15px, 1.5vw, 30px);
+            font-size: clamp(12px, 0.8vw, 16px);
+            color: #999;
+            font-weight: 500;
+        }
+        
+        /* Enhanced Visual Patterns */
+        .solar-pattern {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            opacity: 0.08;
+            background: repeating-linear-gradient(
+                45deg,
+                #FDB813,
+                #FDB813 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            transform: rotate(15deg);
+            animation: subtle-rotate 20s linear infinite;
+        }
+        
+        @keyframes subtle-rotate {
+            from { transform: rotate(15deg); }
+            to { transform: rotate(375deg); }
+        }
+        
+        h1 {
+            color: #0047AB;
+            font-size: clamp(24px, 2.8vw, 50px);
+            font-weight: 700;
+            margin-bottom: clamp(15px, 2vw, 25px);
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,71,171,0.1);
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: clamp(14px, 1.1vw, 20px);
+            margin-bottom: clamp(20px, 2.5vw, 30px);
+        }
+        
+        /* Enhanced Interactive Elements */
+        .stat-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border: 2px solid #e0e0e0;
+            border-radius: clamp(7px, 0.8vw, 15px);
+            padding: clamp(15px, 2.5vw, 30px);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,71,171,0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0.8vw 2.3vw rgba(0,71,171,0.15);
+            border-color: #0047AB;
+        }
+        
+        .stat-card:hover::before {
+            left: 100%;
+        }
+        
+        .stat-number {
+            font-size: clamp(24px, 3vw, 48px);
+            font-weight: 700;
+            color: #FDB813;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 4px rgba(253,184,19,0.2);
+        }
+        
+        .stat-label {
+            font-size: clamp(14px, 1.2vw, 20px);
+            color: #666;
+        }
+        
+        /* Grid Systems */
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(15px, 2vw, 25px); }
+        
+        /* Enhanced Icons */
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            background: #FDB813;
+            border-radius: clamp(7px, 0.8vw, 15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 32px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 0.4vw 1.3vw rgba(253,184,19,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .icon-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0.6vw 1.8vw rgba(253,184,19,0.4);
+        }
+        
+        /* Chart Visualizations */
+        .chart-container {
+            height: clamp(60px, 10vw, 200px);
+            background: white;
+            border-radius: clamp(6px, 0.6vw, 12px);
+            border: 2px solid #e0e0e0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: clamp(10px, 1.5vw, 20px) 0;
+        }
+        
+        .bar-chart {
+            display: flex;
+            align-items: end;
+            gap: 10px;
+            height: 120px;
+        }
+        
+        .bar {
+            width: 40px;
+            background: linear-gradient(to top, #0047AB, #0056D2);
+            border-radius: clamp(4px, 0.2vw, 4px) 4px 0 0;
+            position: relative;
+        }
+        
+        .bar-1 { height: 60%; }
+        .bar-2 { height: 80%; }
+        .bar-3 { height: 100%; }
+        
+        /* Infographic Elements */
+        .infographic-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: clamp(10px, 1.0vw, 20px);
+            padding: clamp(20px, 3vw, 40px);
+            margin: clamp(15px, 2vw, 30px) 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .infographic-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,71,171,0.05) 0%, transparent 70%);
+            transform: rotate(15deg);
+        }
+        
+        h4 {
+            color: #0047AB;
+            font-size: clamp(14px, 1.5vw, 28px);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .logo-corner {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            font-size: 32px;
+            font-weight: 700;
+            color: #0047AB;
+            opacity: 0.6;
+        }
+        
+        /* Responsive Design Elements */
+        @media (max-width: 1920px) {
+            .slide {
+                width: 100%;
+                max-width: 1920px;
+            }
+        }
+    
+        /* Navigation Styles */
+                .nav-container {
+            position: fixed;
+            top: clamp(10px, 1vw, 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 0.8vw, 15px);
+            background: rgba(255, 255, 255, 0.95);
+            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+            border-radius: clamp(15px, 1.3vw, 25px);
+            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+                .slide-counter {
+            font-size: clamp(11px, 0.7vw, 14px);
+            font-weight: 600;
+            color: #0047AB;
+            min-width: clamp(60px, 4vw, 80px);
+            text-align: center;
+        }
+
+                .slide-select {
+            padding: clamp(6px, 0.4vw, 8px) clamp(8px, 0.6vw, 12px);
+            border: 1px solid #ddd;
+            border-radius: clamp(4px, 0.3vw, 6px);
+            font-size: clamp(11px, 0.7vw, 14px);
+            background: white;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .slide-select:focus {
+            border-color: #0047AB;
+            box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.1);
+        }
+
+                .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(0, 71, 171, 0.9);
+            color: white;
+            border: none;
+            width: clamp(35px, 2.6vw, 50px);
+            height: clamp(35px, 2.6vw, 50px);
+            border-radius: 50%;
+            font-size: clamp(14px, 1vw, 20px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 71, 171, 1);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0.3vw 1.0vw rgba(0, 71, 171, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: rgba(150, 150, 150, 0.5);
+            cursor: not-allowed;
+            transform: translateY(-50%) scale(1);
+        }
+
+                .nav-btn.prev {
+            left: clamp(15px, 1.5vw, 30px);
+        }
+
+                .nav-btn.next {
+            right: clamp(15px, 1.5vw, 30px);
+        }
+
+        @media (max-width: 768px) {
+                    .nav-container {
+            position: fixed;
+            top: clamp(10px, 1vw, 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 0.8vw, 15px);
+            background: rgba(255, 255, 255, 0.95);
+            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+            border-radius: clamp(15px, 1.3vw, 25px);
+            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+            
+                    .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(0, 71, 171, 0.9);
+            color: white;
+            border: none;
+            width: clamp(35px, 2.6vw, 50px);
+            height: clamp(35px, 2.6vw, 50px);
+            border-radius: 50%;
+            font-size: clamp(14px, 1vw, 20px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+        }
+            
+            .nav-btn.prev {
+                left: 15px;
+            }
+            
+            .nav-btn.next {
+                right: 15px;
+            }
+        }
+    
+        /* Enhanced Responsive Design */
+        @media (max-width: 1366px) {
+            .slide {
+                padding: clamp(15px, 2.5vw, 40px);
+            }
+        }
+        
+        /* Short screen optimization */
+        @media (max-height: 900px) {
+            .slide {
+                padding: clamp(10px, 1.5vw, 25px);
+            }
+            
+            h1 {
+                font-size: clamp(20px, 2.2vw, 40px) !important;
+                margin-bottom: clamp(10px, 1.5vw, 20px) !important;
+            }
+            
+            .subtitle {
+                margin-bottom: clamp(15px, 2vw, 25px) !important;
+            }
+            
+            .grid-4 {
+                gap: clamp(10px, 1.5vw, 20px) !important;
+            }
+            
+            .stat-card {
+                padding: clamp(15px, 2vw, 25px) !important;
+            }
+            
+            .infographic-section {
+                padding: clamp(15px, 2.5vw, 30px) !important;
+                margin: clamp(10px, 1.5vw, 20px) 0 !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: clamp(10px, 2vw, 25px);
+            }
+            
+            h1 {
+                font-size: clamp(24px, 5vw, 48px) !important;
+                margin-bottom: clamp(15px, 3vw, 25px) !important;
+            }
+            
+            h2 {
+                font-size: clamp(20px, 4vw, 36px) !important;
+            }
+            
+            h3 {
+                font-size: clamp(18px, 3.5vw, 28px) !important;
+            }
+            
+            .grid-4 {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+            
+            .infographic-section div[style*="display: flex"] {
+                flex-direction: column !important;
+                gap: 15px;
+            }
+            
+            .infographic-section div[style*="font-size: 40px"] {
+                display: none !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .grid-4 {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .stat-card {
+                padding: clamp(12px, 3vw, 20px);
+            }
+            
+            .icon-box {
+                width: clamp(50px, 8vw, 70px);
+                height: clamp(50px, 8vw, 70px);
+                font-size: clamp(24px, 4vw, 32px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 6px 10px;
+                gap: 6px;
+            }
+            
+            .slide-counter {
+                min-width: 50px;
+                font-size: 10px;
+            }
+            
+            .slide-select {
+                font-size: 10px;
+                padding: 4px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <div class="slide-counter">2 / 28</div>
+        <select class="slide-select" onchange="jumpToSlide(this.value)">
+            <option value="index.html">1. Welcome</option>
+            <option value="slide2.html" selected>2. About</option>
+            <option value="slide3.html">3. Purpose & Direction</option>
+            <option value="slide4.html">4. Heritage</option>
+            <option value="slide5.html">5. Excellence</option>
+            <option value="slide6.html">6. L3 Open Body</option>
+            <option value="slide6b.html">7. L3 Closed Body</option>
+            <option value="slide7.html">8. L5 Tipper</option>
+            <option value="slide8.html">9. L3 Water Tanker</option>
+            <option value="slide8b.html">10. L3 Fogging</option>
+            <option value="slide9.html">11. Product Range</option>
+            <option value="slide9b.html">12. L5 Premium</option>
+            <option value="slide9c.html">13. L5 Deluxe</option>
+            <option value="slide10.html">14. Technical Excellence</option>
+            <option value="slide11.html">15. Future E-Bus</option>
+            <option value="slide12.html">16. Last-Mile Logistics</option>
+            <option value="slide13.html">17. SMB Empowerment</option>
+            <option value="slide14.html">18. Public Sector</option>
+            <option value="slide15.html">19. Aftermarket Excellence</option>
+            <option value="slide16.html">20. Chennai Case Study</option>
+            <option value="slide17.html">21. Panchayat Case Study</option>
+            <option value="slide18.html">22. Solar Smart Technology</option>
+            <option value="slide19.html">23. Manufacturing</option>
+            <option value="slide20.html">24. Customer Testimonials</option>
+            <option value="slide21.html">25. Awards & Recognition</option>
+            <option value="slide22.html">26. Strategic Partnerships</option>
+            <option value="slide23.html">27. Growth Vision</option>
+            <option value="slide24.html">28. Thank You</option>
+        </select>
+    </div>
+    
+    <button class="nav-btn prev" onclick="prevSlide()">‹</button>
+    <button class="nav-btn next" onclick="nextSlide()">›</button>
+
+    <!-- Slide 2: The Opportunity with Enhanced Infographics -->
+    <div class="slide">
+        <div class="slide-number">2</div>
+        <div class="solar-pattern"></div>
+        <h1>India's EV Revolution:<br>A ₹50,000+ Crore Opportunity</h1>
+        <div class="subtitle">The perfect storm of economics, policy, and sustainability</div>
+        
+        <div class="grid-4">
+            <div class="stat-card">
+                <div class="icon-box">
+                    <div style="font-size: 36px;">⛽</div>
+                </div>
+                <div class="stat-number">₹100+</div>
+                <div class="stat-label">Per Liter Fuel Cost</div>
+                <div class="chart-container" style="height: 80px; margin-top: 15px;">
+                    <div style="font-size: 14px; color: #999;">📈 Rising trend</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="icon-box" style="background: #228B22;">
+                    <div style="font-size: 36px;">📊</div>
+                </div>
+                <div class="stat-number">35%</div>
+                <div class="stat-label">Annual EV Growth</div>
+                <div class="chart-container" style="height: 80px; margin-top: 15px;">
+                    <div class="bar-chart">
+                        <div class="bar bar-1"></div>
+                        <div class="bar bar-2"></div>
+                        <div class="bar bar-3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="icon-box" style="background: #0047AB;">
+                    <div style="font-size: 36px;">🏛️</div>
+                </div>
+                <div class="stat-number">₹36.79B</div>
+                <div class="stat-label">PM E-DRIVE Scheme</div>
+                <div style="margin-top: 10px; font-size: clamp(12px, 0.8vw, 14px); color: #0047AB;">Government Support</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon-box" style="background: #228B22;">
+                    <div style="font-size: 36px;">🌱</div>
+                </div>
+                <div class="stat-number">30%</div>
+                <div class="stat-label">Carbon Reduction Target</div>
+                <div style="margin-top: 10px; font-size: clamp(12px, 0.8vw, 14px); color: #228B22;">By 2030</div>
+            </div>
+        </div>
+        
+        <div class="infographic-section">
+            <h4 style="margin-bottom: clamp(10px, 1.5vw, 20px);">Market Dynamics Driving Change</h4>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: clamp(10px, 1.5vw, 20px);">
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: clamp(32px, 4vw, 48px); margin-bottom: clamp(5px, 1vw, 10px);">🚀</div>
+                    <p style="font-size: clamp(14px, 1.1vw, 18px); color: #666;">Rising operational costs push businesses toward sustainable alternatives</p>
+                </div>
+                <div style="font-size: 40px; color: #FDB813;">→</div>
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: clamp(32px, 4vw, 48px); margin-bottom: clamp(5px, 1vw, 10px);">📋</div>
+                    <p style="font-size: clamp(14px, 1.1vw, 18px); color: #666;">Government mandates accelerate adoption</p>
+                </div>
+                <div style="font-size: 40px; color: #FDB813;">→</div>
+                <div style="text-align: center; flex: 1;">
+                    <div style="font-size: clamp(32px, 4vw, 48px); margin-bottom: clamp(5px, 1vw, 10px);">🌆</div>
+                    <p style="font-size: clamp(14px, 1.1vw, 18px); color: #666;">Urban air quality concerns demand immediate action</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="logo-corner">REEP</div>
+    </div>
+    <script>
+        const slides = [
+            'index.html',
+            'slide2.html',
+            'slide3.html',
+            'slide4.html',
+            'slide5.html',
+            'slide6.html',
+            'slide6b.html',
+            'slide7.html',
+            'slide8.html',
+            'slide8b.html',
+            'slide9.html',
+            'slide9b.html',
+            'slide9c.html',
+            'slide10.html',
+            'slide11.html',
+            'slide12.html',
+            'slide13.html',
+            'slide14.html',
+            'slide15.html',
+            'slide16.html',
+            'slide17.html',
+            'slide18.html',
+            'slide19.html',
+            'slide20.html',
+            'slide21.html',
+            'slide22.html',
+            'slide23.html',
+            'slide24.html'
+        ];
+        
+        const currentSlide = 'slide2.html';
+        const currentIndex = slides.indexOf(currentSlide);
+        
+        function jumpToSlide(slideFile) {
+            if (slideFile && slideFile !== currentSlide) {
+                window.location.href = slideFile;
+            }
+        }
+        
+        function prevSlide() {
+            if (currentIndex > 0) {
+                window.location.href = slides[currentIndex - 1];
+            }
+        }
+        
+        function nextSlide() {
+            if (currentIndex < slides.length - 1) {
+                window.location.href = slides[currentIndex + 1];
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+        
+        // Set the correct option in dropdown
+        document.querySelector('.slide-select').value = currentSlide;
+    </script>
+</body>
+</html>

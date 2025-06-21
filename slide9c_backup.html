@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REEP: L5 Passenger Heavy Duty</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        .slide {
+            width: 100vw; max-width: 1920px;
+            min-height: 100vh;
+            height: auto;
+            background: white;
+            margin: 0 auto;
+            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1);
+            padding: clamp(15px, 2.5vw, 50px);
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+                .slide-number {
+            position: absolute;
+            top: clamp(15px, 1.5vw, 30px);
+            left: clamp(15px, 1.5vw, 30px);
+            font-size: clamp(12px, 0.8vw, 16px);
+            color: #999;
+            font-weight: 500;
+        }
+        
+        /* Enhanced Visual Patterns */
+        .solar-pattern {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            opacity: 0.08;
+            background: repeating-linear-gradient(
+                45deg,
+                #FDB813,
+                #FDB813 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            transform: rotate(15deg);
+            animation: subtle-rotate 20s linear infinite;
+        }
+        
+        @keyframes subtle-rotate {
+            from { transform: rotate(15deg); }
+            to { transform: rotate(375deg); }
+        }
+        
+        h1 {
+            color: #0047AB;
+            font-size: clamp(34px, 3.5vw, 68px);
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.1;
+            text-shadow: 0 2px 4px rgba(0,71,171,0.1);
+        }
+        
+        h3 {
+            color: #0047AB;
+            font-size: clamp(16px, 1.4vw, 26px);
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: clamp(14px, 1.2vw, 20px);
+            margin-bottom: clamp(15px, 2vw, 25px);
+        }
+        
+        /* Enhanced Vehicle Showcase */
+        .vehicle-hero {
+            background: white;
+            padding: clamp(15px, 2.5vw, 30px);
+            border-radius: clamp(10px, 1.0vw, 20px);
+            box-shadow: 0 0.8vw 2.1vw rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: clamp(10px, 1.5vw, 15px);
+        }
+        
+        .vehicle-image-main {
+            height: clamp(150px, 18vw, 200px);
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+            border-radius: clamp(7px, 0.8vw, 15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: clamp(8px, 1.2vw, 10px) 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0.5vw 1.6vw rgba(0,0,0,0.1);
+        }
+        
+        .vehicle-image-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40"><rect x="5" y="18" width="65" height="18" rx="3" fill="%23FDB813"/><circle cx="25" cy="36" r="5" fill="%23333"/><circle cx="55" cy="36" r="5" fill="%23333"/><rect x="70" y="10" width="25" height="26" rx="3" fill="%230047AB"/><rect x="15" y="14" width="50" height="4" rx="2" fill="%230047AB"/><rect x="20" y="22" width="40" height="10" rx="1" fill="%230047AB" opacity="0.3"/><path d="M15 18 Q10 18 10 22 L10 30 Q10 34 15 34 L65 34 Q70 34 70 30 L70 18" stroke="%230047AB" fill="none" stroke-width="1" opacity="0.5"/></svg>') center/contain no-repeat;
+            opacity: 0.3;
+        }
+        
+        .vehicle-label-large {
+            font-size: clamp(18px, 2vw, 28px);
+            font-weight: 700;
+            color: #0047AB;
+            background: rgba(255,255,255,0.95);
+            padding: clamp(12px, 1.8vw, 18px) clamp(20px, 3vw, 35px);
+            border-radius: clamp(5px, 0.5vw, 10px);
+            box-shadow: 0 0.3vw 1.0vw rgba(0,71,171,0.15);
+            z-index: 1;
+            position: relative;
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(10px, 2vw, 20px);
+        }
+        
+        .spec-item {
+            text-align: center;
+            padding: clamp(12px, 1.8vw, 15px);
+            border-radius: clamp(6px, 0.6vw, 12px);
+            transition: transform 0.3s ease;
+        }
+        
+        .spec-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .spec-value {
+            font-size: clamp(20px, 2.4vw, 32px);
+            font-weight: 700;
+            margin-bottom: clamp(4px, 0.6vw, 5px);
+        }
+        
+        .spec-label {
+            font-size: clamp(12px, 1.1vw, 16px);
+            color: #666;
+        }
+        
+        .feature-strip {
+            background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%);
+            padding: clamp(15px, 2vw, 20px) clamp(20px, 2.5vw, 30px);
+            border-radius: clamp(10px, 1.0vw, 20px);
+            text-align: center;
+            box-shadow: 0 0.5vw 1.6vw rgba(0,71,171,0.3);
+        }
+        
+        .feature-strip p {
+            font-size: clamp(16px, 2vw, 28px);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .use-case-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: clamp(15px, 1.6vw, 30px);
+            margin: 0 8px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .logo-corner {
+            position: absolute;
+            bottom: 35px;
+            right: 35px;
+            font-size: 34px;
+            font-weight: 700;
+            color: #0047AB;
+            opacity: 0.6;
+        }
+        
+        .premium-badge {
+            position: absolute;
+            top: 0px;
+            right: clamp(15px, 2.5vw, 30px);
+            background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%);
+            color: white;
+            padding: clamp(8px, 1.2vw, 10px) clamp(15px, 2vw, 20px);
+            border-radius: 0 0 clamp(10px, 1.2vw, 15px) clamp(10px, 1.2vw, 15px);
+            font-size: clamp(12px, 1.2vw, 16px);
+            font-weight: 600;
+            box-shadow: 0 0.4vw 1.0vw rgba(0,71,171,0.3);
+        }
+        
+        /* Responsive Design Elements */
+        @media (max-width: 1920px) {
+            .slide {
+                width: 100%;
+                max-width: 1920px;
+            }
+        }
+    
+        /* Navigation Styles */
+                .nav-container {
+            position: fixed;
+            top: clamp(10px, 1vw, 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 0.8vw, 15px);
+            background: rgba(255, 255, 255, 0.95);
+            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+            border-radius: clamp(15px, 1.3vw, 25px);
+            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+                .slide-counter {
+            font-size: clamp(11px, 0.7vw, 14px);
+            font-weight: 600;
+            color: #0047AB;
+            min-width: clamp(60px, 4vw, 80px);
+            text-align: center;
+        }
+
+                .slide-select {
+            padding: clamp(6px, 0.4vw, 8px) clamp(8px, 0.6vw, 12px);
+            border: 1px solid #ddd;
+            border-radius: clamp(4px, 0.3vw, 6px);
+            font-size: clamp(11px, 0.7vw, 14px);
+            background: white;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .slide-select:focus {
+            border-color: #0047AB;
+            box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.1);
+        }
+
+                .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(0, 71, 171, 0.9);
+            color: white;
+            border: none;
+            width: clamp(35px, 2.6vw, 50px);
+            height: clamp(35px, 2.6vw, 50px);
+            border-radius: 50%;
+            font-size: clamp(14px, 1vw, 20px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 71, 171, 1);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0.3vw 1.0vw rgba(0, 71, 171, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: rgba(150, 150, 150, 0.5);
+            cursor: not-allowed;
+            transform: translateY(-50%) scale(1);
+        }
+
+                .nav-btn.prev {
+            left: clamp(15px, 1.5vw, 30px);
+        }
+
+                .nav-btn.next {
+            right: clamp(15px, 1.5vw, 30px);
+        }
+
+        @media (max-width: 768px) {
+                    .nav-container {
+            position: fixed;
+            top: clamp(10px, 1vw, 20px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 0.8vw, 15px);
+            background: rgba(255, 255, 255, 0.95);
+            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
+            border-radius: clamp(15px, 1.3vw, 25px);
+            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+            
+                    .nav-btn {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(0, 71, 171, 0.9);
+            color: white;
+            border: none;
+            width: clamp(35px, 2.6vw, 50px);
+            height: clamp(35px, 2.6vw, 50px);
+            border-radius: 50%;
+            font-size: clamp(14px, 1vw, 20px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
+        }
+            
+            .nav-btn.prev {
+                left: 15px;
+            }
+            
+            .nav-btn.next {
+                right: 15px;
+            }
+        }
+    
+        /* Enhanced Responsive Design */
+        @media (max-width: 1366px) {
+            .slide {
+                padding: clamp(15px, 2.5vw, 40px);
+            }
+        }
+        
+        /* Short screen optimization */
+        @media (max-height: 900px) {
+            .slide {
+                padding: clamp(10px, 1.5vw, 25px);
+            }
+            
+            h1 {
+                font-size: clamp(20px, 2.5vw, 45px) !important;
+                margin-bottom: clamp(8px, 1.2vw, 15px) !important;
+            }
+            
+            .subtitle {
+                margin-bottom: clamp(10px, 1.5vw, 20px) !important;
+            }
+            
+            .vehicle-hero {
+                padding: clamp(10px, 2vw, 20px) !important;
+                margin-bottom: clamp(8px, 1vw, 10px) !important;
+            }
+            
+            .feature-strip {
+                padding: clamp(12px, 1.8vw, 15px) clamp(15px, 2vw, 25px) !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: clamp(10px, 2vw, 25px);
+            }
+            
+            h1 {
+                font-size: clamp(20px, 4vw, 36px) !important;
+            }
+            
+            h2 {
+                font-size: clamp(18px, 3.5vw, 28px) !important;
+            }
+            
+            h3 {
+                font-size: clamp(16px, 3vw, 24px) !important;
+            }
+            
+            /* Make two-column layout single column on mobile */
+            .vehicle-hero div[style*="display: flex"][style*="gap: clamp(20px, 3vw, 40px)"] {
+                flex-direction: column !important;
+                gap: clamp(15px, 2vw, 25px) !important;
+            }
+            
+            .vehicle-hero div[style*="max-width: 55%"], 
+            .vehicle-hero div[style*="max-width: 45%"] {
+                max-width: 100% !important;
+            }
+            
+            /* Performance grid to single column */
+            .vehicle-hero div[style*="grid-template-columns: repeat(2, 1fr)"] {
+                grid-template-columns: 1fr !important;
+                gap: clamp(10px, 1.5vw, 15px) !important;
+            }
+            
+            /* Image galleries */
+            .vehicle-hero div[style*="display: flex"][style*="flex-wrap: wrap"] {
+                justify-content: center !important;
+                gap: clamp(8px, 1.5vw, 15px) !important;
+            }
+            
+            .vehicle-hero img {
+                height: clamp(80px, 12vw, 120px) !important;
+            }
+            
+            .premium-badge {
+                right: clamp(10px, 2vw, 15px) !important;
+                font-size: clamp(10px, 2vw, 14px) !important;
+                padding: clamp(6px, 1vw, 8px) clamp(10px, 1.5vw, 15px) !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .vehicle-hero img {
+                height: clamp(70px, 15vw, 100px) !important;
+            }
+            
+            .premium-badge {
+                right: 10px !important;
+                font-size: 10px !important;
+                padding: 5px 8px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 6px 10px;
+                gap: 6px;
+            }
+            
+            .slide-counter {
+                min-width: 50px;
+                font-size: 10px;
+            }
+            
+            .slide-select {
+                font-size: 10px;
+                padding: 4px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-container">
+        <div class="slide-counter">13 / 28</div>
+        <select class="slide-select" onchange="jumpToSlide(this.value)">
+            <option value="index.html">1. Welcome</option>
+            <option value="slide2.html">2. About</option>
+            <option value="slide3.html">3. Purpose & Direction</option>
+            <option value="slide4.html">4. Heritage</option>
+            <option value="slide5.html">5. Excellence</option>
+            <option value="slide6.html">6. L3 Open Body</option>
+            <option value="slide6b.html">7. L3 Closed Body</option>
+            <option value="slide7.html">8. L5 Tipper</option>
+            <option value="slide8.html">9. L3 Water Tanker</option>
+            <option value="slide8b.html">10. L3 Fogging</option>
+            <option value="slide9.html">11. Product Range</option>
+            <option value="slide9b.html">12. L5 Premium</option>
+            <option value="slide9c.html" selected>13. L5 Deluxe</option>
+            <option value="slide10.html">14. Technical Excellence</option>
+            <option value="slide11.html">15. Future E-Bus</option>
+            <option value="slide12.html">16. Last-Mile Logistics</option>
+            <option value="slide13.html">17. SMB Empowerment</option>
+            <option value="slide14.html">18. Public Sector</option>
+            <option value="slide15.html">19. Aftermarket Excellence</option>
+            <option value="slide16.html">20. Chennai Case Study</option>
+            <option value="slide17.html">21. Panchayat Case Study</option>
+            <option value="slide18.html">22. Solar Smart Technology</option>
+            <option value="slide19.html">23. Manufacturing</option>
+            <option value="slide20.html">24. Customer Testimonials</option>
+            <option value="slide21.html">25. Awards & Recognition</option>
+            <option value="slide22.html">26. Strategic Partnerships</option>
+            <option value="slide23.html">27. Growth Vision</option>
+            <option value="slide24.html">28. Thank You</option>
+        </select>
+    </div>
+    
+    <button class="nav-btn prev" onclick="prevSlide()">‹</button>
+    <button class="nav-btn next" onclick="nextSlide()">›</button>
+
+    <!-- Slide 12: L5 Passenger Heavy Duty -->
+    <div class="slide">
+        <div class="slide-number">13</div>
+        <div class="solar-pattern"></div>
+        <h1>L5 Passenger Premium</h1>
+        <div class="subtitle">Heavy-duty performance meets passenger comfort</div>
+        
+        <div class="vehicle-hero" style="background: linear-gradient(to bottom, #0047AB 130px, white 130px);">
+            <div class="premium-badge">PREMIUM SERIES</div>
+            <h2 style="color: white; font-size: 36px; text-align: center; margin: -30px -30px 10px -30px; padding: 25px; background: #0047AB;">
+                🚕 Premium Auto-Rickshaw Excellence
+            </h2>
+            
+            <!-- Two Column Layout: Images Left, Performance Right -->
+            <div style="display: flex; gap: 40px; margin: 30px 0;">
+                
+                <!-- Left Column: Vehicle Images -->
+                <div style="flex: 1; max-width: 55%;">
+                    <!-- Model 1 Rickshaw Images -->
+                    <div style="margin-bottom: 35px;">
+                        <h3 style="text-align: center; color: #0047AB; font-size: clamp(18px, 2.2vw, 26px); margin-bottom: clamp(12px, 2vw, 20px); font-weight: 700;">Model 1</h3>
+                        <div style="display: flex; gap: clamp(10px, 2vw, 20px); justify-content: space-evenly; flex-wrap: wrap;">
+                            <img src="l5-passenger-premium/model1/Untitled.jpeg" alt="Model 1 Rickshaw 1" style="height: 140px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #0047AB;">
+                            <img src="l5-passenger-premium/model1/Untitled 2.jpeg" alt="Model 1 Rickshaw 2" style="height: 140px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #0047AB;">
+                            <img src="l5-passenger-premium/model1/Untitled 3.jpeg" alt="Model 1 Rickshaw 3" style="height: 140px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #0047AB;">
+                        </div>
+                    </div>
+                    
+                    <!-- Model 2 Rickshaw Images -->
+                    <div style="margin-bottom: 25px;">
+                        <h3 style="text-align: center; color: #0047AB; font-size: 26px; margin-bottom: 20px; font-weight: 700;">Model 2</h3>
+                        <div style="display: flex; gap: 20px; justify-content: space-evenly; flex-wrap: nowrap;">
+                            <img src="l5-passenger-premium/model2/Untitled.jpeg" alt="Model 2 Rickshaw 1" style="height: 140px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #0047AB;">
+                            <img src="l5-passenger-premium/model2/Untitled 2.jpeg" alt="Model 2 Rickshaw 2" style="height: 140px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #0047AB;">
+                            <img src="l5-passenger-premium/model2/Untitled 3.jpeg" alt="Model 2 Rickshaw 3" style="height: 140px; border-radius: clamp(6px, 0.6vw, 12px); box-shadow: 0 0.3vw 1.0vw rgba(0,0,0,0.2); border: 3px solid #0047AB;">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column: Performance Content -->
+                <div style="flex: 1; max-width: 45%;">
+                    <h3 style="text-align: center; color: #0047AB; font-size: 26px; margin-bottom: 25px; font-weight: 600;">L5 Performance Advantages</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-bottom: 30px;">
+                        <div class="spec-item" style="background: #F0F8FF; padding: 18px; text-align: center; border-radius: clamp(6px, 0.6vw, 12px);">
+                            <div style="font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #0047AB;">30%</div>
+                            <div style="font-size: 16px; color: #666;">Higher Payload</div>
+                        </div>
+                        <div class="spec-item" style="background: #FFF8E1; padding: 18px; text-align: center; border-radius: clamp(6px, 0.6vw, 12px);">
+                            <div style="font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #FDB813;">20%</div>
+                            <div style="font-size: 16px; color: #666;">More Range</div>
+                        </div>
+                        <div class="spec-item" style="background: #E8F5E8; padding: clamp(12px, 1.8vw, 18px); text-align: center; border-radius: clamp(6px, 0.6vw, 12px);">
+                            <div style="font-size: clamp(20px, 2.4vw, 28px); font-weight: 700; margin-bottom: clamp(6px, 0.8vw, 8px); color: #228B22;">24/7</div>
+                            <div style="font-size: clamp(12px, 1.1vw, 16px); color: #666;">Operations Ready</div>
+                        </div>
+                        <div class="spec-item" style="background: #FFF3E0; padding: clamp(12px, 1.8vw, 18px); text-align: center; border-radius: clamp(6px, 0.6vw, 12px);">
+                            <div style="font-size: clamp(18px, 2.2vw, 28px); font-weight: 700; margin-bottom: clamp(6px, 0.8vw, 8px); color: #FF6F00;">Heavy Duty</div>
+                            <div style="font-size: clamp(12px, 1.1vw, 16px); color: #666;">L5 Performance</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Perfect For Section inside right column -->
+                    <div style="background: #f8f9fa; padding: clamp(12px, 2vw, 20px); border-radius: clamp(7px, 0.8vw, 15px); text-align: center;">
+                        <p style="font-size: clamp(14px, 1.3vw, 18px); color: #333; line-height: 1.5; margin: 0;">
+                            <strong>Perfect for:</strong><br>
+                            <span style="display: inline-block; background: rgba(0,71,171,0.1); color: #0047AB; padding: clamp(6px, 0.8vw, 8px) clamp(10px, 1.5vw, 15px); border-radius: clamp(10px, 1.0vw, 20px); margin: clamp(3px, 0.5vw, 5px); font-size: clamp(12px, 1.1vw, 16px); font-weight: 500;">Corporate Shuttles</span>
+                            <span style="display: inline-block; background: rgba(0,71,171,0.1); color: #0047AB; padding: clamp(6px, 0.8vw, 8px) clamp(10px, 1.5vw, 15px); border-radius: clamp(10px, 1.0vw, 20px); margin: clamp(3px, 0.5vw, 5px); font-size: clamp(12px, 1.1vw, 16px); font-weight: 500;">Tourism Routes</span>
+                            <span style="display: inline-block; background: rgba(0,71,171,0.1); color: #0047AB; padding: clamp(6px, 0.8vw, 8px) clamp(10px, 1.5vw, 15px); border-radius: clamp(10px, 1.0vw, 20px); margin: clamp(3px, 0.5vw, 5px); font-size: clamp(12px, 1.1vw, 16px); font-weight: 500;">Premium E-rickshaw</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="feature-strip" style="margin-bottom: clamp(8px, 1vw, 10px);">
+            <p style="margin: 0;">💪 L5 Heavy Duty Performance • 👥 Premium Passenger Experience • ☀️ Solar-Smart Technology</p>
+        </div>
+        
+        <div class="logo-corner">REEP</div>
+    </div>
+    <script>
+        const slides = [
+            'index.html',
+            'slide2.html',
+            'slide3.html',
+            'slide4.html',
+            'slide5.html',
+            'slide6.html',
+            'slide6b.html',
+            'slide7.html',
+            'slide8.html',
+            'slide8b.html',
+            'slide9.html',
+            'slide9b.html',
+            'slide9c.html',
+            'slide10.html',
+            'slide11.html',
+            'slide12.html',
+            'slide13.html',
+            'slide14.html',
+            'slide15.html',
+            'slide16.html',
+            'slide17.html',
+            'slide18.html',
+            'slide19.html',
+            'slide20.html',
+            'slide21.html',
+            'slide22.html',
+            'slide23.html',
+            'slide24.html'
+        ];
+        
+        const currentSlide = 'slide9c.html';
+        const currentIndex = slides.indexOf(currentSlide);
+        
+        function jumpToSlide(slideFile) {
+            if (slideFile && slideFile !== currentSlide) {
+                window.location.href = slideFile;
+            }
+        }
+        
+        function prevSlide() {
+            if (currentIndex > 0) {
+                window.location.href = slides[currentIndex - 1];
+            }
+        }
+        
+        function nextSlide() {
+            if (currentIndex < slides.length - 1) {
+                window.location.href = slides[currentIndex + 1];
+            }
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+        
+        // Set the correct option in dropdown
+        document.querySelector('.slide-select').value = currentSlide;
+    </script>
+</body>
+</html>

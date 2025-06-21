@@ -5,262 +5,607 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>REEP: Technical Excellence</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Primary Colors */
+            --solar-gold: #FDB813;
+            --solar-gold-light: #FFD700;
+            --trust-blue: #0047AB;
+            --trust-blue-light: #0056D2;
+            
+            /* Backgrounds */
+            --bg-dark: #0a0a0a;
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --bg-glass-border: rgba(255, 255, 255, 0.1);
+            
+            /* Text */
+            --text-primary: rgba(255, 255, 255, 0.9);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.3);
+            
+            /* Typography Scale */
+            --title-xl: clamp(36px, 4.5vw, 64px);
+            --title-lg: clamp(28px, 3.5vw, 56px);
+            --title-md: clamp(24px, 3vw, 36px);
+            --text-lg: clamp(14px, 1.8vw, 22px);
+            --text-md: clamp(13px, 1.6vw, 20px);
+            --text-sm: clamp(12px, 1.6vh, 18px);
+        }
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            background: #f5f5f5; color: #333; line-height: 1.6;
-        
+            background: var(--bg-dark);
+            color: #333;
+            line-height: 1.6;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            min-height: 100vh;
         }
         
+        /* Mobile-first approach - CRITICAL MOBILE SCROLLING FIX */
         .slide {
-            width: 100vw; max-width: 1920px; min-height: 100vh; height: auto; background: white; margin: 0 auto;
-            box-shadow: 0 0.5vw 2.1vw rgba(0,0,0,0.1); padding: clamp(15px, 2.5vw, 50px); position: relative;
-            overflow-y: auto; overflow-x: hidden; display: flex; flex-direction: column;
+            display: block;
+            width: 100vw;
+            height: auto;
+            min-height: auto; /* CRITICAL: NO min-height: 100vh on mobile */
+            background: var(--bg-dark);
+            margin: 0 auto;
+            position: relative;
+            overflow-y: visible; /* CRITICAL: Allow natural scroll */
+            overflow-x: hidden;
+            padding: 80px 20px 120px;
         }
         
-                .slide-number {
+        /* Desktop enhancement */
+        @media (min-width: 768px) {
+            body {
+                overflow: hidden;
+            }
+            
+            .slide {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                height: 100vh;
+                max-width: 1920px;
+                max-height: 1080px;
+                overflow: hidden;
+                padding: clamp(70px, 7vh, 90px) clamp(20px, 3vw, 60px) clamp(80px, 8vh, 100px);
+            }
+        }
+        
+        /* Ensure proper mobile scrolling */
+        @media (max-width: 768px) {
+            .slide {
+                min-height: auto;
+                padding-bottom: calc(80px + env(safe-area-inset-bottom));
+            }
+        }
+        
+        /* Premium Background with animated gradient */
+        .slide::before {
+            content: '';
             position: absolute;
-            top: clamp(15px, 1.5vw, 30px);
-            left: clamp(15px, 1.5vw, 30px);
-            font-size: clamp(12px, 0.8vw, 16px);
-            color: #999;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(253, 184, 19, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 71, 171, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(253, 184, 19, 0.05) 0%, transparent 60%);
+            animation: gradientShift 30s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(-3%, 3%) scale(1.05) rotate(90deg); }
+            50% { transform: translate(3%, -3%) scale(0.98) rotate(180deg); }
+            75% { transform: translate(-2%, -2%) scale(1.02) rotate(270deg); }
+        }
+        
+        /* Content container - Mobile First */
+        .content-wrapper {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            z-index: 1;
+            position: relative;
+            display: block;
+            gap: clamp(20px, 3vh, 30px);
+        }
+        
+        /* Desktop enhancement for content wrapper */
+        @media (min-width: 768px) {
+            .content-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: clamp(10px, 1.5vh, 20px);
+                width: 100%;
+                height: 100%;
+                justify-content: space-between;
+            }
+        }
+        
+        /* Header section */
+        .header-section {
+            text-align: center;
+            margin-bottom: clamp(15px, 2vh, 25px);
+        }
+        
+        @media (min-width: 768px) {
+            .header-section {
+                margin-bottom: clamp(10px, 1.5vh, 20px);
+            }
+        }
+        
+        /* Solar-themed decorative elements */
+        .solar-rays {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200%;
+            height: 200%;
+            pointer-events: none;
+            opacity: 0.03;
+        }
+        
+        .solar-rays::before,
+        .solar-rays::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(
+                from 0deg,
+                transparent 0deg,
+                #FDB813 5deg,
+                transparent 10deg,
+                transparent 350deg,
+                #FDB813 355deg,
+                transparent 360deg
+            );
+            animation: rotateSlow 60s linear infinite;
+        }
+        
+        .solar-rays::after {
+            transform: translate(-50%, -50%) rotate(45deg);
+            animation-duration: 90s;
+            animation-direction: reverse;
+        }
+        
+        @keyframes rotateSlow {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Slide number */
+        .slide-number {
+            position: absolute;
+            top: clamp(20px, 2vw, 40px);
+            left: clamp(20px, 2vw, 40px);
+            font-size: clamp(14px, 1vw, 18px);
+            color: rgba(255, 255, 255, 0.3);
             font-weight: 500;
         }
         
-        .solar-pattern {
-            position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; opacity: 0.08;
-            background: repeating-linear-gradient(45deg, #FDB813, #FDB813 10px, transparent 10px, transparent 20px);
-            transform: rotate(15deg); animation: subtle-rotate 20s linear infinite;
+        .main-title {
+            font-size: clamp(28px, 3.5vw, 48px);
+            font-weight: 700;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--trust-blue) 0%, var(--trust-blue-light) 50%, var(--trust-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: clamp(6px, 0.8vh, 10px);
+            filter: drop-shadow(0 3px 15px rgba(0, 71, 171, 0.5));
+            animation: titleShine 4s ease-in-out infinite;
         }
         
-        @keyframes subtle-rotate { from { transform: rotate(15deg); } to { transform: rotate(375deg); } }
+        @keyframes titleShine {
+            0%, 100% { filter: brightness(1) drop-shadow(0 3px 15px rgba(0, 71, 171, 0.5)); }
+            50% { filter: brightness(1.2) drop-shadow(0 3px 20px rgba(0, 71, 171, 0.8)); }
+        }
         
-        h1 { color: #0047AB; font-size: clamp(28px, 2.9vw, 56px); font-weight: 700; margin-bottom: clamp(15px, 2vw, 30px); line-height: 1.2; text-shadow: 0 2px 4px rgba(0,71,171,0.1); }
-        .subtitle { color: #666; font-size: clamp(14px, 1.2vw, 20px); margin-bottom: clamp(20px, 2.5vw, 40px); }
-        h3 { color: #0047AB; font-size: clamp(16px, 1.7vw, 28px); font-weight: 600; margin-bottom: clamp(10px, 1.5vw, 15px); }
+        .subtitle {
+            font-size: clamp(14px, 1.8vw, 20px);
+            color: var(--text-secondary);
+            margin-bottom: clamp(15px, 2vh, 25px);
+        }
         
+        /* Main content - Mobile First */
+        .main-content {
+            display: block;
+            gap: clamp(20px, 3vh, 30px);
+            margin-bottom: clamp(20px, 3vh, 30px);
+        }
+        
+        /* Desktop enhancement for main content */
+        @media (min-width: 768px) {
+            .main-content {
+                display: flex;
+                flex-direction: column;
+                gap: clamp(10px, 1.5vh, 20px);
+                margin-bottom: 0;
+                flex: 1;
+                justify-content: space-between;
+            }
+        }
+        
+        /* Glassmorphic table container */
+        .table-container {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--bg-glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        @media (min-width: 768px) {
+            .table-container {
+                flex: 1;
+            }
+        }
+        
+        /* Specification table */
         .spec-table {
-            width: 100%; background: white; border-radius: clamp(7px, 0.8vw, 15px); overflow: hidden;
-            box-shadow: 0 0.4vw 1.3vw rgba(0,0,0,0.1);
+            width: 100%;
+            border-collapse: collapse;
+            font-size: clamp(12px, 1.4vw, 16px);
         }
         
         .spec-table th {
-            background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); color: white;
-            padding: clamp(15px, 2.5vw, 25px); font-size: clamp(16px, 1.8vw, 22px); font-weight: 600; text-align: left; position: relative;
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.1) 0%, rgba(0, 71, 171, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 71, 171, 0.3);
+            color: var(--trust-blue-light);
+            padding: clamp(15px, 2.5vh, 25px);
+            font-size: clamp(16px, 1.8vw, 20px);
+            font-weight: 600;
+            text-align: left;
+            position: relative;
+            filter: drop-shadow(0 2px 8px rgba(0, 71, 171, 0.3));
         }
         
         .spec-table td {
-            padding: clamp(12px, 2vw, 20px) clamp(15px, 2.5vw, 25px); font-size: clamp(14px, 1.6vw, 20px); border-bottom: 1px solid #eee;
-            transition: background 0.3s ease;
+            padding: clamp(12px, 2vh, 20px) clamp(15px, 2.5vw, 25px);
+            font-size: clamp(14px, 1.6vw, 18px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
         }
         
-        .spec-table tr:hover td { background: #f0f8ff; }
-        .spec-table tr:last-child td { border-bottom: none; }
-        
-        .logo-corner { position: absolute; bottom: clamp(20px, 2.5vw, 30px); right: clamp(20px, 2.5vw, 30px); font-size: clamp(24px, 2.8vw, 32px); font-weight: 700; color: #0047AB; opacity: 0.6; }
-        
-        @media (max-width: 1920px) { .slide { width: 100%; max-width: 1920px; } }
-    
-        /* Navigation Styles */
-                .nav-container {
-            position: fixed;
-            top: clamp(10px, 1vw, 20px);
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: clamp(8px, 0.8vw, 15px);
-            background: rgba(255, 255, 255, 0.95);
-            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
-            border-radius: clamp(15px, 1.3vw, 25px);
-            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
+        .spec-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
         }
-
-                .slide-counter {
-            font-size: clamp(11px, 0.7vw, 14px);
+        
+        .spec-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Value badges */
+        .value-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.15) 0%, rgba(34, 139, 34, 0.1) 100%);
+            color: #2ECC40;
+            padding: clamp(6px, 0.8vh, 10px) clamp(12px, 2vw, 20px);
+            border-radius: 12px;
             font-weight: 600;
-            color: #0047AB;
-            min-width: clamp(60px, 4vw, 80px);
+            border: 1px solid rgba(34, 139, 34, 0.3);
+            filter: drop-shadow(0 2px 8px rgba(34, 139, 34, 0.3));
+        }
+        
+        .solar-advantage {
+            color: var(--solar-gold);
+            font-weight: 600;
+            filter: drop-shadow(0 2px 8px rgba(253, 184, 19, 0.5));
+        }
+        
+        /* Quality certifications section */
+        .certifications-section {
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.1) 0%, rgba(0, 71, 171, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 71, 171, 0.3);
+            color: var(--text-primary);
+            padding: clamp(25px, 3.5vh, 40px);
+            border-radius: 20px;
             text-align: center;
+            margin-top: clamp(15px, 2vh, 25px);
+            box-shadow: 0 8px 25px rgba(0, 71, 171, 0.2);
+            position: relative;
+            overflow: hidden;
         }
-
-                .slide-select {
-            padding: clamp(6px, 0.4vw, 8px) clamp(8px, 0.6vw, 12px);
-            border: 1px solid #ddd;
-            border-radius: clamp(4px, 0.3vw, 6px);
-            font-size: clamp(11px, 0.7vw, 14px);
-            background: white;
-            cursor: pointer;
-            outline: none;
-        }
-
-        .slide-select:focus {
-            border-color: #0047AB;
-            box-shadow: 0 0 0 2px rgba(0, 71, 171, 0.1);
-        }
-
-                .nav-btn {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            background: rgba(0, 71, 171, 0.9);
-            color: white;
-            border: none;
-            width: clamp(35px, 2.6vw, 50px);
-            height: clamp(35px, 2.6vw, 50px);
-            border-radius: 50%;
-            font-size: clamp(14px, 1vw, 20px);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
-        }
-
-        .nav-btn:hover {
-            background: rgba(0, 71, 171, 1);
-            transform: translateY(-50%) scale(1.1);
-            box-shadow: 0 0.3vw 1.0vw rgba(0, 71, 171, 0.4);
-        }
-
-        .nav-btn:disabled {
-            background: rgba(150, 150, 150, 0.5);
-            cursor: not-allowed;
-            transform: translateY(-50%) scale(1);
-        }
-
-                .nav-btn.prev {
-            left: clamp(15px, 1.5vw, 30px);
-        }
-
-                .nav-btn.next {
-            right: clamp(15px, 1.5vw, 30px);
-        }
-
-        @media (max-width: 768px) {
-                    .nav-container {
-            position: fixed;
-            top: clamp(10px, 1vw, 20px);
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: clamp(8px, 0.8vw, 15px);
-            background: rgba(255, 255, 255, 0.95);
-            padding: clamp(8px, 0.6vw, 12px) clamp(12px, 1vw, 20px);
-            border-radius: clamp(15px, 1.3vw, 25px);
-            box-shadow: 0 0.4vw 1.3vw rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
-        }
-            
-                    .nav-btn {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            background: rgba(0, 71, 171, 0.9);
-            color: white;
-            border: none;
-            width: clamp(35px, 2.6vw, 50px);
-            height: clamp(35px, 2.6vw, 50px);
-            border-radius: 50%;
-            font-size: clamp(14px, 1vw, 20px);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0.2vw 0.8vw rgba(0, 71, 171, 0.3);
-        }
-            
-            .nav-btn.prev {
-                left: 15px;
-            }
-            
-            .nav-btn.next {
-                right: 15px;
+        
+        @media (min-width: 768px) {
+            .certifications-section {
+                margin-top: clamp(10px, 1.5vh, 20px);
             }
         }
-    
-        /* Enhanced Responsive Design */
-        @media (max-width: 1366px) {
-            .slide {
-                padding: clamp(15px, 2.5vw, 40px);
-            }
+        
+        .certifications-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.05) 0%, transparent 100%);
+            pointer-events: none;
         }
-
-        @media (max-width: 768px) {
-            .slide {
-                padding: clamp(10px, 2vw, 25px);
-            }
-            
-            h1 {
-                font-size: clamp(24px, 5vw, 48px) !important;
-            }
-            
-            h2 {
-                font-size: clamp(20px, 4vw, 36px) !important;
-            }
-            
-            h3 {
-                font-size: clamp(18px, 3.5vw, 28px) !important;
-            }
+        
+        .certifications-section h3 {
+            color: var(--trust-blue-light);
+            font-size: clamp(20px, 2.5vw, 30px);
+            margin-bottom: clamp(12px, 1.8vh, 18px);
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 2px 8px rgba(0, 71, 171, 0.5));
         }
-
-        /* Short screen optimization */
-        @media (max-height: 900px) {
-            .slide {
-                padding: clamp(10px, 1.5vw, 25px);
-            }
-            
-            h1 {
-                font-size: clamp(20px, 2.2vw, 40px) !important;
-                margin-bottom: clamp(8px, 1.2vw, 15px) !important;
+        
+        .certifications-section p {
+            font-size: clamp(18px, 2vw, 26px);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* REEP Logo */
+        .logo-corner {
+            position: absolute;
+            bottom: clamp(20px, 2vw, 40px);
+            right: clamp(20px, 2vw, 40px);
+            font-size: clamp(24px, 3vw, 40px);
+            font-weight: 700;
+            background: linear-gradient(135deg, #FDB813 0%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.6;
+        }
+        
+        /* Desktop content fitting - BALANCED SCALING */
+        @media (min-width: 768px) and (min-height: 600px) {
+            .main-title {
+                font-size: clamp(28px, 3.5vw, 48px);
+                margin-bottom: clamp(5px, 0.8vh, 10px);
             }
             
             .subtitle {
-                margin-bottom: clamp(10px, 1.5vw, 20px) !important;
-            }
-            
-            .spec-table {
-                margin: clamp(15px, 2vw, 25px) 0 !important;
+                font-size: clamp(14px, 1.8vw, 20px);
+                margin-bottom: clamp(8px, 1vh, 12px);
             }
             
             .spec-table th {
-                padding: clamp(10px, 2vw, 20px) !important;
+                padding: clamp(12px, 1.8vh, 20px) clamp(15px, 2vw, 25px);
+                font-size: clamp(14px, 1.8vw, 20px);
             }
             
             .spec-table td {
-                padding: clamp(8px, 1.5vw, 15px) clamp(10px, 2vw, 20px) !important;
+                padding: clamp(10px, 1.5vh, 18px) clamp(15px, 2vw, 25px);
+                font-size: clamp(13px, 1.6vw, 18px);
+            }
+            
+            .value-badge {
+                padding: clamp(5px, 0.8vh, 8px) clamp(12px, 1.8vw, 20px);
+                font-size: clamp(12px, 1.5vw, 16px);
+            }
+            
+            .certifications-section {
+                padding: clamp(20px, 2.5vh, 30px);
+                margin-top: clamp(10px, 1.5vh, 20px);
+            }
+            
+            .certifications-section h3 {
+                font-size: clamp(18px, 2.2vw, 26px);
+                margin-bottom: clamp(8px, 1vh, 12px);
+            }
+            
+            .certifications-section p {
+                font-size: clamp(16px, 2vw, 22px);
+            }
+        }
+        
+        /* Navigation Styles with Progress Bar */
+        .nav-container {
+            position: fixed;
+            top: clamp(10px, 1.5vh, 25px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 1vw, 20px);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: clamp(8px, 1vh, 12px) clamp(15px, 1.5vw, 25px);
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide-counter {
+            font-size: clamp(11px, 1.4vh, 16px);
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            min-width: clamp(60px, 5vw, 80px);
+            text-align: center;
+        }
+
+        .progress-bar {
+            width: clamp(80px, 10vw, 150px);
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: calc(14 / 28 * 100%);
+            background: linear-gradient(90deg, #FDB813 0%, #FFD700 100%);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .slide-select {
+            padding: clamp(6px, 0.8vh, 10px) clamp(10px, 0.8vw, 15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-size: clamp(11px, 1.4vh, 15px);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .slide-select:focus,
+        .slide-select:hover {
+            border-color: #FDB813;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .slide-select option {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        /* Navigation Buttons - Bottom */
+        .nav-buttons {
+            position: fixed;
+            bottom: clamp(20px, 3vh, 40px);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: flex;
+            gap: clamp(15px, 2vw, 30px);
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: clamp(40px, 5vh, 55px);
+            height: clamp(40px, 5vh, 55px);
+            border-radius: 50%;
+            font-size: clamp(16px, 2vh, 22px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(253, 184, 19, 0.2);
+            border-color: rgba(253, 184, 19, 0.5);
+            transform: scale(1.1);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        /* Responsive adjustments for 780px height */
+        @media (max-height: 780px) and (min-width: 768px) {
+            .slide {
+                padding: clamp(65px, 7vh, 80px) clamp(15px, 2vw, 40px) clamp(85px, 9vh, 100px);
+            }
+            
+            .content-wrapper {
+                gap: 8px;
+            }
+            
+            .spec-table th,
+            .spec-table td {
+                padding-top: 6px;
+                padding-bottom: 6px;
             }
         }
 
+        /* Mobile adjustments */
         @media (max-width: 768px) {
+            .content-wrapper {
+                gap: 20px;
+            }
+            
+            .main-title {
+                font-size: 32px;
+                margin-bottom: 10px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+            
+            .table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                border-radius: 12px;
+            }
+            
             .spec-table {
-                font-size: 90%;
+                min-width: 700px;
+                font-size: 14px;
             }
             
             .spec-table th {
-                font-size: clamp(14px, 1.6vw, 18px) !important;
-                padding: clamp(8px, 1.5vw, 15px) !important;
+                padding: 12px 15px;
+                font-size: 14px;
+                position: sticky;
+                top: 0;
+                z-index: 10;
             }
             
             .spec-table td {
-                font-size: clamp(12px, 1.4vw, 16px) !important;
-                padding: clamp(6px, 1.2vw, 12px) clamp(8px, 1.8vw, 15px) !important;
+                padding: 10px 15px;
+                font-size: 13px;
+            }
+            
+            .nav-container {
+                padding: 8px 12px;
+                gap: 8px;
+            }
+            
+            .nav-buttons {
+                bottom: calc(20px + env(safe-area-inset-bottom));
             }
         }
-
+        
         @media (max-width: 480px) {
+            .spec-table {
+                min-width: 650px;
+            }
+            
+            .spec-table th,
+            .spec-table td {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+            
+            .value-badge {
+                padding: 4px 10px;
+                font-size: 11px;
+            }
+            
             .nav-container {
                 padding: 6px 10px;
                 gap: 6px;
@@ -275,17 +620,41 @@
                 font-size: 10px;
                 padding: 4px 6px;
             }
-            
-            .spec-table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
+        }
+        
+        /* Animation on load */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .content-wrapper > * {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .content-wrapper > *:nth-child(1) { animation-delay: 0.2s; }
+        .content-wrapper > *:nth-child(2) { animation-delay: 0.3s; }
+        .content-wrapper > *:nth-child(3) { animation-delay: 0.4s; }
+        
+        /* Mobile content spacing */
+        @media (max-width: 768px) {
+            .header-section {
+                margin-bottom: 25px;
             }
             
-            .spec-table th,
-            .spec-table td {
-                white-space: normal;
-                word-wrap: break-word;
+            .main-content {
+                margin-bottom: 25px;
+            }
+            
+            .certifications-section {
+                margin-bottom: 0;
             }
         }
     </style>
@@ -294,6 +663,9 @@
     <!-- Navigation -->
     <div class="nav-container">
         <div class="slide-counter">14 / 28</div>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
         <select class="slide-select" onchange="jumpToSlide(this.value)">
             <option value="index.html">1. Welcome</option>
             <option value="slide2.html">2. About</option>
@@ -302,12 +674,12 @@
             <option value="slide5.html">5. Excellence</option>
             <option value="slide6.html">6. L3 Open Body</option>
             <option value="slide6b.html">7. L3 Closed Body</option>
-            <option value="slide7.html">8. L5 Tipper</option>
+            <option value="slide7.html">8. L3 Passenger</option>
             <option value="slide8.html">9. L3 Water Tanker</option>
             <option value="slide8b.html">10. L3 Fogging</option>
-            <option value="slide9.html">11. Product Range</option>
-            <option value="slide9b.html">12. L5 Premium</option>
-            <option value="slide9c.html">13. L5 Deluxe</option>
+            <option value="slide9.html">11. L5 Open Body Heavy Duty</option>
+            <option value="slide9b.html">12. L5 Closed Body Heavy Duty</option>
+            <option value="slide9c.html">13. L5 Passenger Premium</option>
             <option value="slide10.html" selected>14. Technical Excellence</option>
             <option value="slide11.html">15. Future E-Bus</option>
             <option value="slide12.html">16. Last-Mile Logistics</option>
@@ -326,67 +698,80 @@
         </select>
     </div>
     
-    <button class="nav-btn prev" onclick="prevSlide()">‹</button>
-    <button class="nav-btn next" onclick="nextSlide()">›</button>
+    <!-- Navigation Buttons at Bottom -->
+    <div class="nav-buttons">
+        <button class="nav-btn prev" onclick="prevSlide()">‹</button>
+        <button class="nav-btn next" onclick="nextSlide()">›</button>
+    </div>
 
+    <!-- Slide 14: Technical Excellence -->
     <div class="slide">
         <div class="slide-number">14</div>
-        <div class="solar-pattern"></div>
-        <h1>Technical Excellence Across Categories</h1>
-        <div class="subtitle">Specifications that deliver on promises</div>
+        <div class="solar-rays"></div>
         
-        <table class="spec-table">
-            <thead>
-                <tr>
-                    <th style="width: 25%;">Specification</th>
-                    <th style="width: 25%;">L3 Category</th>
-                    <th style="width: 25%;">L5 Category</th>
-                    <th style="width: 25%;">Solar Advantage</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Payload Capacity</strong></td>
-                    <td><span style="background: #e8f5e8; padding: clamp(4px, 0.5vw, 5px) clamp(8px, 1.2vw, 12px); border-radius: clamp(4px, 0.4vw, 8px); color: #228B22; font-weight: 600;">Up to 400 kg</span></td>
-                    <td><span style="background: #e8f5e8; padding: clamp(4px, 0.5vw, 5px) clamp(8px, 1.2vw, 12px); border-radius: clamp(4px, 0.4vw, 8px); color: #228B22; font-weight: 600;">Up to 850 kg</span></td>
-                    <td style="color: #FDB813; font-weight: 600;">+10% with weight optimization</td>
-                </tr>
-                <tr>
-                    <td><strong>Range per Charge</strong></td>
-                    <td>90-100 km</td>
-                    <td>100-120 km</td>
-                    <td style="color: #FDB813; font-weight: 600;">+30 km daily from solar</td>
-                </tr>
-                <tr>
-                    <td><strong>Battery Options</strong></td>
-                    <td>Lead Acid / Lithium</td>
-                    <td>Advanced Lithium</td>
-                    <td style="color: #FDB813; font-weight: 600;">Solar extends battery life 20%</td>
-                </tr>
-                <tr>
-                    <td><strong>Charging Time</strong></td>
-                    <td>4 hours (fast charge)</td>
-                    <td>4-5 hours</td>
-                    <td style="color: #FDB813; font-weight: 600;">Continuous trickle charge</td>
-                </tr>
-                <tr>
-                    <td><strong>Gradient Capability</strong></td>
-                    <td>12° fully loaded</td>
-                    <td>15° fully loaded</td>
-                    <td style="color: #FDB813; font-weight: 600;">Better hill performance</td>
-                </tr>
-                <tr>
-                    <td><strong>Warranty</strong></td>
-                    <td>1 year comprehensive</td>
-                    <td>3 years comprehensive</td>
-                    <td style="color: #FDB813; font-weight: 600;">Extended component life</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <div style="background: linear-gradient(135deg, #0047AB 0%, #0056D2 100%); color: white; padding: clamp(20px, 3.5vw, 35px); border-radius: clamp(10px, 1.0vw, 20px); text-align: center; margin-top: clamp(20px, 3vw, 30px); box-shadow: 0 0.6vw 1.8vw rgba(0,71,171,0.3);">
-            <h3 style="color: white; margin-bottom: clamp(10px, 1.5vw, 15px);">🏆 Quality Certifications</h3>
-            <p style="font-size: clamp(16px, 2.4vw, 24px);">ARAI Certified • IP67 Rated Components • CAN-Enabled Diagnostics • Make in India Compliant</p>
+        <div class="content-wrapper">
+            <div class="header-section">
+                <h1 class="main-title">Technical Excellence Across Categories</h1>
+                <div class="subtitle">Specifications that deliver on promises</div>
+            </div>
+            
+            <div class="main-content">
+                <div class="table-container">
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">Specification</th>
+                                <th style="width: 25%;">L3 Category</th>
+                                <th style="width: 25%;">L5 Category</th>
+                                <th style="width: 25%;">Solar Advantage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Payload Capacity</strong></td>
+                                <td><span class="value-badge">Up to 400 kg</span></td>
+                                <td><span class="value-badge">Up to 850 kg</span></td>
+                                <td class="solar-advantage">+10% with weight optimization</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Range per Charge</strong></td>
+                                <td>90-100 km</td>
+                                <td>100-120 km</td>
+                                <td class="solar-advantage">+30 km daily from solar</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Battery Options</strong></td>
+                                <td>Lead Acid / Lithium</td>
+                                <td>Advanced Lithium</td>
+                                <td class="solar-advantage">Solar extends battery life 20%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Charging Time</strong></td>
+                                <td>4 hours (fast charge)</td>
+                                <td>4-5 hours</td>
+                                <td class="solar-advantage">Continuous trickle charge</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gradient Capability</strong></td>
+                                <td>12° fully loaded</td>
+                                <td>15° fully loaded</td>
+                                <td class="solar-advantage">Better hill performance</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Warranty</strong></td>
+                                <td>1 year comprehensive</td>
+                                <td>3 years comprehensive</td>
+                                <td class="solar-advantage">Extended component life</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="certifications-section">
+                    <h3>🏆 Quality Certifications</h3>
+                    <p>ARAI Certified • IP67 Rated Components • CAN-Enabled Diagnostics • Make in India Compliant</p>
+                </div>
+            </div>
         </div>
         
         <div class="logo-corner">REEP</div>
@@ -444,14 +829,37 @@
             }
         }
         
-        // Keyboard navigation
+        // Keyboard navigation - including spacebar
         document.addEventListener('keydown', function(e) {
             if (e.key === 'ArrowLeft') {
                 prevSlide();
-            } else if (e.key === 'ArrowRight') {
+            } else if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
                 nextSlide();
             }
         });
+        
+        // Touch/swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                prevSlide();
+            }
+        }
         
         // Set the correct option in dropdown
         document.querySelector('.slide-select').value = currentSlide;
