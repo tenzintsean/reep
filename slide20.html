@@ -64,7 +64,7 @@
             padding: 80px 20px 120px;
         }
         
-        /* Desktop enhancement with proper navigation clearance */
+        /* Desktop enhancement - VAS implementation */
         @media (min-width: 768px) {
             body {
                 overflow: hidden;
@@ -79,54 +79,23 @@
                 max-width: 1920px;
                 max-height: 1080px;
                 overflow: hidden;
-                padding: 10vh 2vw 6vh !important;
+                padding: clamp(85px, 8.5vh, 100px) clamp(20px, 2.5vw, 50px) clamp(100px, 10vh, 120px);
             }
             
             .content-wrapper {
-                height: 84vh !important;
-                max-height: 84vh !important;
-                overflow: hidden !important;
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 0.5vh !important;
+                height: 100%;
+                gap: clamp(15px, 2vh, 25px);
             }
             
-            /* Header section - fixed space */
-            h1, .subtitle {
-                flex: 0 0 auto;
-                max-height: 10vh;
-            }
-            
-            /* Network section - fixed space */
-            .network-section {
-                flex: 0 0 auto;
-                max-height: 16vh;
-            }
-            
-            /* Service grid - flexible space */
-            .service-grid {
-                flex: 1 1 auto;
-                min-height: 0;
-                overflow-y: auto;
-                overflow-x: hidden;
-            }
-            
-            /* Metrics section - fixed space - CRITICAL: Large numbers need more space */
-            .metrics-section {
-                flex: 0 0 auto;
-                max-height: 18vh;
-                margin-top: 0.5vh !important;
-            }
-            
-            /* Force compact sizes on desktop */
+            /* VAS - All elements scale with viewport height */
             h1 { 
-                font-size: min(3vh, 28px) !important;
-                margin-bottom: 0.5vh !important;
+                font-size: clamp(24px, 4vh, 42px);
+                margin-bottom: clamp(6px, 1vh, 10px);
             }
             
             .subtitle {
-                font-size: min(2vh, 18px) !important;
-                margin-bottom: 1vh !important;
+                font-size: clamp(14px, 2vh, 20px);
+                margin-bottom: clamp(15px, 2vh, 25px);
             }
         }
         
@@ -158,6 +127,13 @@
             display: flex;
             flex-direction: column;
             gap: clamp(20px, 3vh, 30px);
+        }
+        
+        @media (min-width: 768px) {
+            .content-wrapper {
+                height: 100%;
+                gap: clamp(15px, 2vh, 25px);
+            }
         }
         
         /* Slide number */
@@ -192,7 +168,7 @@
             margin-bottom: clamp(20px, 3vh, 30px);
         }
         
-        /* Network section */
+        /* Network section - VAS implementation */
         .network-section {
             background: var(--bg-glass);
             backdrop-filter: blur(10px);
@@ -205,11 +181,25 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
         
+        @media (min-width: 768px) {
+            .network-section {
+                padding: clamp(15px, 2.5vh, 25px);
+                margin-bottom: clamp(15px, 2vh, 20px);
+            }
+        }
+        
         .network-title {
             color: var(--text-primary);
             font-size: clamp(20px, 2.8vw, 32px);
             font-weight: 600;
             margin-bottom: clamp(20px, 3vh, 30px);
+        }
+        
+        @media (min-width: 768px) {
+            .network-title {
+                font-size: clamp(18px, 2.5vh, 28px);
+                margin-bottom: clamp(15px, 2vh, 20px);
+            }
         }
         
         .network-nodes {
@@ -246,6 +236,15 @@
             color: white;
         }
         
+        @media (min-width: 768px) {
+            .node-circle {
+                width: clamp(50px, 7vh, 70px);
+                height: clamp(50px, 7vh, 70px);
+                font-size: clamp(12px, 1.8vh, 16px);
+                margin-bottom: clamp(6px, 1vh, 10px);
+            }
+        }
+        
         .node-circle:hover {
             transform: scale(1.1);
         }
@@ -271,12 +270,28 @@
             font-weight: 500;
         }
         
-        /* Service grid */
+        @media (min-width: 768px) {
+            .node-label {
+                font-size: clamp(11px, 1.6vh, 14px);
+            }
+        }
+        
+        /* Service grid - VAS implementation */
         .service-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: clamp(20px, 3vw, 30px);
             margin-bottom: clamp(20px, 3vh, 30px);
+        }
+        
+        @media (min-width: 768px) {
+            .service-grid {
+                gap: clamp(15px, 2vh, 20px);
+                margin-bottom: clamp(15px, 2vh, 20px);
+                flex: 1;
+                min-height: 0;
+                overflow: hidden;
+            }
         }
         
         @media (max-width: 768px) {
@@ -286,7 +301,7 @@
             }
         }
         
-        /* Service cards */
+        /* Service cards - VAS implementation */
         .service-card {
             background: var(--bg-glass);
             backdrop-filter: blur(10px);
@@ -299,6 +314,13 @@
             display: flex;
             align-items: flex-start;
             gap: clamp(15px, 2.5vw, 20px);
+        }
+        
+        @media (min-width: 768px) {
+            .service-card {
+                padding: clamp(15px, 2vh, 25px);
+                gap: clamp(12px, 1.8vh, 18px);
+            }
         }
         
         .service-card:hover {
@@ -321,6 +343,14 @@
             transition: transform 0.3s ease;
             color: white;
             flex-shrink: 0;
+        }
+        
+        @media (min-width: 768px) {
+            .service-icon {
+                width: clamp(40px, 5.5vh, 60px);
+                height: clamp(40px, 5.5vh, 60px);
+                font-size: clamp(20px, 2.8vh, 28px);
+            }
         }
         
         .service-icon:hover {
@@ -350,17 +380,37 @@
             margin-bottom: clamp(8px, 1.2vh, 12px);
         }
         
+        @media (min-width: 768px) {
+            .service-title {
+                font-size: clamp(14px, 2.2vh, 20px);
+                margin-bottom: clamp(6px, 1vh, 10px);
+            }
+        }
+        
         .service-description {
             color: var(--text-secondary);
             font-size: clamp(14px, 1.6vw, 18px);
             line-height: 1.5;
         }
         
-        /* Metrics section */
+        @media (min-width: 768px) {
+            .service-description {
+                font-size: clamp(12px, 1.8vh, 16px);
+                line-height: 1.4;
+            }
+        }
+        
+        /* Metrics section - VAS implementation */
         .metrics-section {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: clamp(15px, 2.5vw, 25px);
+        }
+        
+        @media (min-width: 768px) {
+            .metrics-section {
+                gap: clamp(12px, 2vh, 20px);
+            }
         }
         
         @media (max-width: 768px) {
@@ -382,6 +432,12 @@
             transition: transform 0.3s ease;
         }
         
+        @media (min-width: 768px) {
+            .metric-card {
+                padding: clamp(15px, 2vh, 25px);
+            }
+        }
+        
         .metric-card:hover {
             transform: translateY(-3px);
         }
@@ -394,6 +450,13 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+        
+        @media (min-width: 768px) {
+            .metric-value {
+                font-size: clamp(24px, 3.5vh, 36px);
+                margin-bottom: clamp(6px, 1vh, 10px);
+            }
         }
         
         .metric-value.green {
@@ -416,6 +479,12 @@
             font-weight: 500;
         }
         
+        @media (min-width: 768px) {
+            .metric-label {
+                font-size: clamp(12px, 1.8vh, 16px);
+            }
+        }
+        
         /* Logo corner */
         .logo-corner {
             position: absolute;
@@ -432,35 +501,282 @@
             text-shadow: 0 2px 8px rgba(253, 184, 19, 0.3);
         }
         
-        /* Height constrained screens - Progressive optimization */
-        @media (max-height: 950px) and (min-width: 768px) {
-            .slide { padding: 8vh 2vw 4vh !important; }
-            .content-wrapper { height: 88vh !important; }
-            h1 { font-size: min(2.8vh, 26px) !important; }
-            .subtitle { font-size: min(1.8vh, 16px) !important; }
-            .network-section { max-height: 14vh; }
-            .metrics-section { max-height: 16vh; }
-        }
+        /* VAS Progressive Height Breakpoints */
         
+        /* Stage 1: Moderate constraints (850px and below) */
         @media (max-height: 850px) and (min-width: 768px) {
-            .slide { padding: 6vh 2vw 3vh !important; }
-            .content-wrapper { height: 91vh !important; }
-            h1 { font-size: min(2.5vh, 24px) !important; }
-            .subtitle { font-size: min(1.6vh, 14px) !important; }
-            .service-card { padding: clamp(15px, 2vh, 20px); }
-            .network-section { padding: clamp(15px, 2vh, 20px); max-height: 12vh; }
-            .metrics-section { max-height: 14vh; }
+            .slide {
+                padding: clamp(70px, 7vh, 85px) clamp(15px, 2vw, 40px) clamp(90px, 9vh, 110px);
+            }
+            
+            .content-wrapper {
+                gap: clamp(12px, 1.5vh, 20px);
+            }
+            
+            h1 {
+                font-size: clamp(22px, 3.5vh, 36px);
+                margin-bottom: clamp(4px, 0.6vh, 8px);
+            }
+            
+            .subtitle {
+                font-size: clamp(12px, 1.8vh, 18px);
+                margin-bottom: clamp(10px, 1.5vh, 18px);
+            }
+            
+            .network-section {
+                padding: clamp(12px, 2vh, 20px);
+                margin-bottom: clamp(12px, 1.5vh, 18px);
+            }
+            
+            .network-title {
+                font-size: clamp(16px, 2.2vh, 24px);
+                margin-bottom: clamp(12px, 1.8vh, 18px);
+            }
+            
+            .network-nodes {
+                gap: clamp(15px, 2.5vh, 25px);
+            }
+            
+            .node-circle {
+                width: clamp(45px, 6vh, 60px);
+                height: clamp(45px, 6vh, 60px);
+                font-size: clamp(11px, 1.6vh, 14px);
+                margin-bottom: clamp(5px, 0.8vh, 8px);
+            }
+            
+            .node-label {
+                font-size: clamp(10px, 1.4vh, 12px);
+            }
+            
+            .service-grid {
+                gap: clamp(10px, 1.5vh, 15px);
+                margin-bottom: clamp(10px, 1.5vh, 15px);
+            }
+            
+            .service-card {
+                padding: clamp(12px, 1.8vh, 20px);
+                gap: clamp(10px, 1.5vh, 15px);
+            }
+            
+            .service-icon {
+                width: clamp(35px, 5vh, 50px);
+                height: clamp(35px, 5vh, 50px);
+                font-size: clamp(18px, 2.5vh, 24px);
+            }
+            
+            .service-title {
+                font-size: clamp(13px, 2vh, 18px);
+                margin-bottom: clamp(5px, 0.8vh, 8px);
+            }
+            
+            .service-description {
+                font-size: clamp(11px, 1.6vh, 14px);
+                line-height: 1.3;
+            }
+            
+            .metrics-section {
+                gap: clamp(10px, 1.5vh, 15px);
+            }
+            
+            .metric-card {
+                padding: clamp(12px, 1.8vh, 20px);
+            }
+            
+            .metric-value {
+                font-size: clamp(20px, 3vh, 32px);
+                margin-bottom: clamp(4px, 0.6vh, 8px);
+            }
+            
+            .metric-label {
+                font-size: clamp(11px, 1.6vh, 14px);
+            }
         }
         
+        /* Stage 2: Severe constraints (750px and below) */
         @media (max-height: 750px) and (min-width: 768px) {
-            .slide { padding: 4vh 1.5vw 2vh !important; }
-            .content-wrapper { height: 94vh !important; gap: clamp(5px, 0.8vh, 8px); }
-            h1 { font-size: min(2.2vh, 20px) !important; }
-            .subtitle { font-size: min(1.4vh, 12px) !important; }
-            .service-card { padding: clamp(10px, 1.5vh, 15px); }
-            .metric-card { padding: clamp(15px, 2vh, 20px); }
-            .network-section { max-height: 10vh; }
-            .metrics-section { max-height: 12vh; }
+            .slide {
+                padding: 60px 15px 80px;
+            }
+            
+            .content-wrapper {
+                gap: 8px;
+            }
+            
+            h1 {
+                font-size: clamp(20px, 3vh, 32px);
+                margin-bottom: 3px;
+            }
+            
+            .subtitle {
+                font-size: clamp(11px, 1.5vh, 16px);
+                margin-bottom: 8px;
+            }
+            
+            .network-section {
+                padding: 10px;
+                margin-bottom: 8px;
+            }
+            
+            .network-title {
+                font-size: clamp(14px, 2vh, 20px);
+                margin-bottom: 8px;
+            }
+            
+            .network-nodes {
+                gap: 10px;
+            }
+            
+            .node-circle {
+                width: clamp(40px, 5vh, 50px);
+                height: clamp(40px, 5vh, 50px);
+                font-size: clamp(10px, 1.4vh, 12px);
+                margin-bottom: 3px;
+            }
+            
+            .node-label {
+                font-size: clamp(9px, 1.2vh, 11px);
+            }
+            
+            .service-grid {
+                gap: 8px;
+                margin-bottom: 8px;
+            }
+            
+            .service-card {
+                padding: 10px;
+                gap: 8px;
+            }
+            
+            .service-icon {
+                width: clamp(30px, 4vh, 40px);
+                height: clamp(30px, 4vh, 40px);
+                font-size: clamp(16px, 2.2vh, 20px);
+            }
+            
+            .service-title {
+                font-size: clamp(12px, 1.8vh, 16px);
+                margin-bottom: 3px;
+            }
+            
+            .service-description {
+                font-size: clamp(10px, 1.4vh, 12px);
+                line-height: 1.2;
+            }
+            
+            .metrics-section {
+                gap: 8px;
+            }
+            
+            .metric-card {
+                padding: 10px;
+            }
+            
+            .metric-value {
+                font-size: clamp(18px, 2.5vh, 28px);
+                margin-bottom: 2px;
+            }
+            
+            .metric-label {
+                font-size: clamp(10px, 1.4vh, 12px);
+            }
+        }
+        
+        /* Stage 3: Ultra-compact mode (650px and below) */
+        @media (max-height: 650px) and (min-width: 768px) {
+            .slide {
+                padding: 40px 10px 60px;
+            }
+            
+            .content-wrapper {
+                gap: 5px;
+            }
+            
+            h1 {
+                font-size: 18px;
+                margin-bottom: 2px;
+            }
+            
+            .subtitle {
+                font-size: 10px;
+                margin-bottom: 5px;
+            }
+            
+            .network-section {
+                padding: 6px;
+                margin-bottom: 5px;
+            }
+            
+            .network-title {
+                font-size: 12px;
+                margin-bottom: 5px;
+            }
+            
+            .network-nodes {
+                gap: 6px;
+            }
+            
+            .node-circle {
+                width: 35px;
+                height: 35px;
+                font-size: 9px;
+                margin-bottom: 2px;
+            }
+            
+            .node-label {
+                font-size: 8px;
+            }
+            
+            .service-grid {
+                gap: 5px;
+                margin-bottom: 5px;
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .service-card {
+                padding: 6px;
+                gap: 5px;
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .service-icon {
+                width: 25px;
+                height: 25px;
+                font-size: 14px;
+                margin: 0 auto;
+            }
+            
+            .service-title {
+                font-size: 10px;
+                margin-bottom: 2px;
+            }
+            
+            .service-description {
+                font-size: 9px;
+                line-height: 1.1;
+            }
+            
+            .metrics-section {
+                gap: 5px;
+            }
+            
+            .metric-card {
+                padding: 6px;
+            }
+            
+            .metric-value {
+                font-size: 16px;
+                margin-bottom: 1px;
+            }
+            
+            .metric-label {
+                font-size: 9px;
+            }
+            
+            /* Hide logo corner on ultra-compact */
+            .logo-corner {
+                display: none;
+            }
         }
         
         /* Navigation Container - Slide17 Style with Progress Bar */
