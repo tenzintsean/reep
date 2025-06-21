@@ -79,48 +79,43 @@
                 max-width: 1920px;
                 max-height: 1080px;
                 overflow: hidden;
-                padding: 10vh 2vw 6vh !important;
+                padding: clamp(100px, 10vh, 120px) clamp(20px, 2.5vw, 50px) clamp(80px, 8vh, 100px);
             }
             
             .content-wrapper {
-                height: 84vh !important;
-                max-height: 84vh !important;
-                overflow: hidden !important;
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 0.5vh !important;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: clamp(10px, 1.5vh, 20px);
             }
             
             /* Header section - fixed space */
             h1, .subtitle {
                 flex: 0 0 auto;
-                max-height: 12vh;
             }
             
             /* Advantages grid - flexible space */
             .advantages-grid {
                 flex: 1 1 auto;
                 min-height: 0;
-                overflow-y: auto;
-                overflow-x: hidden;
+                overflow: hidden;
             }
             
             /* Bottom line - fixed space */
             .bottom-line {
                 flex: 0 0 auto;
-                max-height: 15vh;
-                margin-top: 0.5vh !important;
+                margin-top: clamp(10px, 1.5vh, 20px);
             }
             
             /* Force compact sizes on desktop */
             h1 { 
-                font-size: min(3vh, 28px) !important;
-                margin-bottom: 0.5vh !important;
+                font-size: clamp(24px, 4vh, 42px);
+                margin-bottom: 0;
             }
             
             .subtitle {
-                font-size: min(2vh, 18px) !important;
-                margin-bottom: 1vh !important;
+                font-size: clamp(14px, 2vh, 20px);
+                margin-bottom: clamp(2px, 0.2vh, 4px);
             }
         }
         
@@ -170,8 +165,8 @@
             color: var(--text-primary);
             font-size: var(--title-lg);
             font-weight: 700;
-            margin-bottom: clamp(8px, 1.5vh, 15px);
-            line-height: 1.2;
+            margin-bottom: clamp(2px, 0.3vh, 6px);
+            line-height: 1;
             text-align: center;
             background: linear-gradient(135deg, var(--solar-gold) 0%, var(--solar-gold-light) 100%);
             -webkit-background-clip: text;
@@ -183,15 +178,15 @@
             color: var(--text-secondary);
             font-size: var(--text-lg);
             text-align: center;
-            margin-bottom: clamp(20px, 3vh, 30px);
+            margin-bottom: clamp(8px, 1vh, 15px);
         }
         
         /* Advantages grid */
         .advantages-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: clamp(15px, 2.5vw, 25px);
-            margin-bottom: clamp(20px, 3vh, 30px);
+            gap: clamp(6px, 0.8vh, 12px);
+            margin-bottom: clamp(2px, 0.3vh, 6px);
         }
         
         @media (max-width: 768px) {
@@ -208,7 +203,7 @@
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--bg-glass-border);
             border-radius: clamp(12px, 1.5vw, 20px);
-            padding: clamp(20px, 3vh, 30px);
+            padding: clamp(15px, 2.5vh, 25px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-left: 4px solid;
@@ -244,14 +239,14 @@
         
         /* Icon boxes with glassmorphism */
         .card-icon {
-            width: clamp(60px, 8vw, 80px);
-            height: clamp(60px, 8vw, 80px);
+            width: clamp(50px, 6vw, 70px);
+            height: clamp(50px, 6vw, 70px);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: clamp(28px, 4vw, 36px);
+            font-size: clamp(24px, 3vw, 32px);
             font-weight: bold;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
@@ -283,16 +278,16 @@
         
         .card-title {
             color: var(--text-primary);
-            font-size: clamp(18px, 2.2vw, 26px);
+            font-size: clamp(16px, 2vw, 22px);
             font-weight: 600;
             margin: 0;
             flex: 1;
         }
         
         .card-content {
-            font-size: clamp(14px, 1.8vw, 19px);
+            font-size: clamp(12px, 1.6vw, 16px);
             color: var(--text-secondary);
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         .card-content p {
@@ -313,7 +308,7 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(0, 71, 171, 0.3);
             color: var(--text-primary);
-            padding: clamp(20px, 3vh, 30px);
+            padding: clamp(15px, 2.5vh, 25px);
             border-radius: clamp(12px, 1.5vw, 20px);
             text-align: center;
             box-shadow: 0 8px 32px rgba(0, 71, 171, 0.3);
@@ -322,14 +317,14 @@
         
         .bottom-line-title {
             color: var(--text-primary);
-            font-size: clamp(20px, 2.8vw, 32px);
+            font-size: clamp(18px, 2.5vw, 28px);
             font-weight: 700;
-            margin-bottom: clamp(8px, 1.5vh, 15px);
+            margin-bottom: clamp(6px, 1vh, 12px);
         }
         
         .bottom-line-text {
-            font-size: clamp(14px, 1.8vw, 20px);
-            line-height: 1.5;
+            font-size: clamp(12px, 1.6vw, 18px);
+            line-height: 1.4;
             color: var(--text-secondary);
         }
         
@@ -341,7 +336,7 @@
         /* Logo corner */
         .logo-corner {
             position: absolute;
-            bottom: clamp(15px, 2vw, 25px);
+            bottom: clamp(80px, 8vh, 100px);
             right: clamp(15px, 2vw, 25px);
             font-size: clamp(20px, 2.5vw, 28px);
             font-weight: 700;
@@ -354,30 +349,159 @@
             text-shadow: 0 2px 8px rgba(253, 184, 19, 0.3);
         }
         
-        /* Height constrained screens - Progressive optimization */
+        /* VAS Progressive Height Breakpoints */
         @media (max-height: 950px) and (min-width: 768px) {
-            .slide { padding: 8vh 2vw 4vh !important; }
-            .content-wrapper { height: 88vh !important; }
-            h1 { font-size: min(2.8vh, 26px) !important; }
-            .subtitle { font-size: min(1.8vh, 16px) !important; }
+            .slide { 
+                padding: clamp(90px, 9vh, 110px) clamp(15px, 2vw, 40px) clamp(70px, 7vh, 90px);
+            }
+            h1 { 
+                font-size: clamp(22px, 3.5vh, 36px);
+            }
+            .subtitle { 
+                font-size: clamp(12px, 1.8vh, 18px);
+            }
         }
         
         @media (max-height: 850px) and (min-width: 768px) {
-            .slide { padding: 6vh 2vw 3vh !important; }
-            .content-wrapper { height: 91vh !important; }
-            h1 { font-size: min(2.5vh, 24px) !important; }
-            .subtitle { font-size: min(1.6vh, 14px) !important; }
-            .advantage-card { padding: clamp(12px, 2vh, 18px); }
-            .bottom-line { padding: clamp(12px, 2vh, 18px); }
+            .slide { 
+                padding: clamp(80px, 8vh, 100px) clamp(15px, 2vw, 35px) clamp(65px, 6.5vh, 80px);
+            }
+            .content-wrapper { 
+                gap: clamp(8px, 1.2vh, 15px);
+            }
+            h1 { 
+                font-size: clamp(20px, 3vh, 32px);
+                margin-bottom: clamp(4px, 0.7vh, 8px);
+            }
+            .subtitle { 
+                font-size: clamp(11px, 1.6vh, 16px);
+                margin-bottom: clamp(8px, 1.2vh, 15px);
+            }
+            .advantage-card { 
+                padding: clamp(12px, 2vh, 20px);
+            }
+            .card-icon {
+                width: clamp(45px, 5.5vw, 60px);
+                height: clamp(45px, 5.5vw, 60px);
+                font-size: clamp(22px, 2.8vw, 28px);
+            }
+            .card-title {
+                font-size: clamp(14px, 1.8vw, 20px);
+            }
+            .card-content {
+                font-size: clamp(11px, 1.4vw, 14px);
+            }
+            .bottom-line { 
+                padding: clamp(12px, 2vh, 20px);
+            }
         }
         
         @media (max-height: 750px) and (min-width: 768px) {
-            .slide { padding: 4vh 1.5vw 2vh !important; }
-            .content-wrapper { height: 94vh !important; gap: clamp(5px, 0.8vh, 8px); }
-            h1 { font-size: min(2.2vh, 20px) !important; }
-            .subtitle { font-size: min(1.4vh, 12px) !important; }
-            .advantage-card { padding: clamp(8px, 1.2vh, 12px); }
-            .card-title { font-size: clamp(14px, 1.8vw, 20px); }
+            .slide { 
+                padding: 70px 15px 60px;
+            }
+            .content-wrapper { 
+                gap: clamp(6px, 0.8vh, 10px);
+            }
+            h1 { 
+                font-size: clamp(18px, 2.5vh, 28px);
+                margin-bottom: clamp(3px, 0.5vh, 6px);
+            }
+            .subtitle { 
+                font-size: clamp(10px, 1.4vh, 14px);
+                margin-bottom: clamp(6px, 0.8vh, 10px);
+            }
+            .advantages-grid {
+                gap: clamp(8px, 1vh, 12px);
+            }
+            .advantage-card { 
+                padding: clamp(10px, 1.5vh, 15px);
+            }
+            .card-header {
+                gap: clamp(8px, 1.2vw, 12px);
+                margin-bottom: clamp(6px, 0.8vh, 10px);
+            }
+            .card-icon {
+                width: clamp(40px, 5vw, 50px);
+                height: clamp(40px, 5vw, 50px);
+                font-size: clamp(20px, 2.5vw, 24px);
+            }
+            .card-title { 
+                font-size: clamp(13px, 1.6vw, 18px);
+            }
+            .card-content {
+                font-size: clamp(10px, 1.3vw, 12px);
+                line-height: 1.3;
+            }
+            .card-content p {
+                margin-bottom: clamp(3px, 0.5vh, 5px);
+            }
+            .bottom-line { 
+                padding: clamp(10px, 1.5vh, 15px);
+            }
+            .bottom-line-title {
+                font-size: clamp(16px, 2vw, 22px);
+            }
+            .bottom-line-text {
+                font-size: clamp(10px, 1.3vw, 14px);
+            }
+        }
+        
+        @media (max-height: 650px) and (min-width: 768px) {
+            .slide { 
+                padding: 60px 10px 50px;
+            }
+            .content-wrapper { 
+                gap: 5px;
+            }
+            h1 { 
+                font-size: 16px;
+                margin-bottom: 2px;
+            }
+            .subtitle { 
+                font-size: 9px;
+                margin-bottom: 4px;
+            }
+            .advantages-grid {
+                gap: 6px;
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .advantage-card { 
+                padding: 8px;
+            }
+            .card-header {
+                gap: 6px;
+                margin-bottom: 4px;
+            }
+            .card-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+            .card-title { 
+                font-size: 11px;
+            }
+            .card-content {
+                font-size: 9px;
+                line-height: 1.2;
+            }
+            .card-content p {
+                margin-bottom: 2px;
+            }
+            .bottom-line { 
+                padding: 8px;
+                margin-top: 5px;
+            }
+            .bottom-line-title {
+                font-size: 14px;
+                margin-bottom: 2px;
+            }
+            .bottom-line-text {
+                font-size: 9px;
+            }
+            .logo-corner {
+                font-size: 16px;
+            }
         }
         
         /* Navigation Container - Slide17 Style with Progress Bar */
