@@ -119,7 +119,7 @@
         @media (min-width: 768px) {
             .content-wrapper {
                 height: 100%;
-                justify-content: space-between;
+                gap: clamp(15px, 2vh, 25px);
             }
         }
         
@@ -141,10 +141,24 @@
             filter: drop-shadow(0 3px 15px rgba(253, 184, 19, 0.5));
         }
         
+        @media (min-width: 768px) {
+            h1 {
+                font-size: clamp(24px, 4vh, 42px);
+                margin-bottom: clamp(5px, 1vh, 10px);
+            }
+        }
+        
         .subtitle {
             font-size: clamp(14px, 1.8vw, 20px);
             color: var(--text-secondary);
             margin-bottom: clamp(15px, 2vh, 25px);
+        }
+        
+        @media (min-width: 768px) {
+            .subtitle {
+                font-size: clamp(12px, 2vh, 20px);
+                margin-bottom: clamp(10px, 1.5vh, 20px);
+            }
         }
         
         /* Main content */
@@ -153,9 +167,16 @@
             display: flex;
             flex-direction: column;
             gap: clamp(20px, 3vh, 30px);
+            min-height: 0; /* Critical for VAS */
         }
         
-        /* Stats banner - Simplified */
+        @media (min-width: 768px) {
+            .main-content {
+                gap: clamp(15px, 2vh, 25px);
+            }
+        }
+        
+        /* Stats banner - VAS implementation */
         .stats-banner {
             background: var(--bg-glass);
             backdrop-filter: blur(20px);
@@ -168,6 +189,13 @@
             gap: clamp(15px, 2vw, 30px);
             text-align: center;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+        
+        @media (min-width: 768px) {
+            .stats-banner {
+                padding: clamp(15px, 2.5vh, 25px);
+                gap: clamp(10px, 1.5vw, 20px);
+            }
         }
         
         @media (max-width: 768px) {
@@ -193,6 +221,13 @@
             margin-bottom: clamp(4px, 0.6vh, 8px);
         }
         
+        @media (min-width: 768px) {
+            .stat-number {
+                font-size: clamp(28px, 4vh, 48px);
+                margin-bottom: clamp(3px, 0.5vh, 6px);
+            }
+        }
+        
         .stat-label {
             font-size: clamp(12px, 1.4vw, 16px);
             color: var(--text-secondary);
@@ -200,12 +235,25 @@
             letter-spacing: 0.5px;
         }
         
-        /* Content sections - Simplified grid */
+        @media (min-width: 768px) {
+            .stat-label {
+                font-size: clamp(11px, 1.8vh, 16px);
+            }
+        }
+        
+        /* Content sections - VAS grid */
         .content-sections {
             display: grid;
             grid-template-columns: 1fr;
             gap: clamp(15px, 2vh, 20px);
             flex: 1;
+            min-height: 0; /* Critical for VAS */
+        }
+        
+        @media (min-width: 768px) {
+            .content-sections {
+                gap: clamp(10px, 1.5vh, 15px);
+            }
         }
         
         @media (min-width: 768px) {
@@ -219,7 +267,7 @@
             }
         }
         
-        /* Info cards */
+        /* Info cards - VAS implementation */
         .info-card {
             background: var(--bg-glass);
             backdrop-filter: blur(10px);
@@ -228,6 +276,14 @@
             border-radius: 15px;
             padding: clamp(20px, 3vh, 30px);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @media (min-width: 768px) {
+            .info-card {
+                padding: clamp(15px, 2vh, 25px);
+            }
         }
         
         .info-card h3 {
@@ -237,6 +293,13 @@
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+        
+        @media (min-width: 768px) {
+            .info-card h3 {
+                font-size: clamp(16px, 2.5vh, 24px);
+                margin-bottom: clamp(8px, 1.2vh, 15px);
+            }
         }
         
         .challenge-section h3 {
@@ -267,6 +330,13 @@
             position: relative;
         }
         
+        @media (min-width: 768px) {
+            .info-card li {
+                font-size: clamp(12px, 1.8vh, 16px);
+                margin-bottom: clamp(5px, 0.8vh, 10px);
+            }
+        }
+        
         .info-card li::before {
             content: '•';
             position: absolute;
@@ -274,12 +344,19 @@
             color: var(--solar-gold);
         }
         
-        /* Impact metrics - Horizontal layout */
+        /* Impact metrics - VAS layout */
         .impact-metrics {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: clamp(15px, 2vw, 25px);
             margin-top: clamp(15px, 2vh, 20px);
+        }
+        
+        @media (min-width: 768px) {
+            .impact-metrics {
+                gap: clamp(10px, 1.5vw, 20px);
+                margin-top: clamp(10px, 1.5vh, 15px);
+            }
         }
         
         @media (max-width: 768px) {
@@ -295,6 +372,12 @@
             border-radius: 12px;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
+        }
+        
+        @media (min-width: 768px) {
+            .metric-item {
+                padding: clamp(12px, 1.8vh, 18px);
+            }
         }
         
         .metric-cost { 
@@ -319,6 +402,13 @@
             line-height: 1;
         }
         
+        @media (min-width: 768px) {
+            .metric-number {
+                font-size: clamp(24px, 3.5vh, 36px);
+                margin-bottom: clamp(3px, 0.5vh, 6px);
+            }
+        }
+        
         .metric-cost .metric-number { 
             color: #2ECC40;
         }
@@ -336,9 +426,21 @@
             color: var(--text-secondary);
         }
         
-        /* Testimonial - At bottom */
+        @media (min-width: 768px) {
+            .metric-label {
+                font-size: clamp(10px, 1.6vh, 14px);
+            }
+        }
+        
+        /* Testimonial - VAS implementation */
         .testimonial-section {
             margin-top: clamp(20px, 3vh, 30px);
+        }
+        
+        @media (min-width: 768px) {
+            .testimonial-section {
+                margin-top: clamp(15px, 2vh, 25px);
+            }
         }
         
         .testimonial-card {
@@ -352,6 +454,12 @@
             text-align: center;
         }
         
+        @media (min-width: 768px) {
+            .testimonial-card {
+                padding: clamp(15px, 2vh, 25px);
+            }
+        }
+        
         .testimonial-text {
             font-size: clamp(14px, 1.6vw, 18px);
             color: var(--text-primary);
@@ -360,15 +468,34 @@
             line-height: 1.5;
         }
         
+        @media (min-width: 768px) {
+            .testimonial-text {
+                font-size: clamp(12px, 1.8vh, 16px);
+                margin-bottom: clamp(8px, 1vh, 12px);
+            }
+        }
+        
         .testimonial-author {
             font-size: clamp(14px, 1.6vw, 16px);
             color: var(--solar-gold);
             font-weight: 600;
         }
         
+        @media (min-width: 768px) {
+            .testimonial-author {
+                font-size: clamp(12px, 1.8vh, 16px);
+            }
+        }
+        
         .testimonial-role {
             font-size: clamp(12px, 1.4vw, 14px);
             color: var(--text-secondary);
+        }
+        
+        @media (min-width: 768px) {
+            .testimonial-role {
+                font-size: clamp(11px, 1.6vh, 14px);
+            }
         }
         
         /* Logo corner */
@@ -386,46 +513,66 @@
             z-index: 20;
         }
         
-        /* Constrained height adjustment - Simple like slide15 */
-        @media (max-height: 780px) and (min-width: 768px) {
+        /* VAS Progressive Height Breakpoints */
+        
+        /* Stage 1: Moderate constraints (850px and below) */
+        @media (max-height: 850px) and (min-width: 768px) {
             .slide {
                 padding: clamp(70px, 7vh, 85px) clamp(15px, 2vw, 40px) clamp(90px, 9vh, 110px);
             }
             
             .content-wrapper {
-                gap: 10px;
+                gap: clamp(12px, 1.5vh, 20px);
+            }
+            
+            .main-content {
+                gap: clamp(12px, 1.5vh, 20px);
             }
             
             h1 {
-                font-size: clamp(24px, 3vw, 32px);
-                margin-bottom: 4px;
+                font-size: clamp(22px, 3.5vh, 36px);
+                margin-bottom: clamp(4px, 0.6vh, 8px);
             }
             
             .subtitle {
-                font-size: clamp(12px, 1.5vw, 16px);
-                margin-bottom: 10px;
+                font-size: clamp(11px, 1.8vh, 18px);
+                margin-bottom: clamp(8px, 1.2vh, 15px);
             }
             
             .stats-banner {
-                padding: clamp(15px, 2vh, 20px);
+                padding: clamp(12px, 2vh, 20px);
+                gap: clamp(8px, 1.2vw, 15px);
             }
             
             .stat-number {
-                font-size: clamp(24px, 3vw, 32px);
+                font-size: clamp(24px, 3.5vh, 40px);
+            }
+            
+            .stat-label {
+                font-size: clamp(10px, 1.6vh, 14px);
+            }
+            
+            .content-sections {
+                gap: clamp(8px, 1.2vh, 12px);
             }
             
             .info-card {
-                padding: clamp(15px, 2vh, 20px);
+                padding: clamp(12px, 1.8vh, 20px);
             }
             
             .info-card h3 {
-                font-size: clamp(16px, 2vw, 20px);
-                margin-bottom: 8px;
+                font-size: clamp(14px, 2.2vh, 20px);
+                margin-bottom: clamp(6px, 1vh, 12px);
             }
             
             .info-card li {
-                font-size: clamp(12px, 1.4vw, 14px);
-                margin-bottom: 4px;
+                font-size: clamp(11px, 1.6vh, 14px);
+                margin-bottom: clamp(4px, 0.6vh, 8px);
+            }
+            
+            .impact-metrics {
+                gap: clamp(8px, 1.2vw, 15px);
+                margin-top: clamp(8px, 1.2vh, 12px);
             }
             
             .metric-item {
@@ -433,16 +580,121 @@
             }
             
             .metric-number {
-                font-size: clamp(20px, 2.5vw, 28px);
+                font-size: clamp(20px, 3vh, 32px);
+            }
+            
+            .metric-label {
+                font-size: clamp(9px, 1.4vh, 12px);
+            }
+            
+            .testimonial-section {
+                margin-top: clamp(12px, 1.8vh, 20px);
             }
             
             .testimonial-card {
-                padding: clamp(15px, 2vh, 20px);
+                padding: clamp(12px, 1.8vh, 20px);
             }
             
             .testimonial-text {
-                font-size: clamp(12px, 1.4vw, 14px);
-                margin-bottom: 8px;
+                font-size: clamp(11px, 1.6vh, 14px);
+                margin-bottom: clamp(6px, 0.8vh, 10px);
+            }
+        }
+        
+        /* Stage 2: Severe constraints (750px and below) */
+        @media (max-height: 750px) and (min-width: 768px) {
+            .slide {
+                padding: 60px 15px 80px;
+            }
+            
+            .content-wrapper {
+                gap: 8px;
+            }
+            
+            .main-content {
+                gap: 8px;
+            }
+            
+            h1 {
+                font-size: clamp(20px, 3vh, 32px);
+                margin-bottom: 3px;
+            }
+            
+            .subtitle {
+                font-size: clamp(10px, 1.5vh, 16px);
+                margin-bottom: 5px;
+            }
+            
+            .stats-banner {
+                padding: 10px;
+                gap: 8px;
+            }
+            
+            .stat-number {
+                font-size: clamp(20px, 3vh, 36px);
+                margin-bottom: 2px;
+            }
+            
+            .stat-label {
+                font-size: clamp(9px, 1.4vh, 12px);
+            }
+            
+            .content-sections {
+                gap: 6px;
+            }
+            
+            .info-card {
+                padding: 10px;
+            }
+            
+            .info-card h3 {
+                font-size: clamp(13px, 2vh, 18px);
+                margin-bottom: 4px;
+            }
+            
+            .info-card li {
+                font-size: clamp(10px, 1.4vh, 12px);
+                margin-bottom: 2px;
+            }
+            
+            .impact-metrics {
+                gap: 6px;
+                margin-top: 6px;
+            }
+            
+            .metric-item {
+                padding: 8px;
+            }
+            
+            .metric-number {
+                font-size: clamp(18px, 2.5vh, 28px);
+                margin-bottom: 1px;
+            }
+            
+            .metric-label {
+                font-size: clamp(8px, 1.2vh, 10px);
+            }
+            
+            .testimonial-section {
+                margin-top: 8px;
+            }
+            
+            .testimonial-card {
+                padding: 8px 10px;
+            }
+            
+            .testimonial-text {
+                font-size: clamp(10px, 1.4vh, 12px);
+                margin-bottom: 4px;
+                line-height: 1.3;
+            }
+            
+            .testimonial-author {
+                font-size: clamp(10px, 1.4vh, 13px);
+            }
+            
+            .testimonial-role {
+                font-size: clamp(9px, 1.2vh, 11px);
             }
         }
         

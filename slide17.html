@@ -64,7 +64,7 @@
             padding: 80px 20px 120px;
         }
         
-        /* Desktop enhancement */
+        /* Desktop enhancement - Simple like slide16 */
         @media (min-width: 768px) {
             body {
                 overflow: hidden;
@@ -79,7 +79,7 @@
                 max-width: 1920px;
                 max-height: 1080px;
                 overflow: hidden;
-                padding: clamp(80px, 8vh, 100px) clamp(20px, 3vw, 60px) clamp(100px, 10vh, 120px);
+                padding: clamp(85px, 8.5vh, 100px) clamp(20px, 2.5vw, 50px) clamp(100px, 10vh, 120px);
             }
         }
         
@@ -101,15 +101,44 @@
             75% { transform: translate(-2%, -2%) scale(1.02) rotate(270deg); }
         }
         
-        /* Content container */
+        /* Content container - Scrollable approach */
         .content-wrapper {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            z-index: 1;
             position: relative;
-            display: block;
+            z-index: 10;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
             gap: clamp(20px, 3vh, 30px);
+        }
+        
+        /* Main content area - Auto-sizing approach */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(10px, 2vh, 20px);
+            min-height: 0; /* Critical for flex sizing */
+        }
+        
+        @media (min-width: 768px) {
+            .content-wrapper {
+                height: 100%;
+            }
+            
+            /* Auto-adjust spacing based on available height */
+            @media (max-height: 950px) {
+                .main-content {
+                    gap: clamp(8px, 1.5vh, 15px);
+                }
+            }
+            
+            @media (max-height: 850px) {
+                .main-content {
+                    gap: clamp(5px, 1vh, 10px);
+                }
+            }
         }
         
         /* Header section */
@@ -155,22 +184,29 @@
             box-shadow: 0 8px 32px rgba(0, 71, 171, 0.2);
         }
         
-        /* Grid layout */
+        /* Grid layout - Flexible sizing */
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr;
             gap: clamp(20px, 3vh, 30px);
-            margin-bottom: clamp(25px, 3.5vh, 35px);
+            flex: 1 1 auto;
+            min-height: 0;
         }
         
         @media (min-width: 768px) {
             .grid-2 {
                 grid-template-columns: 1fr 1fr;
-                gap: clamp(15px, 2vw, 25px);
+                gap: clamp(10px, 1.5vw, 20px);
+            }
+            
+            @media (max-height: 850px) {
+                .grid-2 {
+                    gap: clamp(8px, 1vw, 15px);
+                }
             }
         }
         
-        /* District cards - Glassmorphic */
+        /* District cards - Glassmorphic - Responsive sizing */
         .district-card {
             background: var(--bg-glass);
             backdrop-filter: blur(20px);
@@ -180,6 +216,8 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             border: 1px solid var(--bg-glass-border);
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
         
         .district-card:hover {
@@ -189,10 +227,14 @@
         
         /* District headers - Glassmorphic with color overlay */
         .district-header {
-            padding: clamp(20px, 3vh, 30px);
+            padding: clamp(20px, 2.5vh, 30px);
             text-align: center;
             position: relative;
             overflow: hidden;
+            min-height: fit-content;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .district-header.gold {
@@ -206,10 +248,23 @@
         }
         
         .district-header h3 {
-            font-size: clamp(22px, 2.8vw, 32px);
+            font-size: clamp(20px, 2.8vw, 32px);
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: clamp(5px, 0.8vh, 10px);
             color: var(--text-primary);
+            line-height: 1.2;
+        }
+        
+        @media (min-width: 768px) and (max-height: 850px) {
+            .district-header h3 {
+                font-size: clamp(16px, 2.2vw, 24px);
+            }
+        }
+        
+        @media (min-width: 768px) and (max-height: 750px) {
+            .district-header h3 {
+                font-size: clamp(14px, 2vw, 20px);
+            }
         }
         
         .district-header.gold h3 {
@@ -221,19 +276,62 @@
         }
         
         .district-header p {
-            font-size: clamp(16px, 2vw, 20px);
+            font-size: clamp(14px, 1.8vw, 18px);
             color: var(--text-secondary);
+            margin: 0;
         }
         
-        /* District content */
+        @media (min-width: 768px) and (max-height: 850px) {
+            .district-header p {
+                font-size: clamp(12px, 1.6vw, 16px);
+            }
+        }
+        
+        @media (min-width: 768px) and (max-height: 750px) {
+            .district-header p {
+                font-size: clamp(11px, 1.4vw, 14px);
+            }
+        }
+        
+        /* District content - Responsive */
         .district-content {
-            padding: clamp(20px, 3vh, 30px);
+            padding: clamp(15px, 2vh, 25px);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        @media (min-width: 768px) and (max-height: 850px) {
+            .district-content {
+                padding: clamp(12px, 1.5vh, 20px);
+            }
+        }
+        
+        @media (min-width: 768px) and (max-height: 750px) {
+            .district-content {
+                padding: clamp(10px, 1.2vh, 15px);
+            }
         }
         
         .district-content h4 {
-            font-size: clamp(18px, 2.2vw, 24px);
-            margin-bottom: clamp(15px, 2vh, 20px);
+            font-size: clamp(16px, 2vw, 22px);
+            margin-bottom: clamp(10px, 1.5vh, 18px);
             font-weight: 600;
+        }
+        
+        @media (min-width: 768px) and (max-height: 850px) {
+            .district-content h4 {
+                font-size: clamp(14px, 1.8vw, 20px);
+                margin-bottom: clamp(8px, 1vh, 12px);
+            }
+        }
+        
+        @media (min-width: 768px) and (max-height: 750px) {
+            .district-content h4 {
+                font-size: clamp(13px, 1.6vw, 18px);
+                margin-bottom: 6px;
+            }
         }
         
         .district-content.gold h4 {
@@ -246,24 +344,55 @@
             filter: drop-shadow(0 2px 8px rgba(0, 71, 171, 0.5));
         }
         
-        /* District items */
+        /* District items - Responsive font sizing */
         .district-items {
-            font-size: clamp(14px, 1.8vw, 18px);
+            font-size: clamp(12px, 1.5vw, 15px);
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: 1.3;
+            flex: 1;
+            overflow: hidden;
         }
         
         .district-items p {
-            margin-bottom: 10px;
+            margin-bottom: clamp(4px, 0.8vh, 8px);
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
+        }
+        
+        @media (min-width: 768px) and (max-height: 850px) {
+            .district-items {
+                font-size: clamp(11px, 1.3vw, 13px);
+                line-height: 1.2;
+            }
+            
+            .district-items p {
+                margin-bottom: 3px;
+                gap: 4px;
+            }
+        }
+        
+        @media (min-width: 768px) and (max-height: 750px) {
+            .district-items {
+                font-size: clamp(10px, 1.2vw, 12px);
+                line-height: 1.15;
+            }
+            
+            .district-items p {
+                margin-bottom: 2px;
+            }
         }
         
         .district-items .emoji {
-            font-size: 1.2em;
+            font-size: 1.1em;
             filter: saturate(2);
+        }
+        
+        @media (min-width: 768px) and (max-height: 750px) {
+            .district-items .emoji {
+                font-size: 1em;
+            }
         }
         
         /* Banner - Glassmorphic */
@@ -271,12 +400,19 @@
             background: linear-gradient(135deg, rgba(253, 184, 19, 0.15) 0%, rgba(253, 184, 19, 0.1) 100%);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            padding: clamp(15px, 2vh, 20px);
+            padding: clamp(12px, 1.5vh, 18px);
             border-radius: 15px;
-            margin-top: clamp(15px, 2vh, 20px);
+            margin-top: clamp(10px, 1.5vh, 15px);
             text-align: center;
             border: 1px solid rgba(253, 184, 19, 0.3);
             box-shadow: 0 8px 32px rgba(253, 184, 19, 0.2);
+        }
+        
+        @media (min-width: 768px) and (max-height: 750px) {
+            .impact-banner {
+                padding: clamp(8px, 1vh, 12px);
+                margin-top: 8px;
+            }
         }
         
         .impact-banner.blue {
@@ -286,7 +422,7 @@
         }
         
         .impact-banner p {
-            font-size: clamp(16px, 2vw, 20px);
+            font-size: clamp(14px, 1.8vw, 18px);
             font-weight: 700;
             margin: 0;
             text-transform: uppercase;
@@ -294,16 +430,28 @@
             color: var(--text-primary);
         }
         
-        /* Transformation section - Glassmorphic green */
+        @media (min-width: 768px) and (max-height: 750px) {
+            .impact-banner p {
+                font-size: clamp(12px, 1.6vw, 16px);
+            }
+        }
+        
+        /* Transformation section - Glassmorphic green - Flexible sizing */
         .transformation-section {
             background: linear-gradient(135deg, rgba(34, 139, 34, 0.15) 0%, rgba(34, 139, 34, 0.1) 100%);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            padding: clamp(25px, 3.5vh, 35px);
+            padding: clamp(20px, 2.5vh, 30px);
             border-radius: 20px;
-            margin-bottom: clamp(30px, 4vh, 50px);
             box-shadow: 0 8px 32px rgba(34, 139, 34, 0.3);
             border: 1px solid rgba(34, 139, 34, 0.3);
+            flex: 0 0 auto;
+        }
+        
+        @media (min-width: 768px) and (max-height: 850px) {
+            .transformation-section {
+                padding: clamp(15px, 2vh, 25px);
+            }
         }
         
         .transformation-section h3 {
@@ -314,13 +462,19 @@
             filter: drop-shadow(0 2px 8px rgba(34, 139, 34, 0.5));
         }
         
-        /* Impact items */
+        /* Impact items - Responsive layout */
         .impact-items {
             display: flex;
             justify-content: space-around;
             text-align: center;
             flex-wrap: wrap;
-            gap: clamp(15px, 2vw, 20px);
+            gap: clamp(10px, 1.5vw, 15px);
+        }
+        
+        @media (min-width: 768px) and (max-height: 850px) {
+            .impact-items {
+                gap: clamp(8px, 1vw, 12px);
+            }
         }
         
         .impact-item {
@@ -528,213 +682,111 @@
             cursor: not-allowed;
         }
         
-        /* Desktop optimization with viewport units */
-        @media (min-width: 768px) and (min-height: 600px) {
+        /* Desktop optimization - Simple approach like slide16 */
+        @media (min-width: 768px) {
             .content-wrapper {
-                display: flex;
-                flex-direction: column;
-                gap: clamp(15px, 2vh, 25px);
-                width: 100%;
-                height: 100%;
-                justify-content: flex-start;
-            }
-            
-            .header-section {
-                margin-bottom: clamp(15px, 2vh, 25px);
-            }
-            
-            .grid-2 {
-                gap: clamp(15px, 2vw, 25px);
-                margin-bottom: clamp(20px, 2.5vh, 30px);
-            }
-            
-            .district-header {
-                padding: clamp(15px, 2vh, 25px);
-            }
-            
-            .district-header h3 {
-                font-size: clamp(20px, 2.5vw, 28px);
-            }
-            
-            .district-content {
-                padding: clamp(15px, 2vh, 25px);
-            }
-            
-            .district-content h4 {
-                font-size: clamp(16px, 2vw, 22px);
-                margin-bottom: clamp(12px, 1.5vh, 18px);
-            }
-            
-            .district-items {
-                font-size: clamp(13px, 1.6vw, 16px);
-            }
-            
-            .transformation-section {
-                padding: clamp(20px, 2.5vh, 30px);
-                margin-bottom: clamp(20px, 2.5vh, 30px);
-            }
-            
-            .transformation-section h3 {
-                font-size: clamp(20px, 2.5vw, 28px);
-                margin-bottom: clamp(15px, 2vh, 20px);
-            }
-            
-            .impact-item .icon {
-                font-size: clamp(24px, 3vw, 32px);
-            }
-            
-            .impact-item p {
-                font-size: clamp(12px, 1.5vw, 14px);
+                max-width: 1200px;
+                margin: 0 auto;
             }
         }
         
-        /* Height-constrained screens */
-        @media (max-height: 850px) and (min-width: 768px) {
-            .slide {
-                padding: clamp(60px, 6vh, 80px) clamp(15px, 2vw, 40px) clamp(80px, 8vh, 100px);
-            }
-            
+        /* Dynamic height-based sizing for desktop */
+        @media (min-width: 768px) {
+            /* Base responsive sizing using viewport height */
             h1 {
-                font-size: clamp(24px, 3vw, 40px);
-                margin-bottom: clamp(8px, 1vh, 12px);
+                font-size: clamp(24px, 4vh, 42px);
+                margin-bottom: clamp(6px, 1vh, 10px);
             }
             
             .subtitle {
-                font-size: clamp(13px, 1.6vw, 18px);
-                padding: clamp(6px, 0.8vh, 10px) clamp(15px, 2vw, 25px);
-            }
-            
-            .grid-2 {
-                gap: clamp(10px, 1.5vw, 20px);
-                margin-bottom: clamp(15px, 2vh, 25px);
-            }
-            
-            .district-header {
-                padding: clamp(12px, 1.5vh, 20px);
+                font-size: clamp(12px, 2vh, 20px);
+                padding: clamp(6px, 1vh, 12px) clamp(15px, 2vw, 30px);
             }
             
             .district-header h3 {
-                font-size: clamp(18px, 2.2vw, 24px);
+                font-size: clamp(18px, 3.5vh, 32px);
             }
             
             .district-header p {
-                font-size: clamp(14px, 1.8vw, 18px);
-            }
-            
-            .district-content {
-                padding: clamp(12px, 1.5vh, 20px);
+                font-size: clamp(12px, 2vh, 18px);
             }
             
             .district-content h4 {
-                font-size: clamp(15px, 1.8vw, 20px);
-                margin-bottom: clamp(10px, 1.2vh, 15px);
+                font-size: clamp(16px, 2.5vh, 24px);
+                margin-bottom: clamp(8px, 1.5vh, 18px);
             }
             
             .district-items {
-                font-size: clamp(12px, 1.5vw, 15px);
+                font-size: clamp(11px, 1.8vh, 15px);
             }
             
             .district-items p {
-                margin-bottom: 6px;
-            }
-            
-            .impact-banner {
-                padding: clamp(10px, 1.2vh, 15px);
-                margin-top: clamp(10px, 1.2vh, 15px);
+                margin-bottom: clamp(3px, 0.6vh, 8px);
             }
             
             .impact-banner p {
-                font-size: clamp(14px, 1.8vw, 18px);
-            }
-            
-            .transformation-section {
-                padding: clamp(15px, 2vh, 25px);
-                margin-bottom: clamp(15px, 2vh, 25px);
+                font-size: clamp(14px, 2.5vh, 20px);
             }
             
             .transformation-section h3 {
-                font-size: clamp(18px, 2.2vw, 24px);
-                margin-bottom: clamp(12px, 1.5vh, 18px);
-            }
-            
-            .impact-item {
-                padding: clamp(8px, 1vh, 12px);
+                font-size: clamp(18px, 3vh, 32px);
+                margin-bottom: clamp(12px, 2vh, 25px);
             }
             
             .impact-item .icon {
-                font-size: clamp(22px, 2.8vw, 28px);
-                margin-bottom: 5px;
+                font-size: clamp(22px, 4vh, 40px);
             }
             
             .impact-item p {
-                font-size: clamp(11px, 1.4vw, 13px);
+                font-size: clamp(11px, 1.8vh, 16px);
             }
         }
         
-        /* ULTIMATE FIX: Apply to ALL desktop screens */
-        @media (min-width: 768px) {
-            /* Use viewport units for precise control */
+        /* Extra compression for very constrained heights */
+        @media (max-height: 750px) and (min-width: 768px) {
             .slide {
-                padding: 10vh 2vw 6vh !important; /* Increased top padding to clear navigation */
+                padding: 60px 20px 80px;
             }
             
-            .content-wrapper {
-                height: 84vh !important; /* Adjusted for increased top padding */
-                max-height: 84vh !important;
-                overflow: hidden !important;
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 1vh !important;
-            }
-            
-            .header-section {
-                flex: 0 0 auto;
-                max-height: 15vh;
+            .main-content {
+                gap: 8px;
             }
             
             .grid-2 {
-                flex: 1 1 auto;
-                min-height: 0;
-                overflow-y: auto;
-                overflow-x: hidden;
+                gap: 8px;
             }
             
-            .transformation-section {
-                flex: 0 0 auto;
-                max-height: 25vh;
-            }
-            
-            /* Force compact sizes on all desktop */
-            h1 { 
-                font-size: min(4vh, 40px) !important;
-                margin-bottom: 1vh !important;
-            }
-            
-            .subtitle {
-                font-size: min(2vh, 18px) !important;
-                padding: 0.8vh 2vw !important;
+            .district-header {
+                padding: clamp(12px, 1.5vh, 18px);
             }
             
             .district-header h3 {
-                font-size: min(3vh, 26px) !important;
+                margin-bottom: 3px;
             }
             
-            .district-header p {
-                font-size: min(2.2vh, 18px) !important;
+            .district-content {
+                padding: 12px;
             }
             
-            .transformation-section h3 {
-                font-size: min(3vh, 26px) !important;
+            .impact-banner {
+                padding: 8px;
+                margin-top: 8px;
             }
             
-            .impact-item .icon {
-                font-size: min(4vh, 32px) !important;
+            .transformation-section {
+                padding: 12px;
             }
             
-            .impact-item p {
-                font-size: min(1.8vh, 14px) !important;
+            .impact-items {
+                gap: 8px;
+            }
+            
+            .impact-item {
+                padding: 8px;
             }
         }
+        
+        /* Removed aggressive desktop overrides - now using simple approach */
         
         /* Mobile specific */
         @media (max-width: 768px) {
@@ -828,7 +880,8 @@
                 <div class="subtitle">TRANSFORMING RURAL INDIA • 671 VILLAGES EMPOWERED</div>
             </div>
             
-            <div class="grid-2">
+            <div class="main-content">
+                <div class="grid-2">
                 <div class="district-card">
                     <div class="district-header gold">
                         <h3>Coimbatore District</h3>
@@ -892,6 +945,7 @@
                         <p>Environmental Leadership</p>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
         

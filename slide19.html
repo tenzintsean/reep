@@ -64,7 +64,7 @@
             padding: 80px 20px 120px;
         }
         
-        /* Desktop enhancement with proper navigation clearance */
+        /* Desktop enhancement - VAS implementation */
         @media (min-width: 768px) {
             body {
                 overflow: hidden;
@@ -79,54 +79,45 @@
                 max-width: 1920px;
                 max-height: 1080px;
                 overflow: hidden;
-                padding: 10vh 2vw 6vh !important;
+                padding: clamp(85px, 8.5vh, 100px) clamp(20px, 2.5vw, 50px) clamp(100px, 10vh, 120px);
             }
             
             .content-wrapper {
-                height: 84vh !important;
-                max-height: 84vh !important;
-                overflow: hidden !important;
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 0.5vh !important;
+                height: 100%;
+                gap: clamp(15px, 2vh, 25px);
+                display: flex;
+                flex-direction: column;
             }
             
-            /* Header section - fixed space */
-            h1, .subtitle {
-                flex: 0 0 auto;
-                max-height: 10vh;
-            }
-            
-            /* Capacity banner - fixed space */
-            .capacity-banner {
-                flex: 0 0 auto;
-                max-height: 13vh;
-            }
-            
-            /* Main grid - flexible space */
-            .features-grid {
-                flex: 1 1 auto;
-                min-height: 0;
-                overflow-y: auto;
-                overflow-x: hidden;
-            }
-            
-            /* ISO section - fixed space - CRITICAL: Badge circles need more space */
-            .iso-section {
-                flex: 0 0 auto;
-                max-height: 18vh;
-                margin-top: 0.5vh !important;
-            }
-            
-            /* Force compact sizes on desktop */
+            /* VAS - All elements scale with viewport height */
             h1 { 
-                font-size: min(3vh, 28px) !important;
-                margin-bottom: 0.5vh !important;
+                font-size: clamp(24px, 4vh, 42px);
+                margin-bottom: clamp(6px, 1vh, 10px);
+                flex-shrink: 0;
             }
             
             .subtitle {
-                font-size: min(2vh, 18px) !important;
-                margin-bottom: 1vh !important;
+                font-size: clamp(14px, 2vh, 20px);
+                margin-bottom: clamp(15px, 2vh, 25px);
+                flex-shrink: 0;
+            }
+            
+            /* Capacity banner - fixed size */
+            .capacity-banner {
+                flex-shrink: 0;
+            }
+            
+            /* Features grid - flexible, takes available space */
+            .features-grid {
+                flex: 1 1 auto;
+                min-height: 0;
+                overflow: hidden; /* No scrolling - everything must fit */
+            }
+            
+            /* ISO section - fixed but minimal */
+            .iso-section {
+                flex-shrink: 0;
+                margin-top: auto; /* Push to bottom */
             }
         }
         
@@ -158,6 +149,13 @@
             display: flex;
             flex-direction: column;
             gap: clamp(20px, 3vh, 30px);
+        }
+        
+        @media (min-width: 768px) {
+            .content-wrapper {
+                height: 100%;
+                gap: clamp(15px, 2vh, 25px);
+            }
         }
         
         /* Slide number */
@@ -192,7 +190,7 @@
             margin-bottom: clamp(20px, 3vh, 30px);
         }
         
-        /* Capacity banner */
+        /* Capacity banner - VAS implementation */
         .capacity-banner {
             background: linear-gradient(135deg, rgba(0, 71, 171, 0.2) 0%, rgba(0, 71, 171, 0.1) 100%);
             backdrop-filter: blur(20px);
@@ -206,6 +204,13 @@
             box-shadow: 0 8px 32px rgba(0, 71, 171, 0.3);
         }
         
+        @media (min-width: 768px) {
+            .capacity-banner {
+                padding: clamp(15px, 2.5vh, 25px);
+                margin-bottom: clamp(15px, 2vh, 20px);
+            }
+        }
+        
         .capacity-title {
             font-size: clamp(24px, 3.5vw, 48px);
             font-weight: 700;
@@ -216,17 +221,38 @@
             background-clip: text;
         }
         
+        @media (min-width: 768px) {
+            .capacity-title {
+                font-size: clamp(20px, 3.5vh, 36px);
+                margin-bottom: clamp(5px, 0.8vh, 10px);
+            }
+        }
+        
         .capacity-subtitle {
             font-size: clamp(14px, 1.8vw, 20px);
             color: var(--text-secondary);
         }
         
-        /* Features grid */
+        @media (min-width: 768px) {
+            .capacity-subtitle {
+                font-size: clamp(12px, 1.8vh, 16px);
+            }
+        }
+        
+        /* Features grid - VAS implementation */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: clamp(20px, 3vw, 30px);
             margin-bottom: clamp(20px, 3vh, 30px);
+        }
+        
+        @media (min-width: 768px) {
+            .features-grid {
+                gap: clamp(12px, 1.8vh, 18px);
+                margin-bottom: clamp(10px, 1.5vh, 15px);
+                align-content: start; /* Align content to top */
+            }
         }
         
         @media (max-width: 1200px) {
@@ -236,7 +262,7 @@
             }
         }
         
-        /* Feature cards */
+        /* Feature cards - VAS implementation */
         .feature-card {
             background: var(--bg-glass);
             backdrop-filter: blur(10px);
@@ -250,6 +276,14 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            min-height: 0; /* Allow shrinking */
+        }
+        
+        @media (min-width: 768px) {
+            .feature-card {
+                padding: clamp(12px, 1.8vh, 20px);
+                overflow: hidden; /* Prevent any overflow */
+            }
         }
         
         .feature-card:hover {
@@ -271,6 +305,15 @@
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: transform 0.3s ease;
+        }
+        
+        @media (min-width: 768px) {
+            .feature-icon {
+                width: clamp(50px, 7vh, 70px);
+                height: clamp(50px, 7vh, 70px);
+                font-size: clamp(24px, 3.5vh, 32px);
+                margin-bottom: clamp(10px, 1.5vh, 15px);
+            }
         }
         
         .feature-icon:hover {
@@ -297,12 +340,23 @@
             font-size: clamp(18px, 2.2vw, 24px);
             font-weight: 600;
             margin-bottom: clamp(15px, 2.5vh, 20px);
+            flex-shrink: 0; /* Don't shrink title */
+        }
+        
+        @media (min-width: 768px) {
+            .feature-title {
+                font-size: clamp(16px, 2.5vh, 22px);
+                margin-bottom: clamp(10px, 1.5vh, 15px);
+            }
         }
         
         .feature-list {
             list-style: none;
             padding: 0;
             margin: 0;
+            flex: 1; /* Take available space */
+            min-height: 0; /* Allow shrinking */
+            overflow: hidden; /* Prevent overflow */
         }
         
         .feature-list li {
@@ -314,7 +368,35 @@
             gap: clamp(8px, 1vw, 12px);
         }
         
-        /* ISO section */
+        @media (min-width: 768px) {
+            .feature-list li {
+                font-size: clamp(11px, 1.6vh, 14px);
+                margin-bottom: clamp(4px, 0.7vh, 8px);
+                gap: clamp(5px, 0.7vh, 8px);
+            }
+        }
+        
+        .feature-list li:last-child {
+            margin-bottom: 0; /* No margin on last item */
+        }
+        
+        /* Feature content wrapper */
+        .feature-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 0; /* Allow shrinking */
+            width: 100%;
+            gap: clamp(8px, 1.2vh, 12px);
+        }
+        
+        @media (min-width: 768px) {
+            .feature-content {
+                gap: clamp(6px, 1vh, 10px);
+            }
+        }
+        
+        /* ISO section - VAS implementation */
         .iso-section {
             background: var(--bg-glass);
             backdrop-filter: blur(10px);
@@ -326,6 +408,13 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
         
+        @media (min-width: 768px) {
+            .iso-section {
+                padding: clamp(10px, 1.5vh, 18px); /* Less padding */
+                min-height: 0; /* Allow shrinking */
+            }
+        }
+        
         .iso-title {
             color: var(--text-primary);
             font-size: clamp(20px, 2.8vw, 32px);
@@ -333,11 +422,24 @@
             margin-bottom: clamp(20px, 3vh, 30px);
         }
         
+        @media (min-width: 768px) {
+            .iso-title {
+                font-size: clamp(14px, 2vh, 20px); /* Smaller title */
+                margin-bottom: clamp(8px, 1.2vh, 12px);
+            }
+        }
+        
         .iso-badges {
             display: flex;
             justify-content: center;
             gap: clamp(20px, 4vw, 40px);
             flex-wrap: wrap;
+        }
+        
+        @media (min-width: 768px) {
+            .iso-badges {
+                gap: clamp(8px, 1.5vh, 15px); /* Tighter spacing */
+            }
         }
         
         .iso-badge {
@@ -361,6 +463,15 @@
             -webkit-backdrop-filter: blur(10px);
             border: 2px solid;
             transition: transform 0.3s ease;
+        }
+        
+        @media (min-width: 768px) {
+            .iso-circle {
+                width: clamp(45px, 6vh, 70px); /* Smaller circles */
+                height: clamp(45px, 6vh, 70px);
+                font-size: clamp(16px, 2.2vh, 24px); /* Smaller text */
+                margin-bottom: clamp(5px, 0.8vh, 8px);
+            }
         }
         
         .iso-circle:hover {
@@ -391,6 +502,12 @@
             font-weight: 500;
         }
         
+        @media (min-width: 768px) {
+            .iso-label {
+                font-size: clamp(11px, 1.6vh, 14px);
+            }
+        }
+        
         /* Logo corner */
         .logo-corner {
             position: absolute;
@@ -407,35 +524,291 @@
             text-shadow: 0 2px 8px rgba(253, 184, 19, 0.3);
         }
         
-        /* Height constrained screens - Progressive optimization */
-        @media (max-height: 950px) and (min-width: 768px) {
-            .slide { padding: 8vh 2vw 4vh !important; }
-            .content-wrapper { height: 88vh !important; }
-            h1 { font-size: min(2.8vh, 26px) !important; }
-            .subtitle { font-size: min(1.8vh, 16px) !important; }
-            .capacity-banner { max-height: 11vh; }
-            .iso-section { max-height: 16vh; }
-        }
+        /* VAS Progressive Height Breakpoints */
         
+        /* Stage 1: Moderate constraints (850px and below) */
         @media (max-height: 850px) and (min-width: 768px) {
-            .slide { padding: 6vh 2vw 3vh !important; }
-            .content-wrapper { height: 91vh !important; }
-            h1 { font-size: min(2.5vh, 24px) !important; }
-            .subtitle { font-size: min(1.6vh, 14px) !important; }
-            .feature-card { padding: clamp(15px, 2vh, 20px); }
-            .feature-title { font-size: clamp(16px, 2vw, 20px); }
-            .capacity-banner { max-height: 10vh; }
-            .iso-section { max-height: 14vh; }
+            .slide {
+                padding: clamp(70px, 7vh, 85px) clamp(15px, 2vw, 40px) clamp(80px, 8vh, 100px);
+            }
+            
+            .content-wrapper {
+                gap: clamp(12px, 1.5vh, 20px);
+            }
+            
+            h1 {
+                font-size: clamp(22px, 3.5vh, 36px);
+                margin-bottom: clamp(4px, 0.6vh, 8px);
+            }
+            
+            .subtitle {
+                font-size: clamp(12px, 1.8vh, 18px);
+                margin-bottom: clamp(10px, 1.5vh, 18px);
+            }
+            
+            .capacity-banner {
+                padding: clamp(12px, 2vh, 20px);
+                margin-bottom: clamp(12px, 1.5vh, 18px);
+            }
+            
+            .capacity-title {
+                font-size: clamp(18px, 3vh, 32px);
+                margin-bottom: clamp(4px, 0.6vh, 8px);
+            }
+            
+            .capacity-subtitle {
+                font-size: clamp(11px, 1.6vh, 14px);
+            }
+            
+            .features-grid {
+                gap: clamp(8px, 1.2vh, 12px);
+                margin-bottom: clamp(8px, 1.2vh, 12px);
+            }
+            
+            .feature-card {
+                padding: clamp(8px, 1.2vh, 14px); /* Even less padding */
+            }
+            
+            .feature-icon {
+                width: clamp(45px, 6vh, 60px);
+                height: clamp(45px, 6vh, 60px);
+                font-size: clamp(22px, 3vh, 28px);
+                margin-bottom: clamp(8px, 1.2vh, 12px);
+            }
+            
+            .feature-content {
+                gap: clamp(5px, 0.8vh, 8px);
+            }
+            
+            .feature-title {
+                font-size: clamp(14px, 2.2vh, 20px);
+                margin-bottom: clamp(6px, 1vh, 10px);
+            }
+            
+            .feature-list li {
+                font-size: clamp(9px, 1.2vh, 11px); /* Smaller text */
+                margin-bottom: clamp(2px, 0.3vh, 4px); /* Less margin */
+            }
+            
+            .iso-section {
+                padding: clamp(8px, 1.2vh, 12px); /* Less padding */
+            }
+            
+            .iso-title {
+                font-size: clamp(14px, 2vh, 20px);
+                margin-bottom: clamp(8px, 1.2vh, 12px);
+            }
+            
+            .iso-badges {
+                gap: clamp(12px, 2vh, 25px);
+            }
+            
+            .iso-circle {
+                width: clamp(40px, 5.5vh, 60px); /* Much smaller */
+                height: clamp(40px, 5.5vh, 60px);
+                font-size: clamp(14px, 2vh, 20px);
+                margin-bottom: clamp(4px, 0.6vh, 6px);
+            }
+            
+            .iso-label {
+                font-size: clamp(10px, 1.4vh, 12px);
+            }
         }
         
+        /* Stage 2: Severe constraints (750px and below) */
         @media (max-height: 750px) and (min-width: 768px) {
-            .slide { padding: 4vh 1.5vw 2vh !important; }
-            .content-wrapper { height: 94vh !important; gap: clamp(5px, 0.8vh, 8px); }
-            h1 { font-size: min(2.2vh, 20px) !important; }
-            .subtitle { font-size: min(1.4vh, 12px) !important; }
-            .feature-card { padding: clamp(10px, 1.5vh, 15px); }
-            .capacity-banner { padding: clamp(15px, 2vh, 20px); max-height: 8vh; }
-            .iso-section { max-height: 12vh; }
+            .slide {
+                padding: 60px 15px 70px;
+            }
+            
+            .content-wrapper {
+                gap: 8px;
+            }
+            
+            h1 {
+                font-size: clamp(20px, 3vh, 32px);
+                margin-bottom: 3px;
+            }
+            
+            .subtitle {
+                font-size: clamp(11px, 1.5vh, 16px);
+                margin-bottom: 8px;
+            }
+            
+            .capacity-banner {
+                padding: 10px;
+                margin-bottom: 8px;
+            }
+            
+            .capacity-title {
+                font-size: clamp(16px, 2.5vh, 28px);
+                margin-bottom: 3px;
+            }
+            
+            .capacity-subtitle {
+                font-size: clamp(10px, 1.4vh, 12px);
+            }
+            
+            .features-grid {
+                gap: 6px;
+                margin-bottom: 6px;
+            }
+            
+            .feature-card {
+                padding: 6px; /* Minimal padding */
+            }
+            
+            .feature-icon {
+                width: clamp(40px, 5vh, 50px);
+                height: clamp(40px, 5vh, 50px);
+                font-size: clamp(20px, 2.5vh, 24px);
+                margin-bottom: 6px;
+            }
+            
+            .feature-content {
+                gap: 4px;
+            }
+            
+            .feature-title {
+                font-size: clamp(13px, 2vh, 18px);
+                margin-bottom: 4px;
+            }
+            
+            .feature-list li {
+                font-size: clamp(8px, 1vh, 10px); /* Even smaller */
+                margin-bottom: 1px; /* Minimal margin */
+            }
+            
+            .iso-section {
+                padding: 8px; /* Minimal padding */
+            }
+            
+            .iso-title {
+                font-size: clamp(12px, 1.8vh, 18px);
+                margin-bottom: 6px;
+            }
+            
+            .iso-badges {
+                gap: 10px;
+            }
+            
+            .iso-circle {
+                width: clamp(35px, 5vh, 50px); /* Very small */
+                height: clamp(35px, 5vh, 50px);
+                font-size: clamp(12px, 1.8vh, 18px);
+                margin-bottom: 3px;
+            }
+            
+            .iso-label {
+                font-size: clamp(9px, 1.2vh, 11px);
+            }
+        }
+        
+        /* Stage 3: Ultra-compact mode (650px and below) */
+        @media (max-height: 650px) and (min-width: 768px) {
+            .slide {
+                padding: 50px 10px 60px;
+            }
+            
+            .content-wrapper {
+                gap: 6px;
+            }
+            
+            h1 {
+                font-size: 18px;
+                margin-bottom: 2px;
+            }
+            
+            .subtitle {
+                font-size: 10px;
+                margin-bottom: 6px;
+            }
+            
+            .capacity-banner {
+                padding: 8px;
+                margin-bottom: 6px;
+            }
+            
+            .capacity-title {
+                font-size: 14px;
+                margin-bottom: 2px;
+            }
+            
+            .capacity-subtitle {
+                font-size: 9px;
+            }
+            
+            .features-grid {
+                gap: 6px;
+                margin-bottom: 6px;
+                grid-template-columns: 1fr; /* Single column for ultra-compact */
+            }
+            
+            .feature-card {
+                padding: 8px;
+                flex-direction: row; /* Horizontal layout to save vertical space */
+                text-align: left;
+            }
+            
+            .feature-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+                margin-bottom: 0;
+                margin-right: 8px;
+            }
+            
+            .feature-content {
+                flex: 1;
+                gap: 3px;
+            }
+            
+            .feature-title {
+                font-size: 12px;
+                margin-bottom: 2px;
+            }
+            
+            .feature-list {
+                /* Show abbreviated content in ultra-compact mode */
+                max-height: 40px;
+                overflow: hidden;
+                position: relative;
+            }
+            
+            .feature-list li {
+                font-size: 9px;
+                margin-bottom: 1px;
+                line-height: 1.2;
+            }
+            
+            /* Show only first 2 items */
+            .feature-list li:nth-child(n+3) {
+                display: none;
+            }
+            
+            .iso-section {
+                padding: 8px;
+            }
+            
+            .iso-title {
+                font-size: 12px;
+                margin-bottom: 8px;
+            }
+            
+            .iso-badges {
+                gap: 8px;
+            }
+            
+            .iso-circle {
+                width: 40px;
+                height: 40px;
+                font-size: 14px;
+                margin-bottom: 3px;
+            }
+            
+            .iso-label {
+                font-size: 8px;
+            }
         }
         
         /* Navigation Container - Slide17 Style with Progress Bar */
@@ -626,35 +999,41 @@
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon gold">🏭</div>
-                    <h3 class="feature-title">Advanced Production Lines</h3>
-                    <ul class="feature-list">
-                        <li>⚙️ Automated welding systems</li>
-                        <li>🔧 Precision assembly stations</li>
-                        <li>✅ In-line quality checkpoints</li>
-                        <li>☀️ Solar panel integration bay</li>
-                    </ul>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Advanced Production Lines</h3>
+                        <ul class="feature-list">
+                            <li>⚙️ Automated welding systems</li>
+                            <li>🔧 Precision assembly stations</li>
+                            <li>✅ In-line quality checkpoints</li>
+                            <li>☀️ Solar panel integration bay</li>
+                        </ul>
+                    </div>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon green">📊</div>
-                    <h3 class="feature-title">Quality Control Systems</h3>
-                    <ul class="feature-list">
-                        <li>🔍 47-point inspection process</li>
-                        <li>⚖️ Load testing facility</li>
-                        <li>🔋 Battery performance lab</li>
-                        <li>🏁 Real-world test track</li>
-                    </ul>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Quality Control Systems</h3>
+                        <ul class="feature-list">
+                            <li>🔍 47-point inspection process</li>
+                            <li>⚖️ Load testing facility</li>
+                            <li>🔋 Battery performance lab</li>
+                            <li>🏁 Real-world test track</li>
+                        </ul>
+                    </div>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon blue">📈</div>
-                    <h3 class="feature-title">Production Milestones</h3>
-                    <ul class="feature-list">
-                        <li>🚗 6,000+ vehicles delivered</li>
-                        <li>⏰ 99% on-time delivery</li>
-                        <li>🔒 Zero major recalls</li>
-                        <li>🔄 3x capacity expansion ready</li>
-                    </ul>
+                    <div class="feature-content">
+                        <h3 class="feature-title">Production Milestones</h3>
+                        <ul class="feature-list">
+                            <li>🚗 6,000+ vehicles delivered</li>
+                            <li>⏰ 99% on-time delivery</li>
+                            <li>🔒 Zero major recalls</li>
+                            <li>🔄 3x capacity expansion ready</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             

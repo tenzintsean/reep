@@ -64,7 +64,7 @@
             padding: 80px 20px 120px;
         }
         
-        /* Desktop enhancement with proper navigation clearance */
+        /* Desktop enhancement - VAS implementation */
         @media (min-width: 768px) {
             body {
                 overflow: hidden;
@@ -79,48 +79,37 @@
                 max-width: 1920px;
                 max-height: 1080px;
                 overflow: hidden;
-                padding: 10vh 2vw 6vh !important;
+                padding: clamp(85px, 8.5vh, 100px) clamp(20px, 2.5vw, 50px) clamp(100px, 10vh, 120px);
             }
             
             .content-wrapper {
-                height: 84vh !important;
-                max-height: 84vh !important;
-                overflow: hidden !important;
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 0.5vh !important;
+                height: 100%;
+                gap: clamp(15px, 2vh, 25px);
             }
             
-            /* Header section - fixed space */
-            h1, .subtitle {
-                flex: 0 0 auto;
-                max-height: 12vh;
-            }
-            
-            /* Main content - flexible space */
-            .grid-2 {
-                flex: 1 1 auto;
-                min-height: 0;
-                overflow-y: auto;
-                overflow-x: hidden;
-            }
-            
-            /* Bottom section - fixed space */
-            .bottom-banner {
-                flex: 0 0 auto;
-                max-height: 15vh;
-                margin-top: 0.5vh !important;
-            }
-            
-            /* Force compact sizes on desktop */
+            /* VAS - All elements scale with viewport height */
             h1 { 
-                font-size: min(3vh, 28px) !important;
-                margin-bottom: 0.5vh !important;
+                font-size: clamp(24px, 4vh, 42px);
+                margin-bottom: clamp(6px, 1vh, 10px);
             }
             
             .subtitle {
-                font-size: min(2vh, 18px) !important;
-                margin-bottom: 1vh !important;
+                font-size: clamp(14px, 2vh, 20px);
+                margin-bottom: clamp(15px, 2vh, 25px);
+            }
+            
+            /* Main content - flexible with no scrolling */
+            .grid-2 {
+                flex: 1;
+                min-height: 0;
+                gap: clamp(12px, 2vh, 20px);
+                max-height: calc(100% - 150px); /* Account for header and bottom banner */
+            }
+            
+            /* Bottom banner - flexible sizing */
+            .bottom-banner {
+                flex: 0 0 auto;
+                margin-top: clamp(15px, 2vh, 25px);
             }
         }
         
@@ -186,13 +175,16 @@
             margin-bottom: clamp(20px, 3vh, 30px);
         }
         
-        /* Grid layout */
+        /* Grid layout - VAS container */
         .grid-2 { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
             gap: clamp(15px, 2.5vw, 25px); 
             margin-bottom: clamp(15px, 2.5vw, 25px);
             flex: 1;
+            min-height: 0; /* Critical for VAS */
+            align-content: start; /* Prevent vertical stretching */
+            grid-auto-rows: minmax(0, 1fr); /* Equal height distribution */
         }
         
         @media (max-width: 768px) {
@@ -202,7 +194,7 @@
             }
         }
         
-        /* Icon boxes with glassmorphism */
+        /* Icon boxes with glassmorphism - VAS implementation */
         .icon-box {
             width: clamp(50px, 6vw, 70px);
             height: clamp(50px, 6vw, 70px);
@@ -222,12 +214,21 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
+        @media (min-width: 768px) {
+            .icon-box {
+                width: clamp(45px, 7vh, 65px);
+                height: clamp(45px, 7vh, 65px);
+                font-size: clamp(22px, 3.5vh, 30px);
+                margin-bottom: clamp(6px, 1vh, 12px);
+            }
+        }
+        
         .icon-box:hover {
             transform: translateY(-3px);
             box-shadow: 0 0.6vw 1.8vw rgba(0,0,0,0.3);
         }
         
-        /* Testimonial cards with glassmorphism */
+        /* Testimonial cards with glassmorphism - VAS implementation */
         .testimonial-card {
             background: var(--bg-glass);
             backdrop-filter: blur(10px);
@@ -239,7 +240,16 @@
             display: flex;
             flex-direction: column;
             height: 100%;
+            max-height: 100%; /* Ensure cards don't exceed grid */
+            overflow: hidden; /* Prevent content overflow */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        @media (min-width: 768px) {
+            .testimonial-card {
+                padding: clamp(10px, 1.5vh, 18px); /* Reduced padding for more content space */
+                max-height: clamp(200px, 32vh, 340px); /* More height allowance */
+            }
         }
         
         .testimonial-card:hover {
@@ -254,11 +264,25 @@
             margin-bottom: clamp(10px, 1.5vw, 15px);
         }
         
+        @media (min-width: 768px) {
+            .testimonial-header {
+                gap: clamp(8px, 1.5vh, 15px);
+                margin-bottom: clamp(6px, 1vh, 12px);
+            }
+        }
+        
         h4 {
             color: var(--text-primary);
             font-size: clamp(16px, 1.6vw, 24px);
             font-weight: 600;
             margin-bottom: clamp(8px, 1vw, 12px);
+        }
+        
+        @media (min-width: 768px) {
+            h4 {
+                font-size: clamp(14px, 2.2vh, 22px);
+                margin-bottom: clamp(6px, 1vh, 10px);
+            }
         }
         
         .testimonial-text {
@@ -268,6 +292,16 @@
             margin-bottom: clamp(10px, 1.5vw, 15px);
             font-style: italic;
             flex: 1;
+            min-height: 0; /* Allow text to shrink */
+            overflow: hidden; /* Prevent text overflow */
+        }
+        
+        @media (min-width: 768px) {
+            .testimonial-text {
+                font-size: clamp(12px, 1.8vh, 16px);
+                line-height: 1.4;
+                margin-bottom: clamp(8px, 1.2vh, 12px);
+            }
         }
         
         .testimonial-footer {
@@ -278,6 +312,13 @@
             padding: clamp(8px, 1.2vw, 12px);
             border-radius: clamp(5px, 0.5vw, 8px);
             margin-top: auto;
+            flex-shrink: 0; /* Prevent footer from shrinking */
+        }
+        
+        @media (min-width: 768px) {
+            .testimonial-footer {
+                padding: clamp(6px, 1vh, 10px);
+            }
         }
         
         .testimonial-author {
@@ -286,17 +327,38 @@
             margin-bottom: clamp(2px, 0.3vw, 3px);
         }
         
+        @media (min-width: 768px) {
+            .testimonial-author {
+                font-size: clamp(11px, 1.6vh, 14px);
+                margin-bottom: 2px;
+            }
+        }
+        
         .testimonial-role {
             font-size: clamp(11px, 1.1vw, 14px);
             color: var(--text-secondary);
         }
         
-        /* Metrics grid */
+        @media (min-width: 768px) {
+            .testimonial-role {
+                font-size: clamp(10px, 1.4vh, 12px);
+            }
+        }
+        
+        /* Metrics grid - VAS implementation */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: clamp(10px, 1.5vh, 15px);
             margin-top: clamp(10px, 1.5vh, 15px);
+            margin-bottom: 0; /* No bottom margin to save space */
+        }
+        
+        @media (min-width: 768px) {
+            .metrics-grid {
+                gap: clamp(3px, 0.5vh, 6px); /* Even tighter gaps */
+                margin-top: clamp(3px, 0.5vh, 6px);
+            }
         }
         
         .metric-box {
@@ -309,9 +371,21 @@
             border-radius: clamp(6px, 0.8vw, 10px);
         }
         
+        @media (min-width: 768px) {
+            .metric-box {
+                padding: clamp(3px, 0.5vh, 6px); /* Even tighter padding */
+            }
+        }
+        
         .metric-value {
             font-size: clamp(18px, 2.5vw, 28px);
             font-weight: 700;
+        }
+        
+        @media (min-width: 768px) {
+            .metric-value {
+                font-size: clamp(12px, 1.8vh, 18px); /* Even more aggressive scaling */
+            }
         }
         
         .metric-label {
@@ -319,7 +393,13 @@
             color: var(--text-secondary);
         }
         
-        /* Bottom banner with glassmorphism */
+        @media (min-width: 768px) {
+            .metric-label {
+                font-size: clamp(7px, 1vh, 9px); /* Even more aggressive scaling */
+            }
+        }
+        
+        /* Bottom banner with glassmorphism - VAS implementation */
         .bottom-banner {
             background: linear-gradient(135deg, rgba(0, 71, 171, 0.2) 0%, rgba(0, 71, 171, 0.1) 100%);
             backdrop-filter: blur(20px);
@@ -333,6 +413,12 @@
             box-shadow: 0 8px 32px rgba(0, 71, 171, 0.3);
         }
         
+        @media (min-width: 768px) {
+            .bottom-banner {
+                padding: clamp(12px, 2vh, 20px);
+            }
+        }
+        
         .bottom-banner h3 {
             color: var(--text-primary);
             margin-bottom: clamp(6px, 1vw, 10px);
@@ -340,10 +426,23 @@
             font-weight: 700;
         }
         
+        @media (min-width: 768px) {
+            .bottom-banner h3 {
+                font-size: clamp(14px, 2.2vh, 24px);
+                margin-bottom: clamp(4px, 0.6vh, 8px);
+            }
+        }
+        
         .bottom-banner p {
             font-size: clamp(12px, 1.4vw, 18px);
             opacity: 0.9;
             margin: 0;
+        }
+        
+        @media (min-width: 768px) {
+            .bottom-banner p {
+                font-size: clamp(11px, 1.6vh, 16px);
+            }
         }
         
         /* Logo corner */
@@ -362,30 +461,324 @@
             text-shadow: 0 2px 8px rgba(253, 184, 19, 0.3);
         }
         
-        /* Height constrained screens - Progressive optimization */
-        @media (max-height: 950px) and (min-width: 768px) {
-            .slide { padding: 8vh 2vw 4vh !important; }
-            .content-wrapper { height: 88vh !important; }
-            h1 { font-size: min(2.8vh, 26px) !important; }
-            .subtitle { font-size: min(1.8vh, 16px) !important; }
-        }
+        /* VAS Progressive Height Breakpoints */
         
+        /* Stage 1: Moderate constraints (850px and below) */
         @media (max-height: 850px) and (min-width: 768px) {
-            .slide { padding: 6vh 2vw 3vh !important; }
-            .content-wrapper { height: 91vh !important; }
-            h1 { font-size: min(2.5vh, 24px) !important; }
-            .subtitle { font-size: min(1.6vh, 14px) !important; }
-            .testimonial-card { padding: clamp(10px, 1.5vh, 15px); }
-            .testimonial-text { font-size: clamp(11px, 1.2vw, 14px); }
+            .slide {
+                padding: clamp(70px, 7vh, 85px) clamp(15px, 2vw, 40px) clamp(90px, 9vh, 110px);
+            }
+            
+            .content-wrapper {
+                gap: clamp(10px, 1.5vh, 18px);
+            }
+            
+            h1 {
+                font-size: clamp(20px, 3.5vh, 36px);
+                margin-bottom: clamp(4px, 0.6vh, 8px);
+            }
+            
+            .subtitle {
+                font-size: clamp(12px, 1.8vh, 18px);
+                margin-bottom: clamp(10px, 1.5vh, 20px);
+            }
+            
+            .grid-2 {
+                gap: clamp(10px, 1.5vh, 15px);
+                grid-auto-rows: minmax(0, 1fr); /* Equal height rows */
+            }
+            
+            .icon-box {
+                width: clamp(40px, 6vh, 55px);
+                height: clamp(40px, 6vh, 55px);
+                font-size: clamp(20px, 3vh, 26px);
+                margin-bottom: clamp(5px, 0.8vh, 10px);
+            }
+            
+            h4 {
+                font-size: clamp(12px, 1.8vh, 18px); /* Smaller */
+                margin-bottom: clamp(3px, 0.5vh, 6px); /* Less margin */
+            }
+            
+            .testimonial-card {
+                padding: clamp(8px, 1.2vh, 12px); /* Less padding */
+                max-height: clamp(180px, 28vh, 300px); /* More height allowance */
+            }
+            
+            .testimonial-header {
+                gap: clamp(6px, 1vh, 10px); /* Tighter gap */
+                margin-bottom: clamp(4px, 0.6vh, 6px); /* Less margin */
+            }
+            
+            .testimonial-text {
+                font-size: clamp(11px, 1.6vh, 14px);
+                margin-bottom: clamp(4px, 0.7vh, 8px); /* Less margin */
+                line-height: 1.35; /* Tighter line height */
+            }
+            
+            .testimonial-footer {
+                padding: clamp(4px, 0.6vh, 6px); /* Even less padding */
+                margin-top: clamp(4px, 0.6vh, 8px); /* Less margin */
+            }
+            
+            .testimonial-author {
+                font-size: clamp(10px, 1.5vh, 13px);
+            }
+            
+            .testimonial-role {
+                font-size: clamp(9px, 1.3vh, 11px);
+            }
+            
+            .metrics-grid {
+                gap: clamp(3px, 0.5vh, 5px); /* Very tight */
+                margin-top: clamp(3px, 0.5vh, 5px);
+            }
+            
+            .metric-box {
+                padding: clamp(3px, 0.5vh, 5px); /* Less padding */
+            }
+            
+            .metric-value {
+                font-size: clamp(11px, 1.6vh, 16px); /* Much smaller at 850px */
+            }
+            
+            .metric-label {
+                font-size: clamp(6px, 0.8vh, 8px); /* Much smaller at 850px */
+            }
+            
+            .bottom-banner {
+                padding: clamp(10px, 1.5vh, 15px);
+                margin-top: clamp(10px, 1.5vh, 18px);
+            }
+            
+            .bottom-banner h3 {
+                font-size: clamp(13px, 2vh, 20px);
+                margin-bottom: clamp(3px, 0.5vh, 6px);
+            }
+            
+            .bottom-banner p {
+                font-size: clamp(10px, 1.5vh, 14px);
+            }
         }
         
+        /* Stage 2: Severe constraints (750px and below) */
         @media (max-height: 750px) and (min-width: 768px) {
-            .slide { padding: 4vh 1.5vw 2vh !important; }
-            .content-wrapper { height: 94vh !important; gap: clamp(5px, 0.8vh, 8px); }
-            h1 { font-size: min(2.2vh, 20px) !important; }
-            .subtitle { font-size: min(1.4vh, 12px) !important; }
-            .testimonial-card { padding: clamp(8px, 1.2vh, 12px); }
-            .testimonial-text { font-size: clamp(10px, 1.1vw, 13px); line-height: 1.3; }
+            .slide {
+                padding: 60px 15px 80px;
+            }
+            
+            .content-wrapper {
+                gap: 8px;
+            }
+            
+            h1 {
+                font-size: clamp(18px, 3vh, 30px);
+                margin-bottom: 3px;
+            }
+            
+            .subtitle {
+                font-size: clamp(11px, 1.5vh, 16px);
+                margin-bottom: 8px;
+            }
+            
+            .grid-2 {
+                gap: 8px;
+                grid-auto-rows: minmax(0, 1fr); /* Equal height rows */
+            }
+            
+            .icon-box {
+                width: clamp(35px, 5vh, 45px);
+                height: clamp(35px, 5vh, 45px);
+                font-size: clamp(18px, 2.5vh, 22px);
+                margin-bottom: 4px;
+            }
+            
+            h4 {
+                font-size: clamp(12px, 1.8vh, 18px);
+                margin-bottom: 4px;
+            }
+            
+            .testimonial-card {
+                padding: 6px; /* Minimal padding */
+                max-height: clamp(160px, 24vh, 240px); /* More height allowance */
+            }
+            
+            .testimonial-header {
+                gap: 4px; /* Tighter */
+                margin-bottom: 2px; /* Less */
+            }
+            
+            .testimonial-text {
+                font-size: clamp(10px, 1.4vh, 12px);
+                line-height: 1.2; /* Even tighter */
+                margin-bottom: 3px; /* Minimal margin */
+            }
+            
+            .testimonial-footer {
+                padding: 3px 5px; /* Minimal padding */
+                margin-top: 3px; /* Minimal margin */
+            }
+            
+            .testimonial-author {
+                font-size: clamp(9px, 1.3vh, 11px);
+                margin-bottom: 1px;
+            }
+            
+            .testimonial-role {
+                font-size: clamp(8px, 1.2vh, 10px);
+            }
+            
+            .metrics-grid {
+                gap: 2px; /* Minimal gap */
+                margin-top: 2px;
+            }
+            
+            .metric-box {
+                padding: 2px; /* Minimal */
+            }
+            
+            .metric-value {
+                font-size: clamp(10px, 1.4vh, 14px); /* Very small at 750px */
+            }
+            
+            .metric-label {
+                font-size: clamp(5px, 0.7vh, 7px); /* Very small at 750px */
+            }
+            
+            .bottom-banner {
+                padding: 8px 10px;
+                margin-top: 8px;
+            }
+            
+            .bottom-banner h3 {
+                font-size: clamp(12px, 1.8vh, 18px);
+                margin-bottom: 2px;
+            }
+            
+            .bottom-banner p {
+                font-size: clamp(9px, 1.3vh, 12px);
+            }
+        }
+        
+        /* Special handling for metrics-only card */
+        .testimonial-card:has(.metrics-grid) {
+            justify-content: flex-start; /* Start from top */
+        }
+        
+        .testimonial-card:has(.metrics-grid) .testimonial-header {
+            flex-shrink: 0; /* Keep header size */
+            margin-bottom: clamp(8px, 1vh, 12px); /* Consistent margin */
+        }
+        
+        .testimonial-card:has(.metrics-grid) .metrics-grid {
+            flex: 1; /* Take remaining space */
+            align-content: start; /* Start from top to prevent clipping */
+            max-height: 100%; /* Ensure it doesn't overflow */
+        }
+        
+        @media (min-width: 768px) {
+            .testimonial-card:has(.metrics-grid) .testimonial-header {
+                margin-bottom: clamp(4px, 0.6vh, 8px); /* Smaller margin on desktop */
+            }
+        }
+        
+        /* Stage 3: Ultra-compact mode (650px and below) */
+        @media (max-height: 650px) and (min-width: 768px) {
+            .slide {
+                padding: 50px 10px 70px;
+            }
+            
+            .content-wrapper {
+                gap: 6px;
+            }
+            
+            h1 {
+                font-size: 16px;
+                margin-bottom: 2px;
+            }
+            
+            .subtitle {
+                font-size: 10px;
+                margin-bottom: 6px;
+            }
+            
+            .grid-2 {
+                gap: 6px;
+                grid-template-columns: repeat(4, 1fr); /* Switch to 4 columns for more compact layout */
+            }
+            
+            .testimonial-card {
+                padding: 6px;
+                max-height: 120px; /* Ultra-compact cards */
+            }
+            
+            .testimonial-header {
+                gap: 3px;
+                margin-bottom: 2px;
+            }
+            
+            .icon-box {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+                margin-bottom: 3px;
+            }
+            
+            h4 {
+                font-size: 11px;
+                margin-bottom: 3px;
+            }
+            
+            .testimonial-text {
+                font-size: 9px;
+                line-height: 1.15; /* Very compact */
+                margin-bottom: 4px;
+            }
+            
+            .testimonial-footer {
+                padding: 2px 4px; /* Ultra minimal */
+                margin-top: 2px; /* Ultra minimal */
+            }
+            
+            .testimonial-author {
+                font-size: 8px;
+                margin-bottom: 0;
+            }
+            
+            .testimonial-role {
+                font-size: 7px;
+            }
+            
+            .metrics-grid {
+                gap: 2px; /* Ultra minimal */
+                margin-top: 2px;
+            }
+            
+            .metric-box {
+                padding: 2px; /* Ultra minimal */
+            }
+            
+            .metric-value {
+                font-size: 11px;
+            }
+            
+            .metric-label {
+                font-size: 6px;
+            }
+            
+            .bottom-banner {
+                padding: 6px 8px;
+                margin-top: 6px;
+            }
+            
+            .bottom-banner h3 {
+                font-size: 11px;
+                margin-bottom: 1px;
+            }
+            
+            .bottom-banner p {
+                font-size: 8px;
+            }
         }
         
         /* Navigation Container - Slide17 Style with Progress Bar */
